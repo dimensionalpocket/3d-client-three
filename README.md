@@ -36,11 +36,11 @@ The following code demonstrates how to render a simple stage and character, and 
 ```javascript
 var client = new ThreeClient()
 
-// A <canvas> element will be generated internally.
+// A <canvas> element will be generated in client.canvasElement.
 // You can then add it to your DOM.
 document.getElementById('container').appendChild(client.canvasElement)
 
-// Create a scene to contain renderables.
+// Create a scene to hold renderables.
 // Multiple scenes can be created and kept in the client's memory,
 // but only one scene can be rendered at a time.
 client.feed('add', 'scene', {id: 'test-scene', bgcolor: 'blue'})
@@ -78,7 +78,7 @@ client.feed('helper', 'renderVolumes', 'some-skeleton')
 // Attach skeleton to floor.
 client.feed('attach', 'some-skeleton', 'floor')
 
-// Add a reusable pose to the client and apply it (T) to the skeleton.
+// Add a reusable pose to the client and apply it to the skeleton.
 client.feed('add', 'pose', {id: 'stance', ...})
 client.feed('pose', 'stance', 'some-skeleton')
 
@@ -124,7 +124,7 @@ Adds an object to memory.
 
 The `data` object __must__ have an `id` property, otherwise it will be ignored. 
 
-The `id` must be __globally unique__.
+IDs must be __globally unique__.
 
 If object with the same ID already exists in collection, it will be overwritten.
 
