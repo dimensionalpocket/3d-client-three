@@ -2,7 +2,7 @@
 
 [![build](https://github.com/dimensionapocket/3d-client-three/actions/workflows/node.js.yml/badge.svg)](https://github.com/dimensionapocket/3d-client-three/actions/workflows/node.js.yml) [![Total alerts](https://img.shields.io/lgtm/alerts/g/dimensionapocket/3d-client-three.svg)](https://lgtm.com/projects/g/dimensionapocket/3d-client-three/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dimensionapocket/3d-client-three.svg)](https://lgtm.com/projects/g/dimensionapocket/3d-client-three/context:javascript)
 
-THREE.js client for game projects developed by the studio.
+THREE.js client for 3D projects developed by the studio.
 
 ### The Do's
 
@@ -29,12 +29,16 @@ The following features are out of scope for this project as they're not related 
 
 ## Message System
 
-The output of `GameClient*` instances can be changed by `feed()`ing messages into it. Those messages handle every aspect of the rendered scene, including but not limited to, adding and removing assets, to positioning, scaling, and rotating objects, among other things.
+The output of `ThreeClient` instances can be changed by `feed()`ing messages to them. Those messages handle every aspect of the rendered scene, including but not limited to, adding and removing assets, to positioning, scaling, and rotating objects, among other things.
 
-The following code snippet demonstrates how to render a simple stage and character, and update them.
+The following code demonstrates how to render a simple stage and character, and update them.
 
 ```javascript
-var client = new GameClientThree(...)
+var client = new ThreeClient()
+
+// A <canvas> element will be generated internally.
+// You can then add it to your DOM.
+document.getElementById('container').appendChild(client.canvasElement)
 
 // Create a scene to contain renderables.
 // Multiple scenes can be created and kept in the client's memory,
@@ -43,50 +47,50 @@ client.feed('add', 'scene', {id: 'test-scene', bgcolor: 'blue'})
 
 // Add a white floor.
 client.feed('add', 'geometry' , {id: 'plane', ...})
-client.feed('add', 'material', {id: 'white-plain', ...})
-client.feed('add', 'mesh', {id: 'white-floor', g: 'plane', m: 'white-plain'})
+client.feed('add', 'material', {id: 'grey', ...})
+client.feed('add', 'mesh', {id: 'floor', g: 'plane', m: 'grey'})
 
 // Add a camera.
 client.feed('add', 'camera', {id: 'main-camera', ...})
 
-// Set the camera's parent to the floor.
-client.feed('append', 'white-floor', 'main-camera')
+// Attach the camera to the the floor.
+client.feed('attach', 'main-camera', 'floor')
 
 // Position the camera back, then up.
 client.feed('position', 'main-camera', null, 5, -5)
 
+// Set the camera to use for rendering.
+client.feed('camera', 'main-camera')
+
 // Add a dim white light source.
 client.feed('add', 'light', {id: 'ambient-light', type: 'ambient', color: 'silver', ...})
-client.feed('append', 'white-floor', 'ambient-light')
+client.feed('attach', 'floor', 'ambient-light')
 
 // Add a skeleton definition.
 client.feed('add', 'skeleton-definition', {id: 'human', ...})
 
-// Add a skeleton instance that can be manipulated.
+// Add a skeleton instance from the created definition.
 client.feed('add', 'skeleton', {id: 'some-skeleton', definition: 'human', ...})
 
 // Fires a helper method called `renderVolumes()` on the skeleton to render its volumes.
 client.feed('helper', 'renderVolumes', 'some-skeleton')
 
-// Add skeleton to floor.
-client.feed('append', 'white-floor', 'some-skeleton')
+// Attach skeleton to floor.
+client.feed('attach', 'some-skeleton', 'floor')
 
 // Add a reusable pose to the client and apply it (T) to the skeleton.
 client.feed('add', 'pose', {id: 'stance', ...})
 client.feed('pose', 'stance', 'some-skeleton')
 
-// Add the floor to the scene.
-// (Only root-level renderables need to be added to the scene.)
-client.feed('append', 'test-scene', 'white-floor')
+// Attach the floor to the scene.
+// (Only root-level renderables need to be attached to the scene.)
+client.feed('attach', 'floor', 'test-scene')
 
 // Finally, make the floor visible,
 //   which will make the character visible as well.
-client.feed('show', 'white-floor', true)
+client.feed('show', 'floor', true)
 
-// Set the camera to use for rendering.
-client.feed('camera', 'main-camera')
-
-// Set the scene to render.
+// Set the active scene.
 client.feed('scene', 'test-scene')
 
 // Begin rendering.
@@ -118,7 +122,9 @@ Adds an object to memory.
 * `"skeleton-definition"`, and
 * `"skeleton"`.
 
-The `data` object __must__ have an `id` property, otherwise it will be ignored.
+The `data` object __must__ have an `id` property, otherwise it will be ignored. 
+
+The `id` must be __globally unique__.
 
 If object with the same ID already exists in collection, it will be overwritten.
 
@@ -126,7 +132,7 @@ If object with the same ID already exists in collection, it will be overwritten.
 
 Removes the object of the given ID from the client and disposes it from memory.
 
-### `client.feed('append', parentId, childId)`
+### `client.feed('attach', parentId, childId)`
 
 Sets the object with `parentId` as the parent of the object with `childId`.
 

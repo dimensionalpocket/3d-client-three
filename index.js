@@ -1,3 +1,3 @@
 'use strict'
 
-export { GameClientThree } from './src/GameClientThree.js'
+export { ThreeClient } from './src/ThreeClient.js'
