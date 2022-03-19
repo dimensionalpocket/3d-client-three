@@ -1,0 +1,14 @@
+name: Node.js
+
+on:
+  pull_request:
+
+  # All pushes to branches other than main will be handled by pull_request events.
+  push:
+    branches: main
+
+jobs:
+  default:
+    uses: dimensionalpocket/development-js/.github/workflows/default-node-build.yml@0.5.3
+    with:
+      node_matrix: '["16.14.2"]'
