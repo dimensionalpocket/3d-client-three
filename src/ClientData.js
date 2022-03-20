@@ -1,5 +1,6 @@
 'use strict'
 
+import { ClientAddLight } from './operations/ClientAddLight.js'
 import { ClientAddPose } from './operations/ClientAddPose.js'
 import { ClientAddScene } from './operations/ClientAddScene.js'
 import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
@@ -44,6 +45,10 @@ export class ClientData {
 
     if (type === 'pose') {
       return ClientAddPose.run(this.client, data)
+    }
+
+    if (type === 'light') {
+      return ClientAddLight.run(this.client, data)
     }
 
     if (type === 'skeleton-definition') {
