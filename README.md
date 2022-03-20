@@ -193,15 +193,13 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 If the object has children, all of them will be scaled together.
 
-### `client.feed('translate', type, id, x, y, z)`
-
-Translates an object along axes.
-
-Passing `null` as a value will keep the current value for that coordinate.
-
 ### `client.feed('camera', cameraId)`
 
 Sets the current camera. If you add multiple cameras, you can use this command to switch between them.
+
+### `client.feed('scene', sceneId)`
+
+Sets the scene to render.
 
 ### `client.feed('look', cameraId, targetType, targetId)`
 
