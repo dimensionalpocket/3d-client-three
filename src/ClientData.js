@@ -2,6 +2,7 @@
 
 import { ClientAddCamera } from './operations/ClientAddCamera.js'
 import { ClientAddLight } from './operations/ClientAddLight.js'
+import { ClientAddPoint } from './operations/ClientAddPoint.js'
 import { ClientAddPose } from './operations/ClientAddPose.js'
 import { ClientAddScene } from './operations/ClientAddScene.js'
 import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
@@ -14,6 +15,9 @@ export class ClientData {
   constructor (client) {
     /** @type {ThreeClient} */
     this.client = client
+
+    /** @type {Map<id,THREE.Object3D>} */
+    this.points = new Map()
 
     /** @type {Map<id,SkeletonDefinition>} */
     this.skeletonDefinitions = new Map()
@@ -48,6 +52,10 @@ export class ClientData {
       return ClientAddPose.run(this.client, data)
     }
 
+    if (type === 'point') {
+      return ClientAddPoint.run(this.client, data)
+    }
+
     if (type === 'light') {
       return ClientAddLight.run(this.client, data)
     }
@@ -65,5 +73,30 @@ export class ClientData {
     }
 
     throw new Error(`ClientData#add: unhandled object type ${type}`)
+  }
+
+  /**
+   * @param {string} type
+   * @returns {Map<id,any>}
+   */
+  getCollectionByType (type) {
+    switch (type) {
+      case 'point':
+        return this.points
+      case 'skeleton-definition':
+        return this.skeletonDefinitions
+      case 'skeleton':
+        return this.skeletons
+      case 'pose':
+        return this.poses
+      case 'light':
+        return this.lights
+      case 'camera':
+        return this.cameras
+      case 'scene':
+        return this.scenes
+    }
+
+    throw new Error(`ClientData#getCollectionByType: invalid type ${type}`)
   }
 }

@@ -1,5 +1,6 @@
 'use strict'
 
+import { ClientAttach } from './ClientAttach.js'
 import { ClientPose } from './ClientPose.js'
 
 export class ClientFeed {
@@ -20,6 +21,10 @@ export class ClientFeed {
 
     if (command === 'add') {
       return client.data.add(a1, a2)
+    }
+
+    if (command === 'attach') {
+      return ClientAttach.run(client, a1, a2, a3, a4)
     }
 
     throw new Error(`Client#feed: unhandled command ${command} (${a1}, ${a2}, ${a3}, ${a4}, ${a5})`)

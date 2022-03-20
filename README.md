@@ -53,8 +53,8 @@ client.feed('add', 'mesh', { id: 'floor', g: 'plane', m: 'grey' })
 // Add a camera.
 client.feed('add', 'camera', { id: 'main-camera', ... })
 
-// Attach the camera to the the floor.
-client.feed('attach', 'main-camera', 'floor')
+// Attach the camera named "main-camera" to the the mesh named "floor".
+client.feed('attach', 'camera', 'main-camera', 'mesh' 'floor')
 
 // Position the camera back, then up.
 client.feed('position', 'main-camera', null, 5, -5)
@@ -64,7 +64,7 @@ client.feed('camera', 'main-camera')
 
 // Add a dim white light source.
 client.feed('add', 'light', { id: 'ambient-light', type: 'ambient', color: 'silver', ... })
-client.feed('attach', 'floor', 'ambient-light')
+client.feed('attach', 'light', 'ambient-light', 'mesh', 'floor')
 
 // Add a skeleton definition.
 client.feed('add', 'skeleton-definition', { id: 'human', ... })
@@ -76,7 +76,7 @@ client.feed('add', 'skeleton', { id: 'some-skeleton', definition: 'human', ... }
 client.feed('helper', 'renderVolumes', 'some-skeleton')
 
 // Attach skeleton to floor.
-client.feed('attach', 'some-skeleton', 'floor')
+client.feed('attach', 'skeleton', 'some-skeleton', 'mesh', 'floor')
 
 // Add a reusable pose to the client and apply it to the skeleton.
 client.feed('add', 'pose', { id: 'stance', ... })
@@ -84,7 +84,7 @@ client.feed('pose', 'stance', 'some-skeleton')
 
 // Attach the floor to the scene.
 // (Only root-level renderables need to be attached to the scene.)
-client.feed('attach', 'floor', 'test-scene')
+client.feed('attach', 'mesh', 'floor', 'scene', 'test-scene')
 
 // Finally, make the floor visible,
 //   which will make the character visible as well.
@@ -124,15 +124,16 @@ Adds an object to memory.
 
 The `data` object __must__ have an `id` property, otherwise it will be ignored. 
 
-IDs must be __globally unique__.
+IDs must be __globally unique__ among their collections:
 
-If object with the same ID already exists in collection, it will be overwritten.
+* E.g., two geometries should not have the same ID.
+* If object with the same ID already exists in a collection, it will be overwritten.
 
 ### `client.feed('delete', type, id)`
 
 Removes the object of the given ID from the client and disposes it from memory.
 
-### `client.feed('attach', parentId, childId)`
+### `client.feed('attach', childType, childId, parentType, parentId)`
 
 Sets the object with `parentId` as the parent of the object with `childId`.
 
