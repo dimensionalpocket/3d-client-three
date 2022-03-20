@@ -1,6 +1,6 @@
 'use strict'
 
-// TODO: validate types (cannot attach geometries or materials for instance)
+// TODO: validate types (cannot position geometries or materials for instance)
 
 export class ClientPosition {
   /**

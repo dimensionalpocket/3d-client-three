@@ -36,9 +36,10 @@ export class ThreeClient {
    * @param {any} [a3]
    * @param {any} [a4]
    * @param {any} [a5]
+   * @param {any} [a6]
    * @returns {boolean}
    */
-  feed (command, a1 = null, a2 = null, a3 = null, a4 = null, a5 = null) {
-    return ClientFeed.run(this, command, a1, a2, a3, a4, a5)
+  feed (command, a1 = null, a2 = null, a3 = null, a4 = null, a5 = null, a6 = null) {
+    return ClientFeed.run(this, command, a1, a2, a3, a4, a5, a6)
   }
 }

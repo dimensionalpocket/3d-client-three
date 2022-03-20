@@ -3,6 +3,8 @@
 import { ClientAttach } from './ClientAttach.js'
 import { ClientPose } from './ClientPose.js'
 import { ClientPosition } from './ClientPosition.js'
+import { ClientRotate } from './ClientRotate.js'
+import { ClientRotationOrder } from './ClientRotationOrder.js'
 
 export class ClientFeed {
   /**
@@ -28,6 +30,18 @@ export class ClientFeed {
       )
     }
 
+    if (command === 'rotate') {
+      return ClientRotate.run(
+        client,
+        a1, // object type
+        a2, // object id
+        a3, // x
+        a4, // y
+        a5, // z
+        a6 // order
+      )
+    }
+
     if (command === 'pose') {
       return ClientPose.run(
         client,
@@ -50,6 +64,15 @@ export class ClientFeed {
         a2, // child id
         a3, // parent type
         a4 // parent id
+      )
+    }
+
+    if (command === 'rotation-order') {
+      return ClientRotationOrder.run(
+        client,
+        a1, // object type
+        a2, // object id
+        a3 // order
       )
     }
 
