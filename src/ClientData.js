@@ -18,8 +18,8 @@ export class ClientData {
     /** @type {Map<id,THREE.Skeleton>} */
     this.skeletons = new Map()
 
-    // /** @type {Map<id,Pose>} */
-    // this.poses = new Map()
+    /** @type {Map<id,Pose>} */
+    this.poses = new Map()
   }
 
   /**
