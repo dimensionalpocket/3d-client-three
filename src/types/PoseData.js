@@ -1,5 +1,6 @@
 /**
  * @typedef {object} PoseData
+ *
  * @property {id} id - ID of the pose
  * @property {string} skeleton - SkeletonDefinition ID to use; required
  * @property {Array<JointTransformData>} transforms - An array of object literals for creating joint transforms
