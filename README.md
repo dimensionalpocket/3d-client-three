@@ -57,7 +57,7 @@ client.feed('add', 'camera', { id: 'main-camera', ... })
 client.feed('attach', 'camera', 'main-camera', 'mesh' 'floor')
 
 // Position the camera back, then up.
-client.feed('position', 'main-camera', null, 5, -5)
+client.feed('position', 'camera', 'main-camera', null, 5, -5)
 
 // Set the camera to use for rendering.
 client.feed('camera', 'main-camera')
@@ -85,10 +85,6 @@ client.feed('pose', 'stance', 'some-skeleton')
 // Attach the floor to the scene.
 // (Only root-level renderables need to be attached to the scene.)
 client.feed('attach', 'mesh', 'floor', 'scene', 'test-scene')
-
-// Finally, make the floor visible,
-//   which will make the character visible as well.
-client.feed('show', 'floor', true)
 
 // Set the active scene.
 client.feed('scene', 'test-scene')
@@ -137,15 +133,13 @@ Removes the object of the given ID from the client and disposes it from memory.
 
 Sets the object with `parentId` as the parent of the object with `childId`.
 
-### `client.feed('detach', parentId, childId)`
+### `client.feed('detach', childType, childId)`
 
 Removes a child object from its parent.
 
-### `client.feed('show', id, visible)`
+### `client.feed('show', type, id, visible)`
 
-Sets the visibility of an object, `visible` being `true` or `false`.
-
-When an object is added to the scene, it defaults to being invisible.
+Sets the visibility of an object, `visible` being `true` or `false`. Default is `true`.
 
 Setting the visibility of an object also affects its children.
 
@@ -163,7 +157,7 @@ If `animationId` is null and the skeleton has a paused animation, resumes it.
 
 Pauses the current animation of a skeleton.
 
-### `client.feed('position', id, x, y, z)`
+### `client.feed('position', type, id, x, y, z)`
 
 Positions an object at the given coordinates.
 
@@ -171,7 +165,7 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 If object has a parent, positioning will be relative to parent.
 
-### `client.feed('rotate', id, x, y, z)`
+### `client.feed('rotate', type, id, x, y, z)`
 
 Rotates an object in Euler angles.
 
@@ -179,17 +173,17 @@ Values are in radians. Passing `null` as a value will keep the current value for
 
 If object has a parent, rotation will be relative to parent.
 
-### `client.feed('rotation-order', id, order)`
+### `client.feed('rotation-order', type, id, order)`
 
 Sets the Euler rotation order of an object.
 
-### `client.feed('quaternion', id, x, y, z, w)`
+### `client.feed('quaternion', type, id, x, y, z, w)`
 
 Rotates an object using Quaternions.
 
 All values are __required__.
 
-### `client.feed('scale', id, x, y, z)`
+### `client.feed('scale', type, id, x, y, z)`
 
 Scales an object up or down.
 
@@ -199,7 +193,7 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 If the object has children, all of them will be scaled together.
 
-### `client.feed('translate', id, x, y, z)`
+### `client.feed('translate', type, id, x, y, z)`
 
 Translates an object along axes.
 
@@ -209,7 +203,7 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 Sets the current camera. If you add multiple cameras, you can use this command to switch between them.
 
-### `client.feed('look', cameraId, objectId)`
+### `client.feed('look', cameraId, targetType, targetId)`
 
 Sets a camera target onto the given object. This makes the camera "look at" the object as it moves.
 
