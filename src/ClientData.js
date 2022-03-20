@@ -1,5 +1,6 @@
 'use strict'
 
+import { ClientAddCamera } from './operations/ClientAddCamera.js'
 import { ClientAddLight } from './operations/ClientAddLight.js'
 import { ClientAddPose } from './operations/ClientAddPose.js'
 import { ClientAddScene } from './operations/ClientAddScene.js'
@@ -53,6 +54,10 @@ export class ClientData {
 
     if (type === 'skeleton-definition') {
       return ClientAddSkeletonDefinition.run(this.client, data)
+    }
+
+    if (type === 'camera') {
+      return ClientAddCamera.run(this.client, data)
     }
 
     if (type === 'scene') {
