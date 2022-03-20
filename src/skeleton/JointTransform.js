@@ -5,16 +5,16 @@ import { Vector3 } from '../Vector3.js'
 export class JointTransform {
   /**
    * @param {object} opts
-   * @param {JointDefinition} opts.jointDefinition
+   * @param {JointDefinition} opts.definition
    * @param {Vector3Data} [opts.rotation]
    */
-  constructor ({ jointDefinition, rotation = undefined }) {
-    if (!jointDefinition) {
+  constructor ({ definition, rotation = undefined }) {
+    if (!definition) {
       throw new Error('JointTransform: definition is required')
     }
 
     /** @type {JointDefinition} */
-    this.definition = jointDefinition
+    this.definition = definition
 
     /** @type {Vector3} */
     this.rotation = new Vector3(rotation)
@@ -23,21 +23,23 @@ export class JointTransform {
   /**
    * Applies this transform to a skeleton's joint.
    *
-   * @param {THREE.Skeleton} skeleton
+   * @param {Skeleton} skeleton
    * @returns {boolean}
    */
   applyToSkeleton (skeleton) {
-    // var def = this.definition
-    // var joint = skeleton.joints.get(def.id)
+    var def = this.definition
+    var boneId = skeleton.id + '-' + def.id
+    var bone = skeleton.getBoneByName(boneId)
 
-    // if (!joint) {
-    //   console.error('JointTransform#apply: joint not found in skeleton', skeleton.definition.id, def.id)
-    //   return false
-    // }
+    if (!bone) {
+      console.error('JointTransform#apply: bone not found in skeleton', boneId)
+      return false
+    }
 
-    // // Tell the Client/Renderer that the joint has been updated,
-    // // since the joint instance doesn't hold any transforms.
-    // skeleton.emit(JOINT_TRANSFORM_EVENT, joint, this.rotation, skeleton)
+    var bRot = bone.rotation
+    var tRot = this.rotation
+
+    bRot.set(tRot.x, tRot.y, tRot.z)
 
     return true
   }

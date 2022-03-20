@@ -33,7 +33,7 @@ export class Pose {
       jointDef = definition.getJointDefinition(t.joint)
       if (jointDef) {
         this.transforms.push(new JointTransform({
-          jointDefinition: jointDef,
+          definition: jointDef,
           rotation: t.rotation
         }))
       }
@@ -46,22 +46,23 @@ export class Pose {
   /**
    * Applies this pose to an skeleton.
    *
-   * @param {THREE.Skeleton} skeleton
+   * @param {Skeleton} skeleton
    * @returns {boolean}
    */
   applyToSkeleton (skeleton) {
-    // if (this.skeletonDefinition.id !== skeleton.definition.id) {
-    //   console.warn('Pose#applyToSkeleton: incompatible skeleton definition', this.skeletonDefinition.id, skeleton.definition.id)
-    //   return false
-    // }
+    if (this.definition.id !== skeleton.definition.id) {
+      console.warn('Pose#applyToSkeleton: incompatible skeleton definition', this.definition.id, skeleton.definition.id)
+      return false
+    }
 
-    // if (this.clear) {
-    //   skeleton.emit(POSE_RESET_EVENT, skeleton)
-    // }
+    if (this.clear) {
+      // TODO: see if this really works >.>
+      skeleton.pose()
+    }
 
-    // for (var transform of this.transforms) {
-    //   transform.applyToSkeleton(skeleton)
-    // }
+    for (var transform of this.transforms) {
+      transform.applyToSkeleton(skeleton)
+    }
 
     return true
   }

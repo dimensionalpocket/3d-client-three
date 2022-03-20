@@ -48,8 +48,6 @@ export class SkeletonBuilder {
       bones.push(bone)
     }
 
-    var skeleton = new Skeleton(data.id, bones)
-
-    return skeleton
+    return new Skeleton(data.id, definition, bones)
   }
 }

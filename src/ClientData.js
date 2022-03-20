@@ -1,6 +1,6 @@
 'use strict'
 
-// import { ClientAddPose } from './operations/ClientAddPose.js'
+import { ClientAddPose } from './operations/ClientAddPose.js'
 import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
 import { ClientAddSkeletonDefinition } from './operations/ClientAddSkeletonDefinition.js'
 
@@ -32,15 +32,14 @@ export class ClientData {
       return ClientAddSkeleton.run(this.client, data)
     }
 
-    // if (type === 'pose') {
-    //   return ClientAddPose.run(this.client, data)
-    // }
+    if (type === 'pose') {
+      return ClientAddPose.run(this.client, data)
+    }
 
     if (type === 'skeleton-definition') {
       return ClientAddSkeletonDefinition.run(this.client, data)
     }
 
-    console.error('ClientData#add: unhandled object type', type)
-    return false
+    throw new Error(`ClientData#add: unhandled object type ${type}`)
   }
 }
