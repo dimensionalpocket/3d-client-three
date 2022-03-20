@@ -17,7 +17,7 @@
 //     THREE.WebGLRenderer.restore()
 //   })
 
-//   describe('#run', function () {
+//   describe('.run', function () {
 //     context('without arguments', function () {
 //       RendererBuilder.run()
 //       expect(THREE.WebGLRenderer).to.have.been.calledWith({})

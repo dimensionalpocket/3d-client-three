@@ -21,7 +21,7 @@ export class BoneBuilder {
 
     var bone = new THREE.Bone()
 
-    bone.name = 'sk-' + skeletonId + '-' + jointDefinition.id
+    bone.name = '' + skeletonId + '-' + jointDefinition.id
 
     var dPos = jointDefinition.position
     var bPos = bone.position
