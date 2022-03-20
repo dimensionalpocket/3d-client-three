@@ -1,0 +1,12 @@
+name: Node.js
+
+on:
+  pull_request:
+  push:
+    branches: main
+
+jobs:
+  default:
+    uses: dimensionalpocket/development-js/.github/workflows/default-node-build.yml@0.5.3
+    with:
+      node_matrix: '["16.14.2", "17.x"]'
