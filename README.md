@@ -43,15 +43,15 @@ document.getElementById('container').appendChild(client.canvasElement)
 // Create a scene to hold renderables.
 // Multiple scenes can be created and kept in the client's memory,
 // but only one scene can be rendered at a time.
-client.feed('add', 'scene', {id: 'test-scene', bgcolor: 'blue'})
+client.feed('add', 'scene', { id: 'test-scene' })
 
 // Add a white floor.
-client.feed('add', 'geometry' , {id: 'plane', ...})
-client.feed('add', 'material', {id: 'grey', ...})
-client.feed('add', 'mesh', {id: 'floor', g: 'plane', m: 'grey'})
+client.feed('add', 'geometry' , { id: 'plane', ... })
+client.feed('add', 'material', { id: 'grey', ... })
+client.feed('add', 'mesh', { id: 'floor', g: 'plane', m: 'grey' })
 
 // Add a camera.
-client.feed('add', 'camera', {id: 'main-camera', ...})
+client.feed('add', 'camera', { id: 'main-camera', ... })
 
 // Attach the camera to the the floor.
 client.feed('attach', 'main-camera', 'floor')
@@ -63,14 +63,14 @@ client.feed('position', 'main-camera', null, 5, -5)
 client.feed('camera', 'main-camera')
 
 // Add a dim white light source.
-client.feed('add', 'light', {id: 'ambient-light', type: 'ambient', color: 'silver', ...})
+client.feed('add', 'light', { id: 'ambient-light', type: 'ambient', color: 'silver', ... })
 client.feed('attach', 'floor', 'ambient-light')
 
 // Add a skeleton definition.
-client.feed('add', 'skeleton-definition', {id: 'human', ...})
+client.feed('add', 'skeleton-definition', { id: 'human', ... })
 
 // Add a skeleton instance from the created definition.
-client.feed('add', 'skeleton', {id: 'some-skeleton', definition: 'human', ...})
+client.feed('add', 'skeleton', { id: 'some-skeleton', definition: 'human', ... })
 
 // Fires a helper method called `renderVolumes()` on the skeleton to render its volumes.
 client.feed('helper', 'renderVolumes', 'some-skeleton')
@@ -79,7 +79,7 @@ client.feed('helper', 'renderVolumes', 'some-skeleton')
 client.feed('attach', 'some-skeleton', 'floor')
 
 // Add a reusable pose to the client and apply it to the skeleton.
-client.feed('add', 'pose', {id: 'stance', ...})
+client.feed('add', 'pose', { id: 'stance', ... })
 client.feed('pose', 'stance', 'some-skeleton')
 
 // Attach the floor to the scene.

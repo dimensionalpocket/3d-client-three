@@ -28,8 +28,8 @@ export class JointTransform {
    */
   applyToSkeleton (skeleton) {
     var def = this.definition
-    var boneId = skeleton.id + '-' + def.id
-    var bone = skeleton.getBoneByName(boneId)
+    var boneId = '' + skeleton.id + '-' + def.id
+    var bone = skeleton.getBoneByName(boneId) // TODO: optimize?
 
     if (!bone) {
       console.error('JointTransform#apply: bone not found in skeleton', boneId)

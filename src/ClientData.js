@@ -1,6 +1,7 @@
 'use strict'
 
 import { ClientAddPose } from './operations/ClientAddPose.js'
+import { ClientAddScene } from './operations/ClientAddScene.js'
 import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
 import { ClientAddSkeletonDefinition } from './operations/ClientAddSkeletonDefinition.js'
 
@@ -20,6 +21,15 @@ export class ClientData {
 
     /** @type {Map<id,Pose>} */
     this.poses = new Map()
+
+    /** @type {Map<id,THREE.Scene>} */
+    this.scenes = new Map()
+
+    /** @type {Map<id,THREE.Camera>} */
+    this.cameras = new Map()
+
+    /** @type {Map<id,THREE.Light>} */
+    this.lights = new Map()
   }
 
   /**
@@ -38,6 +48,10 @@ export class ClientData {
 
     if (type === 'skeleton-definition') {
       return ClientAddSkeletonDefinition.run(this.client, data)
+    }
+
+    if (type === 'scene') {
+      return ClientAddScene.run(this.client, data)
     }
 
     throw new Error(`ClientData#add: unhandled object type ${type}`)
