@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/dimensionalpocket/3d-client-three#readme",
   "dependencies": {
-    "eventemitter3": "4.0.7",
     "three": "0.138.3"
   },
   "devDependencies": {

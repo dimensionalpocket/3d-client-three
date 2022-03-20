@@ -2,7 +2,7 @@
 
 import * as THREE from 'three'
 
-import { expect, sinon } from '@dimensionalpocket/development'
+import { expect } from '@dimensionalpocket/development'
 import { BoneBuilder } from '../../src/builders/BoneBuilder.js'
 import { JointDefinition } from '../../src/skeleton/JointDefinition.js'
 

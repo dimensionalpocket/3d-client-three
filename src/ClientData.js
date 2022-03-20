@@ -1,7 +1,7 @@
 'use strict'
 
 // import { ClientAddPose } from './operations/ClientAddPose.js'
-// import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
+import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
 import { ClientAddSkeletonDefinition } from './operations/ClientAddSkeletonDefinition.js'
 
 export class ClientData {
@@ -15,7 +15,7 @@ export class ClientData {
     /** @type {Map<id,SkeletonDefinition>} */
     this.skeletonDefinitions = new Map()
 
-    /** @type {Map<id,THREE.Skeleton>} */
+    /** @type {Map<id,Skeleton>} */
     this.skeletons = new Map()
 
     /** @type {Map<id,Pose>} */
@@ -28,9 +28,9 @@ export class ClientData {
    * @returns {boolean}
    */
   add (type, data) {
-    // if (type === 'skeleton') {
-    //   return ClientAddSkeleton.run(this.client, data)
-    // }
+    if (type === 'skeleton') {
+      return ClientAddSkeleton.run(this.client, data)
+    }
 
     // if (type === 'pose') {
     //   return ClientAddPose.run(this.client, data)

@@ -1,4 +1,4 @@
-// COMMENTED B/C I DON'T KNOW HOW TO MOCK THREE.WebGLRenderer :(
+// DISABLED - can't mock THREE.WebGLRenderer
 
 // 'use strict'
 
@@ -9,7 +9,7 @@
 
 // describe('RendererBuilder', function () {
 //   before(function () {
-//     sinon.stub(THREE.WebGLRenderer, 'prototype')
+//     sinon.stub(THREE, 'WebGLRenderer')
 //   })
 
 //   after(function () {

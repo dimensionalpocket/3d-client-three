@@ -1,23 +1,11 @@
 'use strict'
 
-import { expect, sinon } from '@dimensionalpocket/development'
-import { RendererBuilder } from '../src/builders/RendererBuilder.js'
+import { expect } from '@dimensionalpocket/development'
 import { ThreeClient } from '../src/ThreeClient.js'
-import { domContext } from './shared-contexts/jsdom.js'
+import { fakeRendererContext } from './shared-contexts/fake-renderer.js'
 
 describe('ThreeClient', function () {
-  domContext()
-
-  before(function () {
-    this.fakeCanvas = this.document.createElement('canvas')
-    this.fakeRenderer = { domElement: this.fakeCanvas }
-    sinon.stub(RendererBuilder, 'run').returns(this.fakeRenderer)
-  })
-
-  after(function () {
-    // @ts-ignore
-    RendererBuilder.run.restore()
-  })
+  fakeRendererContext()
 
   describe('constructor', function () {
     it('initializes the renderer', function () {
