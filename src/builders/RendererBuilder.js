@@ -10,11 +10,16 @@ export class RendererBuilder {
    * @returns {THREE.WebGLRenderer}
    */
   static run (options = {}) {
-    var threeOptions = {}
+    /** @type {any} */
+    var threeOptions = { alpha: true, antialias: true }
 
     // TODO: add more options from https://threejs.org/docs/#api/en/renderers/WebGLRenderer
     if (options.antialias != null) {
       threeOptions.antialias = options.antialias
+    }
+
+    if (options.canvas != null) {
+      threeOptions.canvas = options.canvas
     }
 
     return new THREE.WebGLRenderer(threeOptions)

@@ -1,7 +1,5 @@
 'use strict'
 
-import * as THREE from 'three'
-
 import { ClientData } from './ClientData.js'
 import { ClientFeed } from './operations/ClientFeed.js'
 import { RendererBuilder } from './builders/RendererBuilder.js'

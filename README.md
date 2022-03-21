@@ -73,7 +73,7 @@ client.feed('add', 'skeleton-definition', { id: 'human', ... })
 client.feed('add', 'skeleton', { id: 'some-skeleton', definition: 'human', ... })
 
 // Fires a helper method called `renderVolumes()` on the skeleton to render its volumes.
-client.feed('helper', 'renderVolumes', 'some-skeleton')
+client.feed('helper', 'RenderVolumes', 'some-skeleton')
 
 // Attach skeleton to floor.
 client.feed('attach', 'skeleton', 'some-skeleton', 'mesh', 'floor')

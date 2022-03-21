@@ -5,6 +5,7 @@ import { ClientPose } from './ClientPose.js'
 import { ClientPosition } from './ClientPosition.js'
 import { ClientRotate } from './ClientRotate.js'
 import { ClientRotationOrder } from './ClientRotationOrder.js'
+import { ClientRunHelper } from './ClientRunHelper.js'
 
 export class ClientFeed {
   /**
@@ -73,6 +74,14 @@ export class ClientFeed {
         a1, // object type
         a2, // object id
         a3 // order
+      )
+    }
+
+    if (command === 'helper') {
+      return ClientRunHelper.run(
+        client,
+        a1, // helper name
+        a2, a3, a4, a5, a6
       )
     }
 
