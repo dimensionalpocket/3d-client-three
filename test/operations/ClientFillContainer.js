@@ -31,6 +31,20 @@ describe('operations/ClientFillContainer', function () {
     })
   })
 
+  context('when client aspect ratio is the same as the container', function () {
+    before(function () {
+      this.sandbox.stub(this.fakeContainer, 'clientWidth').value(1000)
+      this.sandbox.stub(this.fakeContainer, 'clientHeight').value(500)
+      this.client.feed('aspect-ratio', 2)
+      this.client.feed('fill-container')
+    })
+
+    it('fully stretches the canvas element to fill the container', function () {
+      expect(this.fakeCanvas.style.width).to.eq('1000px')
+      expect(this.fakeCanvas.style.height).to.eq('500px')
+    })
+  })
+
   context('when container aspect ratio is wider than client aspect ratio', function () {
     before(function () {
       this.sandbox.stub(this.fakeContainer, 'clientWidth').value(1700)
@@ -43,7 +57,7 @@ describe('operations/ClientFillContainer', function () {
       expect(this.fakeCanvas.style.height).to.eq('900px')
     })
 
-    it('sets the width proportinally to the client ratio', function () {
+    it('sets the width proportionally to the client ratio', function () {
       expect(this.fakeCanvas.style.width).to.eq('1600px')
     })
   })
@@ -60,7 +74,7 @@ describe('operations/ClientFillContainer', function () {
       expect(this.fakeCanvas.style.width).to.eq('1600px')
     })
 
-    it('sets the height proportinally to the client ratio', function () {
+    it('sets the height proportionally to the client ratio', function () {
       expect(this.fakeCanvas.style.height).to.eq('900px')
     })
   })
