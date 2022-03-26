@@ -48,7 +48,7 @@ client.feed('add', 'scene', { id: 'test-scene' })
 // Add a white floor.
 client.feed('add', 'geometry' , { id: 'plane', ... })
 client.feed('add', 'material', { id: 'grey', ... })
-client.feed('add', 'mesh', { id: 'floor', g: 'plane', m: 'grey' })
+client.feed('add', 'mesh', { id: 'floor', geometry: 'plane', material: 'grey' })
 
 // Add a camera.
 client.feed('add', 'camera', { id: 'main-camera', ... })
@@ -59,12 +59,9 @@ client.feed('attach', 'camera', 'main-camera', 'mesh' 'floor')
 // Position the camera back, then up.
 client.feed('position', 'camera', 'main-camera', null, 5, -5)
 
-// Set the camera to use for rendering.
-client.feed('camera', 'main-camera')
-
-// Add a dim white light source.
+// Add a dim white light source and attach it to the scene.
 client.feed('add', 'light', { id: 'ambient-light', type: 'ambient', color: 'silver', ... })
-client.feed('attach', 'light', 'ambient-light', 'mesh', 'floor')
+client.feed('attach', 'light', 'ambient-light', 'scene', 'test-scene')
 
 // Add a skeleton definition.
 client.feed('add', 'skeleton-definition', { id: 'human', ... })
@@ -89,19 +86,18 @@ client.feed('attach', 'mesh', 'floor', 'scene', 'test-scene')
 // Set the active scene.
 client.feed('scene', 'test-scene')
 
+// Set the camera to use for rendering.
+client.feed('camera', 'main-camera')
+
 // Begin rendering.
-client.rendering = true
+client.feed('rendering', true)
 ```
-
-## Properties
-
-* __`client.rendering`__ - set to `true` to start rendering. Defaults to `false`.
 
 ## Options for `feed()`
 
 ### `client.feed('add', type, data)`
 
-Adds an object to memory.
+Adds an object to the client's memory.
 
 `type` can be one of the following:
 
@@ -120,7 +116,7 @@ Adds an object to memory.
 
 The `data` object __must__ have an `id` property, otherwise it will be ignored. 
 
-IDs must be __globally unique__ among their collections:
+IDs must be __unique__ among their collections:
 
 * E.g., two geometries should not have the same ID.
 * If object with the same ID already exists in a collection, it will be overwritten.
@@ -135,7 +131,7 @@ Sets the object with `parentId` as the parent of the object with `childId`.
 
 ### `client.feed('detach', childType, childId)`
 
-Removes a child object from its parent.
+Removes the parent of a child object.
 
 ### `client.feed('show', type, id, visible)`
 
@@ -195,7 +191,7 @@ If the object has children, all of them will be scaled together.
 
 ### `client.feed('camera', cameraId)`
 
-Sets the current camera. If you add multiple cameras, you can use this command to switch between them.
+Sets the current camera. If you have multiple cameras, you can use this command to switch between them.
 
 ### `client.feed('scene', sceneId)`
 
@@ -209,7 +205,7 @@ Note: while a camera has a target, camera rotation is disabled. Pass `null` as t
 
 ### `client.feed('aspect-ratio', number)`
 
-Sets the renderer's aspect ratio (e.g., `16/9`). Default is 1 (square).
+Sets the renderer's aspect ratio in width/height format (e.g., the number result of `16/9`). Default is `1` (square).
 
 This setting also affects cameras.
 
@@ -218,6 +214,18 @@ This setting also affects cameras.
 Resizes the `<canvas>` element to fill its container (if any), keeping its aspect ratio.
 
 This message can be sent to the client whenever the container changes sizes.
+
+### `client.feed('rendering', boolean)`
+
+Tells the client to start rendering the current scene in a loop.
+
+Pass `false` to stop rendering.
+
+### `client.feed('render')`
+
+Renders a single frame once.
+
+This command has no effect if the client is currently `rendering`.
 
 ## WIP
 

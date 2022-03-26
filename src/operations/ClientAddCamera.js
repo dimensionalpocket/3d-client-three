@@ -9,7 +9,12 @@ export class ClientAddCamera {
    * @returns {boolean}
    */
   static run (client, data) {
-    var camera = CameraBuilder.run(data)
+    /** @type {CameraBuilderOptions} */
+    var cameraBuilderData = Object.assign({
+      aspect: client.aspectRatio
+    }, data || {})
+
+    var camera = CameraBuilder.run(cameraBuilderData)
 
     client.data.cameras.set(camera.name, camera)
 

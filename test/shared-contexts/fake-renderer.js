@@ -17,6 +17,12 @@ export function fakeRendererContext () {
       setSize: (/** @type {number} */ w, /** @type {number} */ h) => {
         this.fakeCanvas.style.width = '' + w + 'px'
         this.fakeCanvas.style.height = '' + h + 'px'
+      },
+      compile: (/** @type {THREE.Scene} */ _scene, /** @type {THREE.Camera} */ _camera) => {
+        // NOOP
+      },
+      render: (/** @type {THREE.Scene} */ _scene, /** @type {THREE.Camera} */ _camera) => {
+        // NOOP
       }
     }
     sinon.stub(RendererBuilder, 'run').returns(this.fakeRenderer)

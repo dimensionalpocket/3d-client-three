@@ -3,6 +3,7 @@
 import { ClientData } from './ClientData.js'
 import { ClientFeed } from './operations/ClientFeed.js'
 import { RendererBuilder } from './builders/RendererBuilder.js'
+import { NOOP } from './operations/ClientGenerateRenderFunction.js'
 
 export class ThreeClient {
   /**
@@ -17,26 +18,39 @@ export class ThreeClient {
 
     /**
      * Aspect ratio of the client, in the width/height format.
-     * E.g., the result of 16/9.
-     * When null, will not keep an aspect ratio (will fit the container).
+     * E.g., the float result of 16/9.
+     * When undefined, will not keep an aspect ratio (will fit the container).
      *
-     * @type {?number}
+     * @type {number|undefined}
      */
-    this.aspectRatio = null
+    this.aspectRatio = undefined
 
     /**
      * The current scene being rendered.
      *
-     * @type {?THREE.Scene}
+     * @type {THREE.Scene|undefined}
      */
-    this.scene = null
+    this.scene = undefined
 
     /**
      * The current camera being used to render.
      *
-     * @type {?THREE.Camera}
+     * @type {THREE.Camera|undefined}
      */
-    this.camera = null
+    this.camera = undefined
+
+    /**
+     * A function that is called at every requestAnimationFrame.
+     * Set by ClientRendering operation.
+     *
+     * @type {function}
+     */
+    this.renderingFn = NOOP
+
+    /**
+     * `true` is a render loop is running.
+     */
+    this.rendering = false
   }
 
   /**

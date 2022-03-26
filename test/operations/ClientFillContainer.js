@@ -9,10 +9,16 @@ describe('operations/ClientFillContainer', function () {
 
   before(function () {
     this.sandbox = sinon.createSandbox()
-    this.sandbox.stub(this.fakeContainer, 'clientWidth').value(2000)
-    this.sandbox.stub(this.fakeContainer, 'clientHeight').value(2000)
+    this.sandbox.stub(this.fakeContainer, 'clientWidth').value(1234)
+    this.sandbox.stub(this.fakeContainer, 'clientHeight').value(5678)
     this.client = new ThreeClient()
     this.fakeContainer.appendChild(this.client.canvasElement)
+
+    /** @type {CameraBuilderOptions} */
+    var cameraData = { id: 'test-camera', type: 'perspective' }
+
+    this.client.feed('add', 'camera', cameraData)
+    this.camera = this.client.data.cameras.get('test-camera')
   })
 
   after(function () {
@@ -26,12 +32,16 @@ describe('operations/ClientFillContainer', function () {
     })
 
     it('fully stretches the canvas element to fill the container', function () {
-      expect(this.fakeCanvas.style.width).to.eq('2000px')
-      expect(this.fakeCanvas.style.height).to.eq('2000px')
+      expect(this.fakeCanvas.style.width).to.eq('1234px')
+      expect(this.fakeCanvas.style.height).to.eq('5678px')
+    })
+
+    it('updates the client cameras to match the container ratio', function () {
+      expect(this.camera.aspect).to.eq(1234 / 5678)
     })
   })
 
-  context('when client aspect ratio is the same as the container', function () {
+  context('when client ratio matches the container ratio', function () {
     before(function () {
       this.sandbox.stub(this.fakeContainer, 'clientWidth').value(1000)
       this.sandbox.stub(this.fakeContainer, 'clientHeight').value(500)
@@ -45,7 +55,7 @@ describe('operations/ClientFillContainer', function () {
     })
   })
 
-  context('when container aspect ratio is wider than client aspect ratio', function () {
+  context('when container ratio is wider than client ratio', function () {
     before(function () {
       this.sandbox.stub(this.fakeContainer, 'clientWidth').value(1700)
       this.sandbox.stub(this.fakeContainer, 'clientHeight').value(900)
@@ -62,7 +72,7 @@ describe('operations/ClientFillContainer', function () {
     })
   })
 
-  context('when container aspect ratio is narrower than client aspect ratio', function () {
+  context('when container ratio is taller than client ratio', function () {
     before(function () {
       this.sandbox.stub(this.fakeContainer, 'clientWidth').value(1600)
       this.sandbox.stub(this.fakeContainer, 'clientHeight').value(1000)

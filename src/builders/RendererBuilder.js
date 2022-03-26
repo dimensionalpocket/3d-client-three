@@ -22,6 +22,11 @@ export class RendererBuilder {
       threeOptions.canvas = options.canvas
     }
 
-    return new THREE.WebGLRenderer(threeOptions)
+    var renderer = new THREE.WebGLRenderer(threeOptions)
+
+    // TODO: convert to options
+    renderer.shadowMap.enabled = true
+
+    return renderer
   }
 }
