@@ -14,6 +14,29 @@ export class ThreeClient {
 
     /** @type {ClientData} */
     this.data = new ClientData(this)
+
+    /**
+     * Aspect ratio of the client, in the width/height format.
+     * E.g., the result of 16/9.
+     * When null, will not keep an aspect ratio (will fit the container).
+     *
+     * @type {?number}
+     */
+    this.aspectRatio = null
+
+    /**
+     * The current scene being rendered.
+     *
+     * @type {?THREE.Scene}
+     */
+    this.scene = null
+
+    /**
+     * The current camera being used to render.
+     *
+     * @type {?THREE.Camera}
+     */
+    this.camera = null
   }
 
   /**

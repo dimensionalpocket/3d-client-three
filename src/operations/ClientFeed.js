@@ -1,6 +1,7 @@
 'use strict'
 
 import { ClientAttach } from './ClientAttach.js'
+import { ClientFillContainer } from './ClientFillContainer.js'
 import { ClientPose } from './ClientPose.js'
 import { ClientPosition } from './ClientPosition.js'
 import { ClientRotate } from './ClientRotate.js'
@@ -83,6 +84,15 @@ export class ClientFeed {
         a1, // helper name
         a2, a3, a4, a5, a6
       )
+    }
+
+    if (command === 'aspect-ratio') {
+      client.aspectRatio = a1
+      return true
+    }
+
+    if (command === 'fill-container') {
+      return ClientFillContainer.run(client)
     }
 
     throw new Error(`Client#feed: unhandled command ${command} (${a1}, ${a2}, ${a3}, ${a4}, ${a5}, ${a6})`)

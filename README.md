@@ -199,13 +199,25 @@ Sets the current camera. If you add multiple cameras, you can use this command t
 
 ### `client.feed('scene', sceneId)`
 
-Sets the scene to render.
+Sets the scene to render. If you have multiple scenes, you can use this command to switch between them.
 
 ### `client.feed('look', cameraId, targetType, targetId)`
 
 Sets a camera target onto the given object. This makes the camera "look at" the object as it moves.
 
 Note: while a camera has a target, camera rotation is disabled. Pass `null` as the objectId to remove the target and re-enable camera rotation.
+
+### `client.feed('aspect-ratio', number)`
+
+Sets the renderer's aspect ratio (e.g., `16/9`). Default is 1 (square).
+
+This setting also affects cameras.
+
+### `client.feed('fill-container')`
+
+Resizes the `<canvas>` element to fill its container (if any), keeping its aspect ratio.
+
+This message can be sent to the client whenever the container changes sizes.
 
 ## WIP
 

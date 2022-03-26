@@ -38,6 +38,7 @@ export class RenderVolumes {
 
     var boneId = '' + skeleton.id + '-' + joint.id
     var bone = skeleton.getBoneByName(boneId)
+
     if (!bone) {
       console.error('RenderVolumes: failed to find bone', boneId, 'in skeleton', skeleton.id)
       return false

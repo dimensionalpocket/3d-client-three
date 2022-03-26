@@ -12,7 +12,13 @@ export function fakeRendererContext () {
 
   before(function () {
     this.fakeCanvas = this.document.createElement('canvas')
-    this.fakeRenderer = { domElement: this.fakeCanvas }
+    this.fakeRenderer = {
+      domElement: this.fakeCanvas,
+      setSize: (/** @type {number} */ w, /** @type {number} */ h) => {
+        this.fakeCanvas.style.width = '' + w + 'px'
+        this.fakeCanvas.style.height = '' + h + 'px'
+      }
+    }
     sinon.stub(RendererBuilder, 'run').returns(this.fakeRenderer)
   })
 
