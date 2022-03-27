@@ -29,7 +29,7 @@ const ONE_HEAD = EIGHT_HEADS / 8
 // Main blocks
 
 const HEAD_HEIGHT = ONE_HEAD * 1.08
-const HEAD_WIDTH = ONE_HEAD * 0.8
+const HEAD_WIDTH = ONE_HEAD * 0.9
 const HEAD_DEPTH = ONE_HEAD * 0.8
 
 const NECK_HEIGHT = ONE_HEAD / 2
@@ -40,39 +40,39 @@ const CHEST_HEIGHT = ONE_HEAD / 1
 const CHEST_WIDTH = ONE_HEAD * 1.6
 const CHEST_DEPTH = ONE_HEAD * 0.6
 
-const ABDOMEN_HEIGHT = ONE_HEAD / 2
+const ABDOMEN_HEIGHT = ONE_HEAD / 1.5
 const ABDOMEN_WIDTH = ONE_HEAD * 0.8
 const ABDOMEN_DEPTH = CHEST_DEPTH * 0.8
 
-const WAIST_HEIGHT = ONE_HEAD / 2
+const WAIST_HEIGHT = ONE_HEAD / 4
 const WAIST_WIDTH = ONE_HEAD * 1.4
 const WAIST_DEPTH = ONE_HEAD * 0.5
 
 // Arms
 
-const SHOULDER_DEPTH = CHEST_DEPTH * 0.8
-const SHOULDER_HEIGHT = CHEST_HEIGHT / 2
-const SHOULDER_WIDTH = SHOULDER_DEPTH
-const SHOULDER_OFFSET_X = CHEST_WIDTH / 2
-const SHOULDER_OFFSET_Y = CHEST_HEIGHT - (SHOULDER_HEIGHT / 2)
+const SHOULDER_DEPTH = CHEST_DEPTH * 1.5
+const SHOULDER_HEIGHT = CHEST_HEIGHT / 2.5
+const SHOULDER_WIDTH = CHEST_WIDTH / 3.5
+const CLAVICLE_OFFSET_X = (CHEST_WIDTH / 3)
+const CLAVICLE_OFFSET_Y = CHEST_HEIGHT - (SHOULDER_HEIGHT / 2)
 
-const ARM_UPPER_HEIGHT = ONE_HEAD * 0.8
-const ARM_UPPER_WIDTH = SHOULDER_WIDTH * 0.9
-const ARM_UPPER_DEPTH = SHOULDER_DEPTH * 0.9
-const ARM_UPPER_OFFSET_X = SHOULDER_WIDTH / 2
-const ARM_UPPER_OFFSET_Y = SHOULDER_HEIGHT / 2
+const ARM_UPPER_HEIGHT = ONE_HEAD * 1.1
+const ARM_UPPER_WIDTH = SHOULDER_WIDTH * 0.8
+const ARM_UPPER_DEPTH = SHOULDER_DEPTH * 0.8
+const ARM_UPPER_OFFSET_X = SHOULDER_WIDTH
+// const ARM_UPPER_OFFSET_Y = SHOULDER_HEIGHT / 2
 
-const ARM_LOWER_HEIGHT = ARM_UPPER_HEIGHT + (SHOULDER_HEIGHT * 0.5)
+const ARM_LOWER_HEIGHT = ARM_UPPER_HEIGHT
 const ARM_LOWER_WIDTH = ARM_UPPER_WIDTH
 const ARM_LOWER_DEPTH = ARM_UPPER_DEPTH
 
 // Legs
 
-const LEG_UPPER_HEIGHT = ONE_HEAD * 2 // till bottom of knee
+const LEG_UPPER_HEIGHT = ONE_HEAD * 2.1 // till bottom of knee
 const LEG_UPPER_WIDTH = ONE_HEAD / 1.8
 const LEG_UPPER_DEPTH = WAIST_DEPTH
 
-const LEG_LOWER_HEIGHT = LEG_UPPER_HEIGHT
+const LEG_LOWER_HEIGHT = LEG_UPPER_HEIGHT * 0.8
 const LEG_LOWER_WIDTH = LEG_UPPER_WIDTH
 const LEG_LOWER_DEPTH = LEG_UPPER_DEPTH
 
@@ -83,7 +83,7 @@ const FOOT_WIDTH = ONE_HEAD / 1.5
 const FOOT_DEPTH = ONE_HEAD / 1.5
 
 const TOES_HEIGHT = FOOT_HEIGHT / 2.5
-const TOES_WIDTH = FOOT_WIDTH * 0.8
+const TOES_WIDTH = FOOT_WIDTH * 1
 const TOES_DEPTH = FOOT_DEPTH / 1.2
 
 // Hands
@@ -91,7 +91,7 @@ const TOES_DEPTH = FOOT_DEPTH / 1.2
 const HAND_SCALE = 1
 
 const PALM_HEIGHT = (ONE_HEAD / 1.8) * HAND_SCALE
-const PALM_WIDTH = ARM_LOWER_WIDTH * 1.2 * HAND_SCALE
+const PALM_WIDTH = SHOULDER_WIDTH * HAND_SCALE
 const PALM_DEPTH = ARM_LOWER_DEPTH * 0.3 * HAND_SCALE
 
 const FINGER_BASE_HEIGHT = PALM_HEIGHT * 0.35
@@ -145,17 +145,17 @@ const PINKY_TIP_HEIGHT = FINGER_TIP_HEIGHT * PINKY_HEIGHT_SCALE
 /** @type {Map<string,JointVolumeData>} */
 const volumes = new Map()
 
-volumes.set('root', { scale: { x: 0.01, y: 0.01, z: 0.5 }, translation: { y: 0.0049 }, color: 'red' })
+volumes.set('root', { scale: { x: 1.5, y: 0.001, z: 1.5 }, translation: { y: -0.001 / 2 }, color: 'grey' })
 volumes.set('head', { scale: { x: HEAD_WIDTH, y: HEAD_HEIGHT, z: HEAD_DEPTH }, translation: { y: HEAD_HEIGHT / 2 }, color: 'magenta' })
 volumes.set('neck', { scale: { x: NECK_WIDTH, y: NECK_HEIGHT, z: NECK_DEPTH }, translation: { y: NECK_HEIGHT / 2 }, color: 'cyan' })
-volumes.set('shoulderL', { scale: { x: ARM_UPPER_WIDTH, y: ARM_UPPER_WIDTH, z: ARM_UPPER_WIDTH }, translation: { x: SHOULDER_OFFSET_X }, color: 'cyan' })
-volumes.set('shoulderR', { scale: { x: ARM_UPPER_WIDTH, y: ARM_UPPER_WIDTH, z: ARM_UPPER_WIDTH }, translation: { x: -SHOULDER_OFFSET_X }, color: 'cyan' })
+volumes.set('shoulderL', { scale: { x: SHOULDER_WIDTH, y: SHOULDER_HEIGHT, z: SHOULDER_DEPTH }, translation: { x: SHOULDER_WIDTH }, color: 'cyan' })
+volumes.set('shoulderR', { scale: { x: SHOULDER_WIDTH, y: SHOULDER_HEIGHT, z: SHOULDER_DEPTH }, translation: { x: -SHOULDER_WIDTH }, color: 'cyan' })
 volumes.set('chest', { scale: { x: CHEST_WIDTH, y: CHEST_HEIGHT, z: CHEST_DEPTH }, translation: { y: CHEST_HEIGHT / 2 }, color: 'magenta' })
 volumes.set('abs', { scale: { x: ABDOMEN_WIDTH, y: ABDOMEN_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: ABDOMEN_HEIGHT / 2 }, color: 'cyan' })
-volumes.set('waist', { scale: { x: WAIST_WIDTH, y: WAIST_HEIGHT, z: WAIST_DEPTH }, translation: { y: -WAIST_HEIGHT / 2 }, color: 'lime' })
+volumes.set('waist', { scale: { x: WAIST_WIDTH, y: WAIST_HEIGHT * 2, z: WAIST_DEPTH * 1.1 }, translation: { y: -WAIST_HEIGHT }, color: 'lime' })
 volumes.set('upperLeg', { scale: { x: LEG_UPPER_WIDTH, y: LEG_UPPER_HEIGHT, z: LEG_UPPER_DEPTH }, translation: { y: -LEG_UPPER_HEIGHT / 2 }, color: 'red' })
-volumes.set('lowerLeg', { scale: { x: LEG_LOWER_WIDTH, y: LEG_LOWER_HEIGHT, z: LEG_LOWER_DEPTH }, translation: { y: -LEG_LOWER_HEIGHT / 2 }, color: 'cyan' })
-volumes.set('foot', { scale: { x: FOOT_WIDTH, y: FOOT_HEIGHT, z: FOOT_DEPTH }, translation: { y: -FOOT_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('lowerLeg', { scale: { x: LEG_LOWER_WIDTH, y: LEG_LOWER_HEIGHT + FOOT_HEIGHT, z: LEG_LOWER_DEPTH }, translation: { y: (-LEG_LOWER_HEIGHT / 2) - (FOOT_HEIGHT / 6) }, color: 'cyan' })
+volumes.set('foot', { scale: { x: TOES_WIDTH, y: TOES_HEIGHT, z: FOOT_DEPTH * 1.5 }, translation: { y: -FOOT_HEIGHT + (TOES_HEIGHT / 2), z: FOOT_DEPTH / 5 }, color: 'yellow' })
 volumes.set('toes', { scale: { x: TOES_WIDTH, y: TOES_HEIGHT, z: TOES_DEPTH }, translation: { y: TOES_HEIGHT / 2, z: TOES_DEPTH / 2 }, color: 'yellow' })
 volumes.set('upperArm', { scale: { x: ARM_UPPER_WIDTH, y: ARM_UPPER_HEIGHT, z: ARM_UPPER_DEPTH }, translation: { y: -ARM_UPPER_HEIGHT / 2 }, color: 'red' })
 volumes.set('lowerArm', { scale: { x: ARM_LOWER_WIDTH, y: ARM_LOWER_HEIGHT, z: ARM_LOWER_DEPTH }, translation: { y: -ARM_LOWER_HEIGHT / 2 }, color: 'cyan' })
@@ -214,12 +214,12 @@ export const HUMAN_SKELETON_JOINTS = [
   { id: 'H', parent: 'N', position: { y: NECK_HEIGHT }, volume: volumes.get('head') },
 
   // Clavicles
-  { id: 'lC', parent: 'S', position: { x: SHOULDER_OFFSET_X, y: SHOULDER_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
-  { id: 'rC', parent: 'S', position: { x: -SHOULDER_OFFSET_X, y: SHOULDER_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
+  { id: 'lC', parent: 'S', position: { x: CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
+  { id: 'rC', parent: 'S', position: { x: -CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
 
   // Shouders
-  { id: 'lS', parent: 'lC', position: { x: ARM_UPPER_OFFSET_X, y: -ARM_UPPER_OFFSET_Y }, volume: volumes.get('upperArm') },
-  { id: 'rS', parent: 'rC', position: { x: -ARM_UPPER_OFFSET_X, y: -ARM_UPPER_OFFSET_Y }, volume: volumes.get('upperArm') },
+  { id: 'lS', parent: 'lC', position: { x: ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
+  { id: 'rS', parent: 'rC', position: { x: -ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
 
   // Elbows
   { id: 'lE', parent: 'lS', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },

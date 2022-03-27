@@ -16,7 +16,10 @@ export class LightBuilder {
       throw new Error('LightBuilder: ID is required')
     }
 
-    var light = new THREE.AmbientLight()
+    var color = options?.color
+    var intensity = options?.intensity
+
+    var light = new THREE.AmbientLight(color, intensity)
 
     light.name = '' + id
 

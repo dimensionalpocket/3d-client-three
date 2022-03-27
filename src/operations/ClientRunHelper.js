@@ -17,7 +17,11 @@ export class ClientRunHelper {
    */
   static run (client, helperName, a1, a2, a3, a4, a5) {
     switch (helperName) {
-      case 'RenderVolumes': return RenderVolumes.run(client, a1)
+      case 'RenderVolumes': return RenderVolumes.run(
+        client,
+        a1, // skeleton ID
+        a2 // helper
+      )
     }
 
     throw new Error(`ClientRunHelper: helper not found ${helperName}`)

@@ -9,9 +9,10 @@ export class RenderVolumes {
   /**
    * @param {ThreeClient} client
    * @param {id} skeletonId
+   * @param {boolean} helper - If `true`, renders a SkeletonHelper to visualize bones
    * @returns {boolean}
    */
-  static run (client, skeletonId) {
+  static run (client, skeletonId, helper = false) {
     var skeleton = client.data.skeletons.get(skeletonId)
     if (!skeleton) {
       console.error('RenderVolumes: skeleton not found in client', skeletonId)
@@ -22,9 +23,10 @@ export class RenderVolumes {
       this.renderJointVolume(joint, skeleton)
     }
 
-    // Render a SkeletonHelper to visualize bones.
-    var skeletonHelper = new THREE.SkeletonHelper(skeleton.bones[0])
-    client.scene?.add(skeletonHelper)
+    if (helper) {
+      var skeletonHelper = new THREE.SkeletonHelper(skeleton.bones[0])
+      client.scene?.add(skeletonHelper)
+    }
 
     return true
   }
@@ -48,7 +50,7 @@ export class RenderVolumes {
       return false
     }
 
-    var material = new THREE.MeshBasicMaterial({ color: volume.color })
+    var material = new THREE.MeshToonMaterial({ color: volume.color })
     var mesh = new THREE.Mesh(boxGeometry, material)
 
     mesh.scale.set(volume.scale.x, volume.scale.y, volume.scale.z)
