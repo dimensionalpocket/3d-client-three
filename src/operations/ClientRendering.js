@@ -15,6 +15,8 @@ export class ClientRendering {
       client.rendering = false
       client.renderingFn = NOOP
 
+      console.debug('Client: rendering stopped.')
+
       return true
     }
 
@@ -37,6 +39,8 @@ export class ClientRendering {
 
     // First call to start rendering.
     client.renderingFn()
+
+    console.debug('Client: rendering started.')
 
     return true
   }
