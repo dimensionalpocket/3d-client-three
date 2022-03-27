@@ -148,6 +148,8 @@ const volumes = new Map()
 volumes.set('root', { scale: { x: 0.01, y: 0.01, z: 0.5 }, translation: { y: 0.0049 }, color: 'red' })
 volumes.set('head', { scale: { x: HEAD_WIDTH, y: HEAD_HEIGHT, z: HEAD_DEPTH }, translation: { y: HEAD_HEIGHT / 2 }, color: 'magenta' })
 volumes.set('neck', { scale: { x: NECK_WIDTH, y: NECK_HEIGHT, z: NECK_DEPTH }, translation: { y: NECK_HEIGHT / 2 }, color: 'cyan' })
+volumes.set('shoulderL', { scale: { x: ARM_UPPER_WIDTH, y: ARM_UPPER_WIDTH, z: ARM_UPPER_WIDTH }, translation: { x: SHOULDER_OFFSET_X }, color: 'cyan' })
+volumes.set('shoulderR', { scale: { x: ARM_UPPER_WIDTH, y: ARM_UPPER_WIDTH, z: ARM_UPPER_WIDTH }, translation: { x: -SHOULDER_OFFSET_X }, color: 'cyan' })
 volumes.set('chest', { scale: { x: CHEST_WIDTH, y: CHEST_HEIGHT, z: CHEST_DEPTH }, translation: { y: CHEST_HEIGHT / 2 }, color: 'magenta' })
 volumes.set('abs', { scale: { x: ABDOMEN_WIDTH, y: ABDOMEN_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: ABDOMEN_HEIGHT / 2 }, color: 'cyan' })
 volumes.set('waist', { scale: { x: WAIST_WIDTH, y: WAIST_HEIGHT, z: WAIST_DEPTH }, translation: { y: -WAIST_HEIGHT / 2 }, color: 'lime' })
@@ -212,8 +214,8 @@ export const HUMAN_SKELETON_JOINTS = [
   { id: 'H', parent: 'N', position: { y: NECK_HEIGHT }, volume: volumes.get('head') },
 
   // Clavicles
-  { id: 'lC', parent: 'S', position: { x: SHOULDER_OFFSET_X, y: SHOULDER_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down' },
-  { id: 'rC', parent: 'S', position: { x: -SHOULDER_OFFSET_X, y: SHOULDER_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down' },
+  { id: 'lC', parent: 'S', position: { x: SHOULDER_OFFSET_X, y: SHOULDER_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
+  { id: 'rC', parent: 'S', position: { x: -SHOULDER_OFFSET_X, y: SHOULDER_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
 
   // Shouders
   { id: 'lS', parent: 'lC', position: { x: ARM_UPPER_OFFSET_X, y: -ARM_UPPER_OFFSET_Y }, volume: volumes.get('upperArm') },
