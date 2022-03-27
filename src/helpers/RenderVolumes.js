@@ -22,6 +22,10 @@ export class RenderVolumes {
       this.renderJointVolume(joint, skeleton)
     }
 
+    // Render a SkeletonHelper to visualize bones.
+    var skeletonHelper = new THREE.SkeletonHelper(skeleton.bones[0])
+    client.scene?.add(skeletonHelper)
+
     return true
   }
 
