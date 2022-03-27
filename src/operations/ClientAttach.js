@@ -30,7 +30,7 @@ export class ClientAttach {
       throw new Error(`ClientAttach: parent (${parentId}) not found in client`)
     }
 
-    child.parent = parent
+    parent.add(child)
 
     return true
   }
