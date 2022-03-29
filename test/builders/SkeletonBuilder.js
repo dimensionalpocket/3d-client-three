@@ -44,9 +44,10 @@ describe('SkeletonBuilder', function () {
       })
 
       it('defines the bone hierarchy', function () {
-        var spineLower = this.skeleton.getBoneByName('test-human-U')
-        var spineUpper = this.skeleton.getBoneByName('test-human-S')
+        var spineLower = this.skeleton.getBoneByName('test-human-spineL')
+        var spineUpper = this.skeleton.getBoneByName('test-human-spineU')
         expect(spineUpper.parent).to.eq(spineLower)
+        expect(spineLower.children).to.contain(spineUpper)
       })
     })
   })

@@ -17,7 +17,7 @@
 //   throw new Error('human.js included outside tests')
 // }
 
-// DIMENSIONS
+// DIMENSIONS (in meters)
 
 // Directions reference, from character POV:
 // - left +x, right -x
@@ -28,30 +28,32 @@ const ONE_HEAD = EIGHT_HEADS / 8
 
 // Main blocks
 
-const HEAD_HEIGHT = ONE_HEAD * 1.08
+const HEAD_HEIGHT = 0.215 // ONE_HEAD * 1.08 // 0.243
 const HEAD_WIDTH = ONE_HEAD * 0.9
 const HEAD_DEPTH = ONE_HEAD * 0.8
 
-const NECK_HEIGHT = ONE_HEAD / 2
+const NECK_HEIGHT = 0.107 // ONE_HEAD / 2 // 0.1125
 const NECK_WIDTH = 0.12
 const NECK_DEPTH = 0.10
 
-const CHEST_HEIGHT = ONE_HEAD / 1
+const CHEST_HEIGHT = 0.231 // ONE_HEAD / 1 // 0.225
 const CHEST_WIDTH = ONE_HEAD * 1.6
 const CHEST_DEPTH = ONE_HEAD * 0.6
 
-const ABDOMEN_HEIGHT = ONE_HEAD / 1.5
+const STOMACH_HEIGHT = 0.139
+
+const ABDOMEN_HEIGHT = 0.104 // ONE_HEAD / 1.5 // 0.150
 const ABDOMEN_WIDTH = ONE_HEAD * 0.8
 const ABDOMEN_DEPTH = CHEST_DEPTH * 0.8
 
-const WAIST_HEIGHT = ONE_HEAD / 4
+const WAIST_HEIGHT = 0.068 // ONE_HEAD / 4 // 0.056
 const WAIST_WIDTH = ONE_HEAD * 1.4
 const WAIST_DEPTH = ONE_HEAD * 0.5
 
 // Arms
 
-const SHOULDER_DEPTH = CHEST_DEPTH * 1.5
 const SHOULDER_HEIGHT = CHEST_HEIGHT / 2.5
+const SHOULDER_DEPTH = CHEST_DEPTH * 1.5
 const SHOULDER_WIDTH = CHEST_WIDTH / 3.5
 const CLAVICLE_OFFSET_X = (CHEST_WIDTH / 3)
 const CLAVICLE_OFFSET_Y = CHEST_HEIGHT - (SHOULDER_HEIGHT / 2)
@@ -68,17 +70,17 @@ const ARM_LOWER_DEPTH = ARM_UPPER_DEPTH
 
 // Legs
 
-const LEG_UPPER_HEIGHT = ONE_HEAD * 2.1 // till bottom of knee
+const LEG_UPPER_HEIGHT = 0.416 // ONE_HEAD * 2.1 // 0.472 till bottom of knee
 const LEG_UPPER_WIDTH = ONE_HEAD / 1.8
 const LEG_UPPER_DEPTH = WAIST_DEPTH
 
-const LEG_LOWER_HEIGHT = LEG_UPPER_HEIGHT * 0.8
+const LEG_LOWER_HEIGHT = 0.406 // LEG_UPPER_HEIGHT * 0.8 // 0.377
 const LEG_LOWER_WIDTH = LEG_UPPER_WIDTH
 const LEG_LOWER_DEPTH = LEG_UPPER_DEPTH
 
 const LEG_OFFSET = ONE_HEAD / 2.5
 
-const FOOT_HEIGHT = ONE_HEAD / 2
+const FOOT_HEIGHT = 0.11 // ONE_HEAD / 2 // 0.112
 const FOOT_WIDTH = ONE_HEAD / 1.5
 const FOOT_DEPTH = ONE_HEAD / 1.5
 
@@ -151,6 +153,7 @@ volumes.set('neck', { scale: { x: NECK_WIDTH, y: NECK_HEIGHT, z: NECK_DEPTH }, t
 volumes.set('shoulderL', { scale: { x: SHOULDER_WIDTH, y: SHOULDER_HEIGHT, z: SHOULDER_DEPTH }, translation: { x: SHOULDER_WIDTH }, color: 'cyan' })
 volumes.set('shoulderR', { scale: { x: SHOULDER_WIDTH, y: SHOULDER_HEIGHT, z: SHOULDER_DEPTH }, translation: { x: -SHOULDER_WIDTH }, color: 'cyan' })
 volumes.set('chest', { scale: { x: CHEST_WIDTH, y: CHEST_HEIGHT, z: CHEST_DEPTH }, translation: { y: CHEST_HEIGHT / 2 }, color: 'magenta' })
+volumes.set('stomach', { scale: { x: ABDOMEN_WIDTH, y: STOMACH_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: STOMACH_HEIGHT / 2 }, color: 'cyan' })
 volumes.set('abs', { scale: { x: ABDOMEN_WIDTH, y: ABDOMEN_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: ABDOMEN_HEIGHT / 2 }, color: 'cyan' })
 volumes.set('waist', { scale: { x: WAIST_WIDTH, y: WAIST_HEIGHT * 2, z: WAIST_DEPTH * 1.1 }, translation: { y: -WAIST_HEIGHT }, color: 'lime' })
 volumes.set('upperLeg', { scale: { x: LEG_UPPER_WIDTH, y: LEG_UPPER_HEIGHT, z: LEG_UPPER_DEPTH }, translation: { y: -LEG_UPPER_HEIGHT / 2 }, color: 'red' })
@@ -179,98 +182,101 @@ volumes.set('pinkyTip', { scale: { x: PINKY_WIDTH, y: PINKY_TIP_HEIGHT, z: PINKY
 /** @type {Array<JointDefinitionData>} */
 export const HUMAN_SKELETON_JOINTS = [
   // The root joint is only used for positioning and rotation outside poses.
-  { id: '_', volume: volumes.get('root') },
+  { id: 'root', volume: volumes.get('root') },
 
   // The center joint is used to rotate the entire body in a pose.
-  { id: 'Cn', parent: '_', position: { y: WAIST_HEIGHT + LEG_UPPER_HEIGHT + LEG_LOWER_HEIGHT + FOOT_HEIGHT } },
+  { id: 'rootC', parent: 'root', position: { y: WAIST_HEIGHT + LEG_UPPER_HEIGHT + LEG_LOWER_HEIGHT + FOOT_HEIGHT } },
 
   // Upper and Lower bodies can be rotated independently.
-  { id: 'U', parent: 'Cn', volume: volumes.get('abs') },
-  { id: 'L', parent: 'Cn', volume: volumes.get('waist') },
+  { id: 'rootU', parent: 'rootC', volume: volumes.get('abs') },
+  { id: 'rootL', parent: 'rootC', volume: volumes.get('waist') },
 
   // Hips
-  { id: 'lH', parent: 'L', position: { x: LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
-  { id: 'rH', parent: 'L', position: { x: -LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
+  { id: 'hipL', parent: 'rootL', position: { x: LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
+  { id: 'hipR', parent: 'rootL', position: { x: -LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
 
   // Knees
-  { id: 'lKn', parent: 'lH', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
-  { id: 'rKn', parent: 'rH', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
+  { id: 'kneeL', parent: 'hipL', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
+  { id: 'kneeR', parent: 'hipR', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
 
   // Ankles
-  { id: 'lAn', parent: 'lKn', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
-  { id: 'rAn', parent: 'rKn', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
+  { id: 'ankleL', parent: 'kneeL', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
+  { id: 'ankleR', parent: 'kneeR', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
 
   // Toes
-  { id: 'lT', parent: 'lAn', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
-  { id: 'rT', parent: 'rAn', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
+  { id: 'toesL', parent: 'ankleL', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
+  { id: 'toesR', parent: 'ankleR', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
 
-  // Spine (Stomach)
-  { id: 'S', parent: 'U', position: { y: ABDOMEN_HEIGHT }, volume: volumes.get('chest') },
+  // Spine Lower (between abdomen and stomach)
+  { id: 'spineL', parent: 'rootU', position: { y: ABDOMEN_HEIGHT }, volume: volumes.get('stomach') },
+
+  // Spine Upper (between stomach and chest)
+  { id: 'spineU', parent: 'spineL', position: { y: STOMACH_HEIGHT }, volume: volumes.get('chest') },
 
   // Neck (Base)
-  { id: 'N', parent: 'S', position: { y: CHEST_HEIGHT }, volume: volumes.get('neck') },
+  { id: 'neck', parent: 'spineL', position: { y: CHEST_HEIGHT }, volume: volumes.get('neck') },
 
   // Head (Upper Neck)
-  { id: 'H', parent: 'N', position: { y: NECK_HEIGHT }, volume: volumes.get('head') },
+  { id: 'head', parent: 'neck', position: { y: NECK_HEIGHT }, volume: volumes.get('head') },
 
   // Clavicles
-  { id: 'lC', parent: 'S', position: { x: CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
-  { id: 'rC', parent: 'S', position: { x: -CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
+  { id: 'clavicleL', parent: 'spineL', position: { x: CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
+  { id: 'clavicleR', parent: 'spineL', position: { x: -CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
 
   // Shouders
-  { id: 'lS', parent: 'lC', position: { x: ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
-  { id: 'rS', parent: 'rC', position: { x: -ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
+  { id: 'shoulderL', parent: 'clavicleL', position: { x: ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
+  { id: 'shoulderR', parent: 'clavicleR', position: { x: -ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
 
   // Elbows
-  { id: 'lE', parent: 'lS', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
-  { id: 'rE', parent: 'rS', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
+  { id: 'elbowL', parent: 'shoulderL', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
+  { id: 'elbowR', parent: 'shoulderR', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
 
   // Wrists
-  { id: 'lW', parent: 'lE', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
-  { id: 'rW', parent: 'rE', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
+  { id: 'wristL', parent: 'elbowL', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
+  { id: 'wristR', parent: 'elbowR', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
 
   // Finger Joint Positions:
   // [B]ase, [M]iddle, [T]ip
 
   /* Thumbs */
-  { id: 'lTB', parent: 'lW', position: { x: THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
-  { id: 'lTM', parent: 'lTB', position: { x: THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
-  { id: 'lTT', parent: 'lTM', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
-  { id: 'rTB', parent: 'rW', position: { x: -THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
-  { id: 'rTM', parent: 'rTB', position: { x: -THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
-  { id: 'rTT', parent: 'rTM', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
+  { id: 'thumbL1', parent: 'wristL', position: { x: THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
+  { id: 'thumbL2', parent: 'thumbL1', position: { x: THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
+  { id: 'thumbL3', parent: 'thumbL2', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
+  { id: 'thumbR1', parent: 'wristR', position: { x: -THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
+  { id: 'thumbR2', parent: 'thumbR1', position: { x: -THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
+  { id: 'thumbR3', parent: 'thumbR2', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
 
   /* Index */
-  { id: 'lIB', parent: 'lW', position: { x: INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
-  { id: 'lIM', parent: 'lIB', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
-  { id: 'lIT', parent: 'lIM', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
-  { id: 'rIB', parent: 'rW', position: { x: -INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
-  { id: 'rIM', parent: 'rIB', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
-  { id: 'rIT', parent: 'rIM', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
+  { id: 'indexL1', parent: 'wristL', position: { x: INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
+  { id: 'indexL2', parent: 'indexL1', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
+  { id: 'indexL3', parent: 'indexL2', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
+  { id: 'indexR1', parent: 'wristR', position: { x: -INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
+  { id: 'indexR2', parent: 'indexR1', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
+  { id: 'indexR3', parent: 'indexR2', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
 
   /* Middle */
-  { id: 'lMB', parent: 'lW', position: { x: MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
-  { id: 'lMM', parent: 'lMB', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
-  { id: 'lMT', parent: 'lMM', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
-  { id: 'rMB', parent: 'rW', position: { x: -MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
-  { id: 'rMM', parent: 'rMB', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
-  { id: 'rMT', parent: 'rMM', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
+  { id: 'middleL1', parent: 'wristL', position: { x: MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
+  { id: 'middleL2', parent: 'middleL1', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
+  { id: 'middleL3', parent: 'middleL2', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
+  { id: 'middleR1', parent: 'wristR', position: { x: -MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
+  { id: 'middleR2', parent: 'middleR1', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
+  { id: 'middleR3', parent: 'middleR2', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
 
   /* Ring */
-  { id: 'lRB', parent: 'lW', position: { x: RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
-  { id: 'lRM', parent: 'lRB', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
-  { id: 'lRT', parent: 'lRM', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
-  { id: 'rRB', parent: 'rW', position: { x: -RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
-  { id: 'rRM', parent: 'rRB', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
-  { id: 'rRT', parent: 'rRM', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
+  { id: 'ringL1', parent: 'wristL', position: { x: RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
+  { id: 'ringL2', parent: 'ringL1', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
+  { id: 'ringL3', parent: 'ringL2', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
+  { id: 'ringR1', parent: 'wristR', position: { x: -RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
+  { id: 'ringR2', parent: 'ringR1', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
+  { id: 'ringR3', parent: 'ringR2', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
 
   /* Pinky */
-  { id: 'lPB', parent: 'lW', position: { x: PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
-  { id: 'lPM', parent: 'lPB', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
-  { id: 'lPT', parent: 'lPM', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') },
-  { id: 'rPB', parent: 'rW', position: { x: -PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
-  { id: 'rPM', parent: 'rPB', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
-  { id: 'rPT', parent: 'rPM', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') }
+  { id: 'pinkyL1', parent: 'wristL', position: { x: PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
+  { id: 'pinkyL2', parent: 'pinkyL1', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
+  { id: 'pinkyL3', parent: 'pinkyL2', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') },
+  { id: 'pinkyR1', parent: 'wristR', position: { x: -PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
+  { id: 'pinkyR2', parent: 'pinkyR1', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
+  { id: 'pinkyR3', parent: 'pinkyR2', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') }
 ]
 
 // fs.writeFileSync('./human.json', JSON.stringify(HUMAN_SKELETON_JOINTS, null, 2))

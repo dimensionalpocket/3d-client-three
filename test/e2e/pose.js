@@ -26,8 +26,8 @@ describe('e2e/posing', function () {
       id: 'test-pose',
       skeleton: 'human',
       transforms: [
-        { joint: 'lKn', rotation: { x: 1 } },
-        { joint: 'N', rotation: { y: 3, z: -2 } }
+        { joint: 'kneeL', rotation: { x: 1 } },
+        { joint: 'neck', rotation: { y: 3, z: -2 } }
       ]
     }
 
@@ -42,10 +42,10 @@ describe('e2e/posing', function () {
     this.client.feed('pose', 'test-skeleton', 'test-pose')
 
     /** @type {THREE.Bone} */
-    var knee = this.skeleton.getBoneByName('test-skeleton-lKn')
+    var knee = this.skeleton.getBoneByName('test-skeleton-kneeL')
 
     /** @type {THREE.Bone} */
-    var neck = this.skeleton.getBoneByName('test-skeleton-N')
+    var neck = this.skeleton.getBoneByName('test-skeleton-neck')
 
     expect(knee.rotation.x).to.eq(1)
     expect(neck.rotation.y).to.eq(3)

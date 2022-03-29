@@ -23,9 +23,9 @@ describe('helpers/RenderVolumes', function () {
 
     this.skeleton = this.client.data.skeletons.get('test-skeleton')
 
-    this.kneeBone = this.skeleton.getBoneByName('test-skeleton-lKn')
+    this.kneeBone = this.skeleton.getBoneByName('test-skeleton-kneeL')
     this.kneeVolumeMesh = this.kneeBone.children.find((/** @type {THREE.Bone} */ b) => b.name === this.kneeBone.name + '-volume')
-    this.kneeVolume = this.skeleton.definition.getJointDefinition('lKn').volume
+    this.kneeVolume = this.skeleton.definition.getJointDefinition('kneeL').volume
   })
 
   it('attaches volume meshes to joints', function () {
