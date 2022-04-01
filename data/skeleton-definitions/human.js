@@ -191,19 +191,15 @@ export const HUMAN_SKELETON_JOINTS = [
   { id: 'rootU', parent: 'rootC', volume: volumes.get('abs') },
   { id: 'rootL', parent: 'rootC', volume: volumes.get('waist') },
 
-  // Hips
   { id: 'hipL', parent: 'rootL', position: { x: LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
   { id: 'hipR', parent: 'rootL', position: { x: -LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
 
-  // Knees
   { id: 'kneeL', parent: 'hipL', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
   { id: 'kneeR', parent: 'hipR', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
 
-  // Ankles
   { id: 'ankleL', parent: 'kneeL', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
   { id: 'ankleR', parent: 'kneeR', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
 
-  // Toes
   { id: 'toesL', parent: 'ankleL', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
   { id: 'toesR', parent: 'ankleR', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
 
@@ -213,32 +209,27 @@ export const HUMAN_SKELETON_JOINTS = [
   // Spine Upper (between stomach and chest)
   { id: 'spineU', parent: 'spineL', position: { y: STOMACH_HEIGHT }, volume: volumes.get('chest') },
 
-  // Neck (Base)
+  // Base of neck
   { id: 'neck', parent: 'spineL', position: { y: CHEST_HEIGHT }, volume: volumes.get('neck') },
 
-  // Head (Upper Neck)
+  // Base of head
   { id: 'head', parent: 'neck', position: { y: NECK_HEIGHT }, volume: volumes.get('head') },
 
-  // Clavicles
   { id: 'clavicleL', parent: 'spineL', position: { x: CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
   { id: 'clavicleR', parent: 'spineL', position: { x: -CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
 
-  // Shouders
   { id: 'shoulderL', parent: 'clavicleL', position: { x: ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
   { id: 'shoulderR', parent: 'clavicleR', position: { x: -ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
 
-  // Elbows
   { id: 'elbowL', parent: 'shoulderL', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
   { id: 'elbowR', parent: 'shoulderR', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
 
-  // Wrists
   { id: 'wristL', parent: 'elbowL', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
   { id: 'wristR', parent: 'elbowR', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
 
   // Finger Joint Positions:
-  // [B]ase, [M]iddle, [T]ip
+  // 1 = Base, 2 = Middle, 3 = Tip
 
-  /* Thumbs */
   { id: 'thumbL1', parent: 'wristL', position: { x: THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
   { id: 'thumbL2', parent: 'thumbL1', position: { x: THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
   { id: 'thumbL3', parent: 'thumbL2', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
@@ -246,7 +237,6 @@ export const HUMAN_SKELETON_JOINTS = [
   { id: 'thumbR2', parent: 'thumbR1', position: { x: -THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
   { id: 'thumbR3', parent: 'thumbR2', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
 
-  /* Index */
   { id: 'indexL1', parent: 'wristL', position: { x: INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
   { id: 'indexL2', parent: 'indexL1', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
   { id: 'indexL3', parent: 'indexL2', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
@@ -254,7 +244,6 @@ export const HUMAN_SKELETON_JOINTS = [
   { id: 'indexR2', parent: 'indexR1', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
   { id: 'indexR3', parent: 'indexR2', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
 
-  /* Middle */
   { id: 'middleL1', parent: 'wristL', position: { x: MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
   { id: 'middleL2', parent: 'middleL1', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
   { id: 'middleL3', parent: 'middleL2', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
@@ -262,7 +251,6 @@ export const HUMAN_SKELETON_JOINTS = [
   { id: 'middleR2', parent: 'middleR1', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
   { id: 'middleR3', parent: 'middleR2', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
 
-  /* Ring */
   { id: 'ringL1', parent: 'wristL', position: { x: RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
   { id: 'ringL2', parent: 'ringL1', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
   { id: 'ringL3', parent: 'ringL2', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
@@ -270,7 +258,6 @@ export const HUMAN_SKELETON_JOINTS = [
   { id: 'ringR2', parent: 'ringR1', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
   { id: 'ringR3', parent: 'ringR2', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
 
-  /* Pinky */
   { id: 'pinkyL1', parent: 'wristL', position: { x: PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
   { id: 'pinkyL2', parent: 'pinkyL1', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
   { id: 'pinkyL3', parent: 'pinkyL2', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') },
