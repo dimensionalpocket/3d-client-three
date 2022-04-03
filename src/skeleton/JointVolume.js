@@ -11,7 +11,7 @@ export class JointVolume {
   /**
    * @param {JointVolumeData} [options]
    */
-  constructor ({ scale, translation, color } = {}) {
+  constructor ({ scale, position, color, outline, castShadows, receiveShadows } = {}) {
     /**
      * @type {Vector3}
      */
@@ -24,7 +24,7 @@ export class JointVolume {
     /**
      * @type {Vector3}
      */
-    this.translation = new Vector3(translation)
+    this.position = new Vector3(position)
 
     /**
      * Color of the rendered volume.
@@ -32,5 +32,22 @@ export class JointVolume {
      * @type {string}
      */
     this.color = color || 'white'
+
+    /**
+     * `true` if the rendered volume renders an outline.
+     *
+     * @type {boolean}
+     */
+    this.outline = (outline != null) ? outline : true
+
+    /**
+     * @type {boolean}
+     */
+    this.castShadows = (castShadows != null) ? castShadows : true
+
+    /**
+     * @type {boolean}
+     */
+    this.receiveShadows = (receiveShadows != null) ? receiveShadows : true
   }
 }

@@ -208,7 +208,7 @@ Sets the scene to render. If you have multiple scenes, you can use this command 
 
 Sets the target of a source (light or camera). This makes the source "look at" the object as it moves.
 
-Note: while a source has a target, source rotation is disabled. Pass `null` as the `targetId` to remove the target and re-enable camera rotation.
+Note: while a source has a target, source rotation is disabled. Pass `null` as the `targetId` to remove the target and re-enable rotation.
 
 ### :green_circle: `client.feed('aspect-ratio', number)`
 

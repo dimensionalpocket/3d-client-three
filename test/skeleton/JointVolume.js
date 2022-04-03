@@ -9,9 +9,9 @@ describe('JointVolume', function () {
     expect(vol.scale.x).to.eq(1)
     expect(vol.scale.y).to.eq(1)
     expect(vol.scale.z).to.eq(1)
-    expect(vol.translation.x).to.eq(0.0)
-    expect(vol.translation.y).to.eq(0.0)
-    expect(vol.translation.z).to.eq(0.0)
+    expect(vol.position.x).to.eq(0.0)
+    expect(vol.position.y).to.eq(0.0)
+    expect(vol.position.z).to.eq(0.0)
     expect(vol.color).to.eq('white')
   })
 
@@ -30,19 +30,19 @@ describe('JointVolume', function () {
     expect(vol.scale.z).to.eq(4)
   })
 
-  it('sets translation.x', function () {
-    var vol = new JointVolume({ translation: { x: 1 } })
-    expect(vol.translation.x).to.eq(1)
+  it('sets position.x', function () {
+    var vol = new JointVolume({ position: { x: 1 } })
+    expect(vol.position.x).to.eq(1)
   })
 
-  it('sets translation.y', function () {
-    var vol = new JointVolume({ translation: { y: 2 } })
-    expect(vol.translation.y).to.eq(2)
+  it('sets position.y', function () {
+    var vol = new JointVolume({ position: { y: 2 } })
+    expect(vol.position.y).to.eq(2)
   })
 
-  it('sets translation.z', function () {
-    var vol = new JointVolume({ translation: { z: 3 } })
-    expect(vol.translation.z).to.eq(3)
+  it('sets position.z', function () {
+    var vol = new JointVolume({ position: { z: 3 } })
+    expect(vol.position.z).to.eq(3)
   })
 
   it('sets color', function () {

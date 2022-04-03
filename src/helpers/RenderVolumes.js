@@ -58,23 +58,26 @@ export class RenderVolumes {
     var mesh = new Mesh(boxGeometry, material)
 
     mesh.scale.set(volume.scale.x, volume.scale.y, volume.scale.z)
-    mesh.position.set(volume.translation.x, volume.translation.y, volume.translation.z)
+    mesh.position.set(volume.position.x, volume.position.y, volume.position.z)
     mesh.name = bone.name + '-volume'
-    mesh.castShadow = true
-    mesh.receiveShadow = true
+    mesh.castShadow = volume.castShadows
+    mesh.receiveShadow = volume.receiveShadows
 
     bone.add(mesh)
 
-    // Outline
-    var outlineMesh = new Mesh(boxGeometry, outlineMaterial)
-    outlineMesh.scale.set(
-      volume.scale.x + (OUTLINE_SIZE * 2),
-      volume.scale.y + (OUTLINE_SIZE * 2),
-      volume.scale.z + (OUTLINE_SIZE * 2)
-    )
-    outlineMesh.position.set(volume.translation.x, volume.translation.y, volume.translation.z)
-    outlineMesh.name = bone.name + '-volume-outline'
-    bone.add(outlineMesh)
+    if (volume.outline) {
+      var outlineMesh = new Mesh(boxGeometry, outlineMaterial)
+      outlineMesh.scale.set(
+        volume.scale.x + (OUTLINE_SIZE * 2),
+        volume.scale.y + (OUTLINE_SIZE * 2),
+        volume.scale.z + (OUTLINE_SIZE * 2)
+      )
+      outlineMesh.position.set(volume.position.x, volume.position.y, volume.position.z)
+      outlineMesh.name = bone.name + '-volume-outline'
+      outlineMesh.castShadow = false
+      outlineMesh.receiveShadow = false
+      bone.add(outlineMesh)
+    }
 
     return true
   }
