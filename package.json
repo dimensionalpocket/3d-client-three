@@ -25,7 +25,7 @@
   "devDependencies": {
     "@dimensionalpocket/development": "github:dimensionalpocket/development-js#0.6.1",
     "@dimensionalpocket/release": "github:dimensionalpocket/release-js#0.2.4",
-    "@types/raf": "^3.4.0",
+    "@types/raf": "3.4.0",
     "@types/three": "0.138.0",
     "jsdom": "19.0.0"
   },
