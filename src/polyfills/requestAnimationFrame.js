@@ -5,7 +5,13 @@ function raf (/** @type {function} */ f) {
   setImmediate(() => f(Date.now()))
 }
 
-// @ts-ignore
-if (!global.requestAnimationFrame) global.requestAnimationFrame = raf
+/* global self */
+const root =
+  (typeof self === 'object' && self.self === self)
+    ? self
+    : (typeof global === 'object' && global.global === global)
+        ? global
+        : {}
 
-export default raf
+// @ts-ignore
+export default root.requestAnimationFrame || raf
