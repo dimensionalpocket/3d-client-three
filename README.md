@@ -95,7 +95,13 @@ client.feed('rendering', true)
 
 ## Options for `feed()`
 
-### `client.feed('add', type, data)`
+The circles represent current feature state:
+
+* :red_circle: Not implemented
+* :yellow_circle: Partially implemented
+* :green_circle: Fully implemented
+
+### :yellow_circle: `client.feed('add', type, data)`
 
 Adds an object to the client's memory.
 
@@ -121,39 +127,39 @@ IDs must be __unique__ among their collections:
 * E.g., two geometries should not have the same ID.
 * If object with the same ID already exists in a collection, it will be overwritten.
 
-### `client.feed('delete', type, id)`
+### :red_circle: `client.feed('delete', type, id)`
 
 Removes the object of the given ID from the client and disposes it from memory.
 
-### `client.feed('attach', childType, childId, parentType, parentId)`
+### :green_circle: `client.feed('attach', childType, childId, parentType, parentId)`
 
 Sets the object with `parentId` as the parent of the object with `childId`.
 
-### `client.feed('detach', childType, childId)`
+### :yellow_circle: `client.feed('detach', childType, childId)`
 
 Removes the parent of a child object.
 
-### `client.feed('show', type, id, visible)`
+### :red_circle: `client.feed('show', type, id, visible)`
 
 Sets the visibility of an object, `visible` being `true` or `false`. Default is `true`.
 
 Setting the visibility of an object also affects its children.
 
-### `client.feed('pose', poseId, skeletonId)`
+### :yellow_circle: `client.feed('pose', poseId, skeletonId)`
 
 Applies a pose to a skeleton.
 
-### `client.feed('animate', animationId, skeletonId)`
+### :red_circle: `client.feed('animate', animationId, skeletonId)`
 
 Applies an animation to a skeleton.
 
 If `animationId` is null and the skeleton has a paused animation, resumes it.
 
-### `client.feed('pause', skeletonId)`
+### :red_circle: `client.feed('pause', skeletonId)`
 
 Pauses the current animation of a skeleton.
 
-### `client.feed('position', type, id, x, y, z)`
+### :green_circle: `client.feed('position', type, id, x, y, z)`
 
 Positions an object at the given coordinates.
 
@@ -161,7 +167,7 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 If object has a parent, positioning will be relative to parent.
 
-### `client.feed('rotate', type, id, x, y, z)`
+### :green_circle: `client.feed('rotate', type, id, x, y, z)`
 
 Rotates an object in Euler angles.
 
@@ -169,17 +175,17 @@ Values are in radians. Passing `null` as a value will keep the current value for
 
 If object has a parent, rotation will be relative to parent.
 
-### `client.feed('rotation-order', type, id, order)`
+### :green_circle: `client.feed('rotation-order', type, id, order)`
 
 Sets the Euler rotation order of an object.
 
-### `client.feed('quaternion', type, id, x, y, z, w)`
+### :red_circle: `client.feed('quaternion', type, id, x, y, z, w)`
 
 Rotates an object using Quaternions.
 
 All values are __required__.
 
-### `client.feed('scale', type, id, x, y, z)`
+### :yellow_circle: `client.feed('scale', type, id, x, y, z)`
 
 Scales an object up or down.
 
@@ -189,39 +195,39 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 If the object has children, all of them will be scaled together.
 
-### `client.feed('camera', cameraId)`
+### :green_circle: `client.feed('camera', cameraId)`
 
 Sets the current camera. If you have multiple cameras, you can use this command to switch between them.
 
-### `client.feed('scene', sceneId)`
+### :green_circle: `client.feed('scene', sceneId)`
 
 Sets the scene to render. If you have multiple scenes, you can use this command to switch between them.
 
-### `client.feed('target', sourceType, sourceId, targetType, targetId)`
+### :red_circle: `client.feed('target', sourceType, sourceId, targetType, targetId)`
 
 Sets the target of a source (light or camera). This makes the source "look at" the object as it moves.
 
 Note: while a source has a target, source rotation is disabled. Pass `null` as the `targetId` to remove the target and re-enable camera rotation.
 
-### `client.feed('aspect-ratio', number)`
+### :green_circle: `client.feed('aspect-ratio', number)`
 
 Sets the renderer's aspect ratio in width/height format (e.g., the number result of `16/9`). Default is `1` (square).
 
 This setting also affects cameras.
 
-### `client.feed('fill-container')`
+### :green_circle: `client.feed('fill-container')`
 
 Resizes the `<canvas>` element to fill its container (if any), keeping its aspect ratio.
 
 This message can be sent to the client whenever the container changes sizes.
 
-### `client.feed('rendering', boolean)`
+### :green_circle: `client.feed('rendering', boolean)`
 
 Tells the client to start rendering the current scene in a loop.
 
 Pass `false` to stop rendering.
 
-### `client.feed('render')`
+### :yellow_circle: `client.feed('render')`
 
 Renders a single frame once.
 
