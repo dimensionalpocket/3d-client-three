@@ -56,8 +56,8 @@ export class Pose {
     }
 
     if (this.clear) {
-      // TODO: see if this really works >.>
-      skeleton.pose()
+      // skeleton.pose() does not work
+      // skeleton.pose()
     }
 
     for (var transform of this.transforms) {

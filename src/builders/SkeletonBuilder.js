@@ -42,7 +42,7 @@ export class SkeletonBuilder {
           throw new Error('SkeletonBuilder: one of the joints refer to a parent joint that does not exist in the definition')
         }
 
-        bone.parent = parentBone
+        parentBone.add(bone)
       }
 
       bones.push(bone)

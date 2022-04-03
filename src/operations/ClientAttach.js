@@ -30,7 +30,12 @@ export class ClientAttach {
       throw new Error(`ClientAttach: parent (${parentId}) not found in client`)
     }
 
-    child.parent = parent
+    if (childType === 'skeleton') {
+      // Skeleton is not an Object3D, we need to add the root bone.
+      parent.add(child.bones[0])
+    } else {
+      parent.add(child)
+    }
 
     return true
   }

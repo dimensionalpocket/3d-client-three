@@ -25,7 +25,7 @@ The following features are out of scope for this project as they're not related 
 * Store, display, and manipulate HTML code
 * Manage controller input
 * Manage networking
-* Manage game logic
+* Manage business logic
 
 ## Message System
 
@@ -48,7 +48,7 @@ client.feed('add', 'scene', { id: 'test-scene' })
 // Add a white floor.
 client.feed('add', 'geometry' , { id: 'plane', ... })
 client.feed('add', 'material', { id: 'grey', ... })
-client.feed('add', 'mesh', { id: 'floor', g: 'plane', m: 'grey' })
+client.feed('add', 'mesh', { id: 'floor', geometry: 'plane', material: 'grey' })
 
 // Add a camera.
 client.feed('add', 'camera', { id: 'main-camera', ... })
@@ -59,12 +59,9 @@ client.feed('attach', 'camera', 'main-camera', 'mesh' 'floor')
 // Position the camera back, then up.
 client.feed('position', 'camera', 'main-camera', null, 5, -5)
 
-// Set the camera to use for rendering.
-client.feed('camera', 'main-camera')
-
-// Add a dim white light source.
+// Add a dim white light source and attach it to the scene.
 client.feed('add', 'light', { id: 'ambient-light', type: 'ambient', color: 'silver', ... })
-client.feed('attach', 'light', 'ambient-light', 'mesh', 'floor')
+client.feed('attach', 'light', 'ambient-light', 'scene', 'test-scene')
 
 // Add a skeleton definition.
 client.feed('add', 'skeleton-definition', { id: 'human', ... })
@@ -89,75 +86,81 @@ client.feed('attach', 'mesh', 'floor', 'scene', 'test-scene')
 // Set the active scene.
 client.feed('scene', 'test-scene')
 
+// Set the camera to use for rendering.
+client.feed('camera', 'main-camera')
+
 // Begin rendering.
-client.rendering = true
+client.feed('rendering', true)
 ```
-
-## Properties
-
-* __`client.rendering`__ - set to `true` to start rendering. Defaults to `false`.
 
 ## Options for `feed()`
 
-### `client.feed('add', type, data)`
+The circles represent feature state:
 
-Adds an object to memory.
+* :red_circle: Not implemented
+* :yellow_circle: Partially implemented
+* :green_circle: Fully implemented
+* :purple_circle: Fully tested
+
+### :yellow_circle: `client.feed('add', type, data)`
+
+Adds an object to the client's memory.
 
 `type` can be one of the following:
 
-* `"scene"`,
-* `"point"` (a point in 3D space),
-* `"geometry"`, 
-* `"material"`,
-* `"mesh"`,
-* `"light"`,
-* `"camera"`,
-* `"pose"`,
-* `"animation"`,
-* `"sound"`,
-* `"skeleton-definition"`, and
-* `"skeleton"`.
+* :green_circle: `"scene"`,
+* :green_circle: `"point"` (a point in 3D space),
+* :red_circle: `"geometry"`, 
+* :red_circle: `"material"`,
+* :red_circle: `"mesh"`,
+* :green_circle: `"light"`,
+* :yellow_circle: `"camera"`,
+* :green_circle: `"pose"`,
+* :red_circle: `"animation"`,
+* :red_circle: `"sound"`,
+* :green_circle: `"skeleton-definition"`, and
+* :green_circle: `"skeleton"`.
 
 The `data` object __must__ have an `id` property, otherwise it will be ignored. 
 
-IDs must be __globally unique__ among their collections:
+IDs must be __unique__ among their collections:
 
 * E.g., two geometries should not have the same ID.
 * If object with the same ID already exists in a collection, it will be overwritten.
 
-### `client.feed('delete', type, id)`
+### :red_circle: `client.feed('delete', type, id)`
 
 Removes the object of the given ID from the client and disposes it from memory.
 
-### `client.feed('attach', childType, childId, parentType, parentId)`
+### :green_circle: `client.feed('attach', childType, childId, parentType, parentId)`
 
 Sets the object with `parentId` as the parent of the object with `childId`.
 
-### `client.feed('detach', childType, childId)`
+### :yellow_circle: `client.feed('detach', childType, childId)`
 
-Removes a child object from its parent.
+Removes the parent of a child object.
 
-### `client.feed('show', type, id, visible)`
+### :red_circle: `client.feed('show', type, id, visible)`
 
 Sets the visibility of an object, `visible` being `true` or `false`. Default is `true`.
 
 Setting the visibility of an object also affects its children.
 
-### `client.feed('pose', poseId, skeletonId)`
+### :yellow_circle: `client.feed('pose', poseId, skeletonId)`
 
 Applies a pose to a skeleton.
 
-### `client.feed('animate', animationId, skeletonId)`
+### :red_circle: `client.feed('animate', animationId, skeletonId)`
 
 Applies an animation to a skeleton.
 
 If `animationId` is null and the skeleton has a paused animation, resumes it.
 
-### `client.feed('pause', skeletonId)`
+### :red_circle: `client.feed('pause', skeletonId)`
 
 Pauses the current animation of a skeleton.
 
-### `client.feed('position', type, id, x, y, z)`
+### :green_circle: `client.feed('position', type, id, x, y, z)`
 
 Positions an object at the given coordinates.
 
@@ -165,7 +168,7 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 If object has a parent, positioning will be relative to parent.
 
-### `client.feed('rotate', type, id, x, y, z)`
+### :green_circle: `client.feed('rotate', type, id, x, y, z)`
 
 Rotates an object in Euler angles.
 
@@ -173,17 +176,17 @@ Values are in radians. Passing `null` as a value will keep the current value for
 
 If object has a parent, rotation will be relative to parent.
 
-### `client.feed('rotation-order', type, id, order)`
+### :green_circle: `client.feed('rotation-order', type, id, order)`
 
 Sets the Euler rotation order of an object.
 
-### `client.feed('quaternion', type, id, x, y, z, w)`
+### :red_circle: `client.feed('quaternion', type, id, x, y, z, w)`
 
 Rotates an object using Quaternions.
 
 All values are __required__.
 
-### `client.feed('scale', type, id, x, y, z)`
+### :yellow_circle: `client.feed('scale', type, id, x, y, z)`
 
 Scales an object up or down.
 
@@ -193,19 +196,55 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 If the object has children, all of them will be scaled together.
 
-### `client.feed('camera', cameraId)`
+### :green_circle: `client.feed('camera', cameraId)`
 
-Sets the current camera. If you add multiple cameras, you can use this command to switch between them.
+Sets the current camera. If you have multiple cameras, you can use this command to switch between them.
 
-### `client.feed('scene', sceneId)`
+### :green_circle: `client.feed('scene', sceneId)`
 
-Sets the scene to render.
+Sets the scene to render. If you have multiple scenes, you can use this command to switch between them.
 
-### `client.feed('look', cameraId, targetType, targetId)`
+### :red_circle: `client.feed('target', sourceType, sourceId, targetType, targetId)`
 
-Sets a camera target onto the given object. This makes the camera "look at" the object as it moves.
+Sets the target of a source (light or camera). This makes the source "look at" the object as it moves.
 
-Note: while a camera has a target, camera rotation is disabled. Pass `null` as the objectId to remove the target and re-enable camera rotation.
+Note: while a source has a target, source rotation is disabled. Pass `null` as the `targetId` to remove the target and re-enable rotation.
+
+### :green_circle: `client.feed('aspect-ratio', number)`
+
+Sets the renderer's aspect ratio in width/height format (e.g., the number result of `16/9`). Default is `1` (square).
+
+This setting also affects cameras.
+
+### :green_circle: `client.feed('fill-container')`
+
+Resizes the `<canvas>` element to fill its container (if any), keeping its aspect ratio.
+
+This message can be sent to the client whenever the container changes sizes.
+
+### :green_circle: `client.feed('rendering', boolean)`
+
+Tells the client to start rendering the current scene in a loop.
+
+Pass `false` to stop rendering.
+
+### :yellow_circle: `client.feed('render')`
+
+Renders a single frame once.
+
+This command has no effect if the client is currently `rendering`.
+
+### :green_circle: `client.feed('helper', helperName, a1, a2, a3, a4, a5)`
+
+Runs a helper operation. The following helpers are available:
+
+* :green_circle: `RenderVolumes (a1 = skeletonId, a2 = showSkeletonHelper)`
+  * Renders the volumes at each joint, when volumes are set.
+  * If `showSkeletonHelper` is `true`, also renders a `SkeletonHelper` from THREE to help visualize bones.
+* :green_circle: `SetVolumeColor (a1 = skeletonId, a2 = jointId, a3 = color)`
+  * Colorizes a volume of a skeleton.
+  * Should only be used after volumes are rendered.
+  * Pass `"*"` to `jointId` to colorize all volumes at once.
 
 ## WIP
 

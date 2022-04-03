@@ -17,7 +17,7 @@
 //   throw new Error('human.js included outside tests')
 // }
 
-// DIMENSIONS
+// DIMENSIONS (in meters)
 
 // Directions reference, from character POV:
 // - left +x, right -x
@@ -28,62 +28,65 @@ const ONE_HEAD = EIGHT_HEADS / 8
 
 // Main blocks
 
-const HEAD_HEIGHT = ONE_HEAD * 1.08
-const HEAD_WIDTH = ONE_HEAD * 0.8
+const HEAD_HEIGHT = 0.24 // ONE_HEAD * 1.08 // 0.243
+const HEAD_WIDTH = ONE_HEAD * 0.9
 const HEAD_DEPTH = ONE_HEAD * 0.8
 
-const NECK_HEIGHT = ONE_HEAD / 2
+const NECK_HEIGHT = 0.107 // ONE_HEAD / 2 // 0.1125
 const NECK_WIDTH = 0.12
 const NECK_DEPTH = 0.10
 
-const CHEST_HEIGHT = ONE_HEAD / 1
+const CHEST_HEIGHT = 0.231 // ONE_HEAD / 1 // 0.225
 const CHEST_WIDTH = ONE_HEAD * 1.6
 const CHEST_DEPTH = ONE_HEAD * 0.6
 
-const ABDOMEN_HEIGHT = ONE_HEAD / 2
-const ABDOMEN_WIDTH = ONE_HEAD * 0.8
+const STOMACH_HEIGHT = 0.12
+const STOMACH_WIDTH = ONE_HEAD * 1.2
+
+const ABDOMEN_HEIGHT = 0.12 // ONE_HEAD / 1.5 // 0.150
+const ABDOMEN_WIDTH = ONE_HEAD * 1.1
 const ABDOMEN_DEPTH = CHEST_DEPTH * 0.8
 
-const WAIST_HEIGHT = ONE_HEAD / 2
+const WAIST_HEIGHT = 0.068 // ONE_HEAD / 4 // 0.056
 const WAIST_WIDTH = ONE_HEAD * 1.4
 const WAIST_DEPTH = ONE_HEAD * 0.5
 
 // Arms
 
-const SHOULDER_DEPTH = CHEST_DEPTH * 0.8
-const SHOULDER_HEIGHT = CHEST_HEIGHT / 2
-const SHOULDER_WIDTH = SHOULDER_DEPTH
-const SHOULDER_OFFSET_X = CHEST_WIDTH / 2
-const SHOULDER_OFFSET_Y = CHEST_HEIGHT - (SHOULDER_HEIGHT / 2)
+const SHOULDER_HEIGHT = CHEST_HEIGHT / 2.5
+const SHOULDER_DEPTH = CHEST_DEPTH
+const SHOULDER_WIDTH = CHEST_WIDTH / 3.5
+const CLAVICLE_OFFSET_X = (CHEST_WIDTH / 3)
+const CLAVICLE_OFFSET_Y = CHEST_HEIGHT - (SHOULDER_HEIGHT / 2)
 
-const ARM_UPPER_HEIGHT = ONE_HEAD * 0.8
-const ARM_UPPER_WIDTH = SHOULDER_WIDTH * 0.9
-const ARM_UPPER_DEPTH = SHOULDER_DEPTH * 0.9
-const ARM_UPPER_OFFSET_X = SHOULDER_WIDTH / 2
-const ARM_UPPER_OFFSET_Y = SHOULDER_HEIGHT / 2
+const ARM_UPPER_HEIGHT = ONE_HEAD * 1.2
+const ARM_UPPER_WIDTH = SHOULDER_WIDTH * 0.8
+const ARM_UPPER_DEPTH = SHOULDER_DEPTH * 0.8
+const ARM_UPPER_OFFSET_X = SHOULDER_WIDTH
+// const ARM_UPPER_OFFSET_Y = SHOULDER_HEIGHT / 2
 
-const ARM_LOWER_HEIGHT = ARM_UPPER_HEIGHT + (SHOULDER_HEIGHT * 0.5)
+const ARM_LOWER_HEIGHT = ARM_UPPER_HEIGHT
 const ARM_LOWER_WIDTH = ARM_UPPER_WIDTH
 const ARM_LOWER_DEPTH = ARM_UPPER_DEPTH
 
 // Legs
 
-const LEG_UPPER_HEIGHT = ONE_HEAD * 2 // till bottom of knee
+const LEG_UPPER_HEIGHT = 0.5 // ONE_HEAD * 2.1 // 0.472 till bottom of knee
 const LEG_UPPER_WIDTH = ONE_HEAD / 1.8
-const LEG_UPPER_DEPTH = WAIST_DEPTH
+const LEG_UPPER_DEPTH = WAIST_DEPTH * 1.1
 
-const LEG_LOWER_HEIGHT = LEG_UPPER_HEIGHT
+const LEG_LOWER_HEIGHT = 0.45 // LEG_UPPER_HEIGHT * 0.8 // 0.377
 const LEG_LOWER_WIDTH = LEG_UPPER_WIDTH
 const LEG_LOWER_DEPTH = LEG_UPPER_DEPTH
 
 const LEG_OFFSET = ONE_HEAD / 2.5
 
-const FOOT_HEIGHT = ONE_HEAD / 2
+const FOOT_HEIGHT = 0.11 // ONE_HEAD / 2 // 0.112
 const FOOT_WIDTH = ONE_HEAD / 1.5
 const FOOT_DEPTH = ONE_HEAD / 1.5
 
 const TOES_HEIGHT = FOOT_HEIGHT / 2.5
-const TOES_WIDTH = FOOT_WIDTH * 0.8
+const TOES_WIDTH = FOOT_WIDTH * 1
 const TOES_DEPTH = FOOT_DEPTH / 1.2
 
 // Hands
@@ -91,7 +94,7 @@ const TOES_DEPTH = FOOT_DEPTH / 1.2
 const HAND_SCALE = 1
 
 const PALM_HEIGHT = (ONE_HEAD / 1.8) * HAND_SCALE
-const PALM_WIDTH = ARM_LOWER_WIDTH * 1.2 * HAND_SCALE
+const PALM_WIDTH = SHOULDER_WIDTH * HAND_SCALE
 const PALM_DEPTH = ARM_LOWER_DEPTH * 0.3 * HAND_SCALE
 
 const FINGER_BASE_HEIGHT = PALM_HEIGHT * 0.35
@@ -145,130 +148,132 @@ const PINKY_TIP_HEIGHT = FINGER_TIP_HEIGHT * PINKY_HEIGHT_SCALE
 /** @type {Map<string,JointVolumeData>} */
 const volumes = new Map()
 
-volumes.set('root', { scale: { x: 0.01, y: 0.01, z: 0.5 }, translation: { y: 0.0049 }, color: 'red' })
-volumes.set('head', { scale: { x: HEAD_WIDTH, y: HEAD_HEIGHT, z: HEAD_DEPTH }, translation: { y: HEAD_HEIGHT / 2 }, color: 'magenta' })
-volumes.set('neck', { scale: { x: NECK_WIDTH, y: NECK_HEIGHT, z: NECK_DEPTH }, translation: { y: NECK_HEIGHT / 2 }, color: 'cyan' })
-volumes.set('chest', { scale: { x: CHEST_WIDTH, y: CHEST_HEIGHT, z: CHEST_DEPTH }, translation: { y: CHEST_HEIGHT / 2 }, color: 'magenta' })
-volumes.set('abs', { scale: { x: ABDOMEN_WIDTH, y: ABDOMEN_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: ABDOMEN_HEIGHT / 2 }, color: 'cyan' })
-volumes.set('waist', { scale: { x: WAIST_WIDTH, y: WAIST_HEIGHT, z: WAIST_DEPTH }, translation: { y: -WAIST_HEIGHT / 2 }, color: 'lime' })
-volumes.set('upperLeg', { scale: { x: LEG_UPPER_WIDTH, y: LEG_UPPER_HEIGHT, z: LEG_UPPER_DEPTH }, translation: { y: -LEG_UPPER_HEIGHT / 2 }, color: 'red' })
-volumes.set('lowerLeg', { scale: { x: LEG_LOWER_WIDTH, y: LEG_LOWER_HEIGHT, z: LEG_LOWER_DEPTH }, translation: { y: -LEG_LOWER_HEIGHT / 2 }, color: 'cyan' })
-volumes.set('foot', { scale: { x: FOOT_WIDTH, y: FOOT_HEIGHT, z: FOOT_DEPTH }, translation: { y: -FOOT_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('toes', { scale: { x: TOES_WIDTH, y: TOES_HEIGHT, z: TOES_DEPTH }, translation: { y: TOES_HEIGHT / 2, z: TOES_DEPTH / 2 }, color: 'yellow' })
-volumes.set('upperArm', { scale: { x: ARM_UPPER_WIDTH, y: ARM_UPPER_HEIGHT, z: ARM_UPPER_DEPTH }, translation: { y: -ARM_UPPER_HEIGHT / 2 }, color: 'red' })
-volumes.set('lowerArm', { scale: { x: ARM_LOWER_WIDTH, y: ARM_LOWER_HEIGHT, z: ARM_LOWER_DEPTH }, translation: { y: -ARM_LOWER_HEIGHT / 2 }, color: 'cyan' })
-volumes.set('palm', { scale: { x: PALM_WIDTH, y: PALM_HEIGHT, z: PALM_DEPTH }, translation: { y: -PALM_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('thumbBase', { scale: { x: THUMB_WIDTH, y: THUMB_BASE_HEIGHT, z: THUMB_DEPTH }, translation: { y: -THUMB_BASE_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('thumbMid', { scale: { x: THUMB_WIDTH, y: THUMB_MID_HEIGHT, z: THUMB_DEPTH }, translation: { y: -THUMB_MID_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('thumbTip', { scale: { x: THUMB_WIDTH, y: THUMB_TIP_HEIGHT, z: THUMB_DEPTH }, translation: { y: -THUMB_TIP_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('indexBase', { scale: { x: INDEX_WIDTH, y: INDEX_BASE_HEIGHT, z: INDEX_DEPTH }, translation: { y: -INDEX_BASE_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('indexMid', { scale: { x: INDEX_WIDTH, y: INDEX_MID_HEIGHT, z: INDEX_DEPTH }, translation: { y: -INDEX_MID_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('indexTip', { scale: { x: INDEX_WIDTH, y: INDEX_TIP_HEIGHT, z: INDEX_DEPTH }, translation: { y: -INDEX_TIP_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('middleBase', { scale: { x: MIDDLE_WIDTH, y: MIDDLE_BASE_HEIGHT, z: MIDDLE_DEPTH }, translation: { y: -MIDDLE_BASE_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('middleMid', { scale: { x: MIDDLE_WIDTH, y: MIDDLE_MID_HEIGHT, z: MIDDLE_DEPTH }, translation: { y: -MIDDLE_MID_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('middleTip', { scale: { x: MIDDLE_WIDTH, y: MIDDLE_TIP_HEIGHT, z: MIDDLE_DEPTH }, translation: { y: -MIDDLE_TIP_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('ringBase', { scale: { x: RING_WIDTH, y: RING_BASE_HEIGHT, z: RING_DEPTH }, translation: { y: -RING_BASE_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('ringMid', { scale: { x: RING_WIDTH, y: RING_MID_HEIGHT, z: RING_DEPTH }, translation: { y: -RING_MID_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('ringTip', { scale: { x: RING_WIDTH, y: RING_TIP_HEIGHT, z: RING_DEPTH }, translation: { y: -RING_TIP_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('pinkyBase', { scale: { x: PINKY_WIDTH, y: PINKY_BASE_HEIGHT, z: PINKY_DEPTH }, translation: { y: -PINKY_BASE_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('pinkyMid', { scale: { x: PINKY_WIDTH, y: PINKY_MID_HEIGHT, z: PINKY_DEPTH }, translation: { y: -PINKY_MID_HEIGHT / 2 }, color: 'yellow' })
-volumes.set('pinkyTip', { scale: { x: PINKY_WIDTH, y: PINKY_TIP_HEIGHT, z: PINKY_DEPTH }, translation: { y: -PINKY_TIP_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('root', { scale: { x: 1.5, y: 0.001, z: 1.5 }, position: { y: -0.001 / 2 }, color: 'silver', outline: false, castShadows: false, receiveShadows: true })
+volumes.set('head', { scale: { x: HEAD_WIDTH, y: HEAD_HEIGHT, z: HEAD_DEPTH }, position: { y: HEAD_HEIGHT / 2, z: 0.02 }, color: 'magenta' })
+volumes.set('neck', { scale: { x: NECK_WIDTH, y: NECK_HEIGHT, z: NECK_DEPTH }, position: { y: NECK_HEIGHT / 2 }, color: 'cyan' })
+volumes.set('shoulderL', { scale: { x: SHOULDER_WIDTH, y: SHOULDER_HEIGHT, z: SHOULDER_DEPTH }, position: { x: SHOULDER_WIDTH }, color: 'cyan' })
+volumes.set('shoulderR', { scale: { x: SHOULDER_WIDTH, y: SHOULDER_HEIGHT, z: SHOULDER_DEPTH }, position: { x: -SHOULDER_WIDTH }, color: 'cyan' })
+volumes.set('chest', { scale: { x: CHEST_WIDTH, y: CHEST_HEIGHT, z: CHEST_DEPTH }, position: { y: CHEST_HEIGHT / 2 }, color: 'magenta' })
+volumes.set('stomach', { scale: { x: STOMACH_WIDTH, y: STOMACH_HEIGHT, z: ABDOMEN_DEPTH }, position: { y: STOMACH_HEIGHT / 2 }, color: 'cyan' })
+volumes.set('abs', { scale: { x: ABDOMEN_WIDTH, y: ABDOMEN_HEIGHT, z: ABDOMEN_DEPTH }, position: { y: ABDOMEN_HEIGHT / 2 }, color: 'cyan' })
+volumes.set('waist', { scale: { x: WAIST_WIDTH, y: WAIST_HEIGHT * 2, z: WAIST_DEPTH * 1.1 }, position: { y: -WAIST_HEIGHT }, color: 'lime' })
+volumes.set('upperLeg', { scale: { x: LEG_UPPER_WIDTH * 1.1, y: LEG_UPPER_HEIGHT, z: LEG_UPPER_DEPTH * 1.1 }, position: { y: -LEG_UPPER_HEIGHT / 2 }, color: 'red' })
+volumes.set('lowerLeg', { scale: { x: LEG_LOWER_WIDTH, y: LEG_LOWER_HEIGHT + FOOT_HEIGHT, z: LEG_LOWER_DEPTH }, position: { y: (-LEG_LOWER_HEIGHT / 2) - (FOOT_HEIGHT / 6) }, color: 'cyan' })
+volumes.set('foot', { scale: { x: TOES_WIDTH, y: TOES_HEIGHT, z: FOOT_DEPTH * 1.5 }, position: { y: -FOOT_HEIGHT + (TOES_HEIGHT / 2), z: FOOT_DEPTH / 5 }, color: 'yellow' })
+volumes.set('toes', { scale: { x: TOES_WIDTH, y: TOES_HEIGHT, z: TOES_DEPTH }, position: { y: TOES_HEIGHT / 2, z: TOES_DEPTH / 2 }, color: 'yellow' })
+volumes.set('upperArm', { scale: { x: ARM_UPPER_WIDTH * 0.95, y: ARM_UPPER_HEIGHT, z: ARM_UPPER_DEPTH }, position: { y: -ARM_UPPER_HEIGHT / 2 }, color: 'red' })
+volumes.set('lowerArm', { scale: { x: ARM_LOWER_WIDTH, y: ARM_LOWER_HEIGHT, z: ARM_LOWER_DEPTH * 0.95 }, position: { y: -ARM_LOWER_HEIGHT / 2 }, color: 'cyan' })
+volumes.set('palm', { scale: { x: PALM_WIDTH, y: PALM_HEIGHT, z: PALM_DEPTH }, position: { y: -PALM_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('thumbBase', { scale: { x: THUMB_WIDTH, y: THUMB_BASE_HEIGHT, z: THUMB_DEPTH }, position: { y: -THUMB_BASE_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('thumbMid', { scale: { x: THUMB_WIDTH, y: THUMB_MID_HEIGHT, z: THUMB_DEPTH }, position: { y: -THUMB_MID_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('thumbTip', { scale: { x: THUMB_WIDTH, y: THUMB_TIP_HEIGHT, z: THUMB_DEPTH }, position: { y: -THUMB_TIP_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('indexBase', { scale: { x: INDEX_WIDTH, y: INDEX_BASE_HEIGHT, z: INDEX_DEPTH }, position: { y: -INDEX_BASE_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('indexMid', { scale: { x: INDEX_WIDTH, y: INDEX_MID_HEIGHT, z: INDEX_DEPTH }, position: { y: -INDEX_MID_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('indexTip', { scale: { x: INDEX_WIDTH, y: INDEX_TIP_HEIGHT, z: INDEX_DEPTH }, position: { y: -INDEX_TIP_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('middleBase', { scale: { x: MIDDLE_WIDTH, y: MIDDLE_BASE_HEIGHT, z: MIDDLE_DEPTH }, position: { y: -MIDDLE_BASE_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('middleMid', { scale: { x: MIDDLE_WIDTH, y: MIDDLE_MID_HEIGHT, z: MIDDLE_DEPTH }, position: { y: -MIDDLE_MID_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('middleTip', { scale: { x: MIDDLE_WIDTH, y: MIDDLE_TIP_HEIGHT, z: MIDDLE_DEPTH }, position: { y: -MIDDLE_TIP_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('ringBase', { scale: { x: RING_WIDTH, y: RING_BASE_HEIGHT, z: RING_DEPTH }, position: { y: -RING_BASE_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('ringMid', { scale: { x: RING_WIDTH, y: RING_MID_HEIGHT, z: RING_DEPTH }, position: { y: -RING_MID_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('ringTip', { scale: { x: RING_WIDTH, y: RING_TIP_HEIGHT, z: RING_DEPTH }, position: { y: -RING_TIP_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('pinkyBase', { scale: { x: PINKY_WIDTH, y: PINKY_BASE_HEIGHT, z: PINKY_DEPTH }, position: { y: -PINKY_BASE_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('pinkyMid', { scale: { x: PINKY_WIDTH, y: PINKY_MID_HEIGHT, z: PINKY_DEPTH }, position: { y: -PINKY_MID_HEIGHT / 2 }, color: 'yellow' })
+volumes.set('pinkyTip', { scale: { x: PINKY_WIDTH, y: PINKY_TIP_HEIGHT, z: PINKY_DEPTH }, position: { y: -PINKY_TIP_HEIGHT / 2 }, color: 'yellow' })
 
 /** @type {Array<JointDefinitionData>} */
 export const HUMAN_SKELETON_JOINTS = [
+  // Rotation Order:
+  // In most cases (when the bone is vertical), we want to rotate Y first.
+  // Exceptions will be noted when applicable.
+
   // The root joint is only used for positioning and rotation outside poses.
-  { id: '_', volume: volumes.get('root') },
+  { id: 'root', rotationOrder: 'XZY', volume: volumes.get('root') },
 
   // The center joint is used to rotate the entire body in a pose.
-  { id: 'Cn', parent: '_', position: { y: WAIST_HEIGHT + LEG_UPPER_HEIGHT + LEG_LOWER_HEIGHT + FOOT_HEIGHT } },
+  { id: 'rootC', rotationOrder: 'XZY', parent: 'root', position: { y: WAIST_HEIGHT + LEG_UPPER_HEIGHT + LEG_LOWER_HEIGHT + FOOT_HEIGHT } },
 
   // Upper and Lower bodies can be rotated independently.
-  { id: 'U', parent: 'Cn', volume: volumes.get('abs') },
-  { id: 'L', parent: 'Cn', volume: volumes.get('waist') },
+  { id: 'rootU', rotationOrder: 'XZY', parent: 'rootC', volume: volumes.get('abs') },
+  { id: 'rootL', rotationOrder: 'XZY', parent: 'rootC', volume: volumes.get('waist') },
 
-  // Hips
-  { id: 'lH', parent: 'L', position: { x: LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
-  { id: 'rH', parent: 'L', position: { x: -LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
+  // Rotation order of hip joints should rotate Y last.
+  // Y should be rotated relative to the full leg.
+  // It makes the final position of the feet more predictable.
+  { id: 'hipL', rotationOrder: 'YXZ', parent: 'rootL', position: { x: LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
+  { id: 'hipR', rotationOrder: 'YXZ', parent: 'rootL', position: { x: -LEG_OFFSET, y: -WAIST_HEIGHT }, volume: volumes.get('upperLeg') },
 
-  // Knees
-  { id: 'lKn', parent: 'lH', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
-  { id: 'rKn', parent: 'rH', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
+  { id: 'kneeL', rotationOrder: 'XYZ', parent: 'hipL', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
+  { id: 'kneeR', rotationOrder: 'XYZ', parent: 'hipR', position: { y: -LEG_UPPER_HEIGHT }, volume: volumes.get('lowerLeg') },
 
-  // Ankles
-  { id: 'lAn', parent: 'lKn', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
-  { id: 'rAn', parent: 'rKn', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
+  { id: 'ankleL', rotationOrder: 'XZY', parent: 'kneeL', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
+  { id: 'ankleR', rotationOrder: 'XZY', parent: 'kneeR', position: { y: -LEG_LOWER_HEIGHT }, volume: volumes.get('foot') },
 
-  // Toes
-  { id: 'lT', parent: 'lAn', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
-  { id: 'rT', parent: 'rAn', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
+  { id: 'toesL', rotationOrder: 'XYZ', parent: 'ankleL', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
+  { id: 'toesR', rotationOrder: 'XYZ', parent: 'ankleR', position: { y: -FOOT_HEIGHT, z: FOOT_DEPTH }, volume: volumes.get('toes') },
 
-  // Spine (Stomach)
-  { id: 'S', parent: 'U', position: { y: ABDOMEN_HEIGHT }, volume: volumes.get('chest') },
+  // Spine Lower (between abdomen and stomach)
+  { id: 'spineL', rotationOrder: 'XZY', parent: 'rootU', position: { y: ABDOMEN_HEIGHT }, volume: volumes.get('stomach') },
 
-  // Neck (Base)
-  { id: 'N', parent: 'S', position: { y: CHEST_HEIGHT }, volume: volumes.get('neck') },
+  // Spine Upper (between stomach and chest)
+  { id: 'spineU', rotationOrder: 'XZY', parent: 'spineL', position: { y: STOMACH_HEIGHT }, volume: volumes.get('chest') },
 
-  // Head (Upper Neck)
-  { id: 'H', parent: 'N', position: { y: NECK_HEIGHT }, volume: volumes.get('head') },
+  // Base of neck
+  { id: 'neck', rotationOrder: 'XZY', parent: 'spineU', position: { y: CHEST_HEIGHT }, volume: volumes.get('neck') },
 
-  // Clavicles
-  { id: 'lC', parent: 'S', position: { x: SHOULDER_OFFSET_X, y: SHOULDER_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down' },
-  { id: 'rC', parent: 'S', position: { x: -SHOULDER_OFFSET_X, y: SHOULDER_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down' },
+  // Base of head
+  { id: 'head', rotationOrder: 'XZY', parent: 'neck', position: { y: NECK_HEIGHT }, volume: volumes.get('head') },
 
-  // Shouders
-  { id: 'lS', parent: 'lC', position: { x: ARM_UPPER_OFFSET_X, y: -ARM_UPPER_OFFSET_Y }, volume: volumes.get('upperArm') },
-  { id: 'rS', parent: 'rC', position: { x: -ARM_UPPER_OFFSET_X, y: -ARM_UPPER_OFFSET_Y }, volume: volumes.get('upperArm') },
+  // This is a horizontal bone, so rotate X last.
+  { id: 'clavicleL', rotationOrder: 'XYZ', parent: 'spineU', position: { x: CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
+  { id: 'clavicleR', rotationOrder: 'XYZ', parent: 'spineU', position: { x: -CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
 
-  // Elbows
-  { id: 'lE', parent: 'lS', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
-  { id: 'rE', parent: 'rS', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
+  // Rotate Y last to make hand position predictable. Same as hip joints.
+  { id: 'shoulderL', rotationOrder: 'YXZ', parent: 'clavicleL', position: { x: ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
+  { id: 'shoulderR', rotationOrder: 'YXZ', parent: 'clavicleR', position: { x: -ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
 
-  // Wrists
-  { id: 'lW', parent: 'lE', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
-  { id: 'rW', parent: 'rE', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
+  { id: 'elbowL', rotationOrder: 'XZY', parent: 'shoulderL', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
+  { id: 'elbowR', rotationOrder: 'XZY', parent: 'shoulderR', position: { y: -ARM_UPPER_HEIGHT }, volume: volumes.get('lowerArm') },
+
+  { id: 'wristL', rotationOrder: 'XZY', parent: 'elbowL', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
+  { id: 'wristR', rotationOrder: 'XZY', parent: 'elbowR', position: { y: -ARM_LOWER_HEIGHT }, volume: volumes.get('palm') },
 
   // Finger Joint Positions:
-  // [B]ase, [M]iddle, [T]ip
+  // 1 = Base, 2 = Middle, 3 = Tip
 
-  /* Thumbs */
-  { id: 'lTB', parent: 'lW', position: { x: THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
-  { id: 'lTM', parent: 'lTB', position: { x: THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
-  { id: 'lTT', parent: 'lTM', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
-  { id: 'rTB', parent: 'rW', position: { x: -THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
-  { id: 'rTM', parent: 'rTB', position: { x: -THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
-  { id: 'rTT', parent: 'rTM', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
+  { id: 'thumbL1', rotationOrder: 'ZXY', parent: 'wristL', position: { x: THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
+  { id: 'thumbL2', rotationOrder: 'ZXY', parent: 'thumbL1', position: { x: THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
+  { id: 'thumbL3', rotationOrder: 'ZXY', parent: 'thumbL2', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
+  { id: 'thumbR1', rotationOrder: 'ZXY', parent: 'wristR', position: { x: -THUMB_OFFSET_X }, volume: volumes.get('thumbBase') },
+  { id: 'thumbR2', rotationOrder: 'ZXY', parent: 'thumbR1', position: { x: -THUMB_WIDTH / 2, y: -THUMB_BASE_HEIGHT }, volume: volumes.get('thumbMid') },
+  { id: 'thumbR3', rotationOrder: 'ZXY', parent: 'thumbR2', position: { y: -THUMB_MID_HEIGHT }, volume: volumes.get('thumbTip') },
 
-  /* Index */
-  { id: 'lIB', parent: 'lW', position: { x: INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
-  { id: 'lIM', parent: 'lIB', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
-  { id: 'lIT', parent: 'lIM', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
-  { id: 'rIB', parent: 'rW', position: { x: -INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
-  { id: 'rIM', parent: 'rIB', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
-  { id: 'rIT', parent: 'rIM', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
+  { id: 'indexL1', rotationOrder: 'ZXY', parent: 'wristL', position: { x: INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
+  { id: 'indexL2', rotationOrder: 'ZXY', parent: 'indexL1', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
+  { id: 'indexL3', rotationOrder: 'ZXY', parent: 'indexL2', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
+  { id: 'indexR1', rotationOrder: 'ZXY', parent: 'wristR', position: { x: -INDEX_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('indexBase') },
+  { id: 'indexR2', rotationOrder: 'ZXY', parent: 'indexR1', position: { y: -INDEX_BASE_HEIGHT }, volume: volumes.get('indexMid') },
+  { id: 'indexR3', rotationOrder: 'ZXY', parent: 'indexR2', position: { y: -INDEX_MID_HEIGHT }, volume: volumes.get('indexTip') },
 
-  /* Middle */
-  { id: 'lMB', parent: 'lW', position: { x: MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
-  { id: 'lMM', parent: 'lMB', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
-  { id: 'lMT', parent: 'lMM', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
-  { id: 'rMB', parent: 'rW', position: { x: -MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
-  { id: 'rMM', parent: 'rMB', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
-  { id: 'rMT', parent: 'rMM', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
+  { id: 'middleL1', rotationOrder: 'ZXY', parent: 'wristL', position: { x: MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
+  { id: 'middleL2', rotationOrder: 'ZXY', parent: 'middleL1', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
+  { id: 'middleL3', rotationOrder: 'ZXY', parent: 'middleL2', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
+  { id: 'middleR1', rotationOrder: 'ZXY', parent: 'wristR', position: { x: -MIDDLE_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('middleBase') },
+  { id: 'middleR2', rotationOrder: 'ZXY', parent: 'middleR1', position: { y: -MIDDLE_BASE_HEIGHT }, volume: volumes.get('middleMid') },
+  { id: 'middleR3', rotationOrder: 'ZXY', parent: 'middleR2', position: { y: -MIDDLE_MID_HEIGHT }, volume: volumes.get('middleTip') },
 
-  /* Ring */
-  { id: 'lRB', parent: 'lW', position: { x: RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
-  { id: 'lRM', parent: 'lRB', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
-  { id: 'lRT', parent: 'lRM', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
-  { id: 'rRB', parent: 'rW', position: { x: -RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
-  { id: 'rRM', parent: 'rRB', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
-  { id: 'rRT', parent: 'rRM', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
+  { id: 'ringL1', rotationOrder: 'ZXY', parent: 'wristL', position: { x: RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
+  { id: 'ringL2', rotationOrder: 'ZXY', parent: 'ringL1', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
+  { id: 'ringL3', rotationOrder: 'ZXY', parent: 'ringL2', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
+  { id: 'ringR1', rotationOrder: 'ZXY', parent: 'wristR', position: { x: -RING_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('ringBase') },
+  { id: 'ringR2', rotationOrder: 'ZXY', parent: 'ringR1', position: { y: -RING_BASE_HEIGHT }, volume: volumes.get('ringMid') },
+  { id: 'ringR3', rotationOrder: 'ZXY', parent: 'ringR2', position: { y: -RING_MID_HEIGHT }, volume: volumes.get('ringTip') },
 
-  /* Pinky */
-  { id: 'lPB', parent: 'lW', position: { x: PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
-  { id: 'lPM', parent: 'lPB', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
-  { id: 'lPT', parent: 'lPM', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') },
-  { id: 'rPB', parent: 'rW', position: { x: -PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
-  { id: 'rPM', parent: 'rPB', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
-  { id: 'rPT', parent: 'rPM', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') }
+  { id: 'pinkyL1', rotationOrder: 'ZXY', parent: 'wristL', position: { x: PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
+  { id: 'pinkyL2', rotationOrder: 'ZXY', parent: 'pinkyL1', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
+  { id: 'pinkyL3', rotationOrder: 'ZXY', parent: 'pinkyL2', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') },
+  { id: 'pinkyR1', rotationOrder: 'ZXY', parent: 'wristR', position: { x: -PINKY_OFFSET_X, y: -PALM_HEIGHT }, volume: volumes.get('pinkyBase') },
+  { id: 'pinkyR2', rotationOrder: 'ZXY', parent: 'pinkyR1', position: { y: -PINKY_BASE_HEIGHT }, volume: volumes.get('pinkyMid') },
+  { id: 'pinkyR3', rotationOrder: 'ZXY', parent: 'pinkyR2', position: { y: -PINKY_MID_HEIGHT }, volume: volumes.get('pinkyTip') }
 ]
 
 // fs.writeFileSync('./human.json', JSON.stringify(HUMAN_SKELETON_JOINTS, null, 2))

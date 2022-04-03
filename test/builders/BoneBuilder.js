@@ -1,8 +1,7 @@
 'use strict'
 
-import * as THREE from 'three'
-
 import { expect } from '@dimensionalpocket/development'
+import { Bone } from 'three'
 import { BoneBuilder } from '../../src/builders/BoneBuilder.js'
 import { JointDefinition } from '../../src/skeleton/JointDefinition.js'
 
@@ -18,7 +17,7 @@ describe('BoneBuilder', function () {
       })
 
       it('returns a THREE.Bone', function () {
-        expect(this.bone).to.be.an.instanceOf(THREE.Bone)
+        expect(this.bone).to.be.an.instanceOf(Bone)
       })
 
       it('includes the skeleton ID in the bone name', function () {

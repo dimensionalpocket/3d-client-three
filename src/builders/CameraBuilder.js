@@ -1,6 +1,6 @@
 'use strict'
 
-import * as THREE from 'three'
+import { PerspectiveCamera } from 'three'
 
 export class CameraBuilder {
   /**
@@ -25,7 +25,7 @@ export class CameraBuilder {
     var camera
 
     if (type === 'perspective') {
-      camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+      camera = new PerspectiveCamera(fov, aspect, near, far)
     } else {
       throw new Error(`CameraBuilder: invalid type ${type}`)
     }

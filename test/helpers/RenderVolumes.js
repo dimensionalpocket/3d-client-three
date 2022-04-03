@@ -23,16 +23,16 @@ describe('helpers/RenderVolumes', function () {
 
     this.skeleton = this.client.data.skeletons.get('test-skeleton')
 
-    this.kneeBone = this.skeleton.getBoneByName('test-skeleton-lKn')
+    this.kneeBone = this.skeleton.getBoneByName('test-skeleton-kneeL')
     this.kneeVolumeMesh = this.kneeBone.children.find((/** @type {THREE.Bone} */ b) => b.name === this.kneeBone.name + '-volume')
-    this.kneeVolume = this.skeleton.definition.getJointDefinition('lKn').volume
+    this.kneeVolume = this.skeleton.definition.getJointDefinition('kneeL').volume
   })
 
   it('attaches volume meshes to joints', function () {
     expect(this.kneeVolumeMesh).to.exist
-    expect(this.kneeVolumeMesh.position.x).to.eq(this.kneeVolume.translation.x)
-    expect(this.kneeVolumeMesh.position.y).to.eq(this.kneeVolume.translation.y)
-    expect(this.kneeVolumeMesh.position.z).to.eq(this.kneeVolume.translation.z)
+    expect(this.kneeVolumeMesh.position.x).to.eq(this.kneeVolume.position.x)
+    expect(this.kneeVolumeMesh.position.y).to.eq(this.kneeVolume.position.y)
+    expect(this.kneeVolumeMesh.position.z).to.eq(this.kneeVolume.position.z)
     expect(this.kneeVolumeMesh.scale.x).to.eq(this.kneeVolume.scale.x)
     expect(this.kneeVolumeMesh.scale.y).to.eq(this.kneeVolume.scale.y)
     expect(this.kneeVolumeMesh.scale.z).to.eq(this.kneeVolume.scale.z)

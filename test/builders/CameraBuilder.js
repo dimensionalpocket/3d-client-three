@@ -1,8 +1,7 @@
 'use strict'
 
-import * as THREE from 'three'
-
 import { expect } from '@dimensionalpocket/development'
+import { Camera, PerspectiveCamera } from 'three'
 import { CameraBuilder } from '../../src/builders/CameraBuilder.js'
 
 describe('CameraBuilder', function () {
@@ -16,7 +15,7 @@ describe('CameraBuilder', function () {
       })
 
       it('returns a THREE.Camera', function () {
-        expect(this.camera).to.be.an.instanceOf(THREE.Camera)
+        expect(this.camera).to.be.an.instanceOf(Camera)
       })
 
       it('sets the camera name', function () {
@@ -24,7 +23,7 @@ describe('CameraBuilder', function () {
       })
 
       it('returns a perspective camera', function () {
-        expect(this.camera).to.be.an.instanceOf(THREE.PerspectiveCamera)
+        expect(this.camera).to.be.an.instanceOf(PerspectiveCamera)
       })
 
       it('sets default field of view', function () {

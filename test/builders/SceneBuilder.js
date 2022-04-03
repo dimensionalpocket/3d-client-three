@@ -1,8 +1,7 @@
 'use strict'
 
-import * as THREE from 'three'
-
 import { expect } from '@dimensionalpocket/development'
+import { Scene } from 'three'
 import { SceneBuilder } from '../../src/builders/SceneBuilder.js'
 
 describe('SceneBuilder', function () {
@@ -16,7 +15,7 @@ describe('SceneBuilder', function () {
       })
 
       it('returns a THREE.Scene', function () {
-        expect(this.scene).to.be.an.instanceOf(THREE.Scene)
+        expect(this.scene).to.be.an.instanceOf(Scene)
       })
 
       it('sets the scene name', function () {

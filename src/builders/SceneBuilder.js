@@ -1,6 +1,6 @@
 'use strict'
 
-import * as THREE from 'three'
+import { Scene, Color } from 'three'
 
 export class SceneBuilder {
   /**
@@ -16,9 +16,13 @@ export class SceneBuilder {
       throw new Error('SceneBuilder: ID is required')
     }
 
-    var scene = new THREE.Scene()
+    var scene = new Scene()
 
     scene.name = '' + id
+
+    if (options?.bgcolor) {
+      scene.background = new Color(options.bgcolor)
+    }
 
     return scene
   }

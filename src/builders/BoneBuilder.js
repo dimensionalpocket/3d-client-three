@@ -1,6 +1,6 @@
 'use strict'
 
-import * as THREE from 'three'
+import { Bone } from 'three'
 
 export class BoneBuilder {
   /**
@@ -19,7 +19,7 @@ export class BoneBuilder {
       throw new Error('BoneBuilder: skeleton ID is required')
     }
 
-    var bone = new THREE.Bone()
+    var bone = new Bone()
 
     bone.name = '' + skeletonId + '-' + jointDefinition.id
 

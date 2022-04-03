@@ -31,7 +31,7 @@ export class ClientData {
     /** @type {Map<id,THREE.Scene>} */
     this.scenes = new Map()
 
-    /** @type {Map<id,THREE.Camera>} */
+    /** @type {Map<id,THREE.Camera|THREE.PerspectiveCamera>} */
     this.cameras = new Map()
 
     /** @type {Map<id,THREE.Light>} */
