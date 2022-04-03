@@ -1,6 +1,6 @@
 'use strict'
 
-import raf from 'raf'
+import raf from '../polyfills/requestAnimationFrame.js'
 
 export const NOOP = function () {}
 
