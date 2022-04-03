@@ -234,6 +234,18 @@ Renders a single frame once.
 
 This command has no effect if the client is currently `rendering`.
 
+### :green_circle: `client.feed('helper', helperName, a1, a2, a3, a4, a5)`
+
+Runs a helper operation. The following helpers are available:
+
+* :green_circle: `RenderVolumes (a1 = skeletonId, a2 = showSkeletonHelper)`
+  * Renders the volumes at each joint, when volumes are set.
+  * If `showSkeletonHelper` is `true`, also renders a `SkeletonHelper` from THREE to help visualize bones.
+* :green_circle: `SetVolumeColor (a1 = skeletonId, a2 = jointId, a3 = color)`
+  * Colorizes a volume of a skeleton.
+  * Should only be used after volumes are rendered.
+  * Pass `"*"` to `jointId` to colorize all volumes at once.
+
 ## WIP
 
 This is a work in progress.
