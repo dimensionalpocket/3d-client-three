@@ -44,6 +44,17 @@ export class LightBuilder {
 
     light.name = '' + id
 
+    var shadows = options.shadows
+    if (shadows?.enabled) {
+      light.castShadow = true
+      light.shadow.mapSize.width = shadows.mapWidth || 512
+      light.shadow.mapSize.height = shadows.mapHeight || 512
+      // @ts-ignore
+      light.shadow.camera.near = shadows.near || 0.001
+      // @ts-ignore
+      light.shadow.camera.far = shadows.far || 100
+    }
+
     return light
   }
 }
