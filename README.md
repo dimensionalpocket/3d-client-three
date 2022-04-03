@@ -197,11 +197,11 @@ Sets the current camera. If you have multiple cameras, you can use this command 
 
 Sets the scene to render. If you have multiple scenes, you can use this command to switch between them.
 
-### `client.feed('look', cameraId, targetType, targetId)`
+### `client.feed('target', sourceType, sourceId, targetType, targetId)`
 
-Sets a camera target onto the given object. This makes the camera "look at" the object as it moves.
+Sets the target of a source (light or camera). This makes the source "look at" the object as it moves.
 
-Note: while a camera has a target, camera rotation is disabled. Pass `null` as the objectId to remove the target and re-enable camera rotation.
+Note: while a source has a target, source rotation is disabled. Pass `null` as the `targetId` to remove the target and re-enable camera rotation.
 
 ### `client.feed('aspect-ratio', number)`
 

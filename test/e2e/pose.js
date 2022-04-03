@@ -1,9 +1,5 @@
 'use strict'
 
-// import fs from 'fs'
-
-import * as THREE from 'three'
-
 import { expect } from '@dimensionalpocket/development'
 import { ThreeClient } from '../../src/ThreeClient.js'
 import { HUMAN_SKELETON_JOINTS } from '../../data/skeleton-definitions/human.js'

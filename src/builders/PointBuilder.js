@@ -1,6 +1,6 @@
 'use strict'
 
-import * as THREE from 'three'
+import { Object3D } from 'three'
 
 export class PointBuilder {
   /**
@@ -16,7 +16,7 @@ export class PointBuilder {
       throw new Error('PointBuilder: ID is required')
     }
 
-    var point = new THREE.Object3D()
+    var point = new Object3D()
 
     point.name = '' + id
 

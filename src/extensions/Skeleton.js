@@ -1,8 +1,8 @@
 'use strict'
 
-import * as THREE from 'three'
+import { Skeleton as ThreeSkeleton } from 'three'
 
-export class Skeleton extends THREE.Skeleton {
+export class Skeleton extends ThreeSkeleton {
   /**
    * @param {id} id - Skeleton ID.
    * @param {SkeletonDefinition} definition

@@ -71,11 +71,11 @@ const ARM_LOWER_DEPTH = ARM_UPPER_DEPTH
 
 // Legs
 
-const LEG_UPPER_HEIGHT = 0.416 // ONE_HEAD * 2.1 // 0.472 till bottom of knee
+const LEG_UPPER_HEIGHT = 0.446 // ONE_HEAD * 2.1 // 0.472 till bottom of knee
 const LEG_UPPER_WIDTH = ONE_HEAD / 1.8
 const LEG_UPPER_DEPTH = WAIST_DEPTH
 
-const LEG_LOWER_HEIGHT = 0.406 // LEG_UPPER_HEIGHT * 0.8 // 0.377
+const LEG_LOWER_HEIGHT = 0.416 // LEG_UPPER_HEIGHT * 0.8 // 0.377
 const LEG_LOWER_WIDTH = LEG_UPPER_WIDTH
 const LEG_LOWER_DEPTH = LEG_UPPER_DEPTH
 
@@ -157,7 +157,7 @@ volumes.set('chest', { scale: { x: CHEST_WIDTH, y: CHEST_HEIGHT, z: CHEST_DEPTH 
 volumes.set('stomach', { scale: { x: STOMACH_WIDTH, y: STOMACH_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: STOMACH_HEIGHT / 2 }, color: 'cyan' })
 volumes.set('abs', { scale: { x: ABDOMEN_WIDTH, y: ABDOMEN_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: ABDOMEN_HEIGHT / 2 }, color: 'cyan' })
 volumes.set('waist', { scale: { x: WAIST_WIDTH, y: WAIST_HEIGHT * 2, z: WAIST_DEPTH * 1.1 }, translation: { y: -WAIST_HEIGHT }, color: 'lime' })
-volumes.set('upperLeg', { scale: { x: LEG_UPPER_WIDTH, y: LEG_UPPER_HEIGHT, z: LEG_UPPER_DEPTH }, translation: { y: -LEG_UPPER_HEIGHT / 2 }, color: 'red' })
+volumes.set('upperLeg', { scale: { x: LEG_UPPER_WIDTH * 1.1, y: LEG_UPPER_HEIGHT, z: LEG_UPPER_DEPTH * 1.1 }, translation: { y: -LEG_UPPER_HEIGHT / 2 }, color: 'red' })
 volumes.set('lowerLeg', { scale: { x: LEG_LOWER_WIDTH, y: LEG_LOWER_HEIGHT + FOOT_HEIGHT, z: LEG_LOWER_DEPTH }, translation: { y: (-LEG_LOWER_HEIGHT / 2) - (FOOT_HEIGHT / 6) }, color: 'cyan' })
 volumes.set('foot', { scale: { x: TOES_WIDTH, y: TOES_HEIGHT, z: FOOT_DEPTH * 1.5 }, translation: { y: -FOOT_HEIGHT + (TOES_HEIGHT / 2), z: FOOT_DEPTH / 5 }, color: 'yellow' })
 volumes.set('toes', { scale: { x: TOES_WIDTH, y: TOES_HEIGHT, z: TOES_DEPTH }, translation: { y: TOES_HEIGHT / 2, z: TOES_DEPTH / 2 }, color: 'yellow' })

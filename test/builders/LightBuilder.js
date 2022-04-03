@@ -1,8 +1,7 @@
 'use strict'
 
-import * as THREE from 'three'
-
 import { expect } from '@dimensionalpocket/development'
+import { Light } from 'three'
 import { LightBuilder } from '../../src/builders/LightBuilder.js'
 
 describe('LightBuilder', function () {
@@ -10,13 +9,13 @@ describe('LightBuilder', function () {
     context('with correct arguments', function () {
       before(function () {
         /** @type {LightBuilderOptions} */
-        var data = { id: 'test-light' }
+        var data = { id: 'test-light', type: 'ambient' }
 
         this.light = LightBuilder.run(data)
       })
 
       it('returns a THREE.Light', function () {
-        expect(this.light).to.be.an.instanceOf(THREE.Light)
+        expect(this.light).to.be.an.instanceOf(Light)
       })
 
       it('sets the light name', function () {

@@ -1,6 +1,6 @@
 'use strict'
 
-import * as THREE from 'three'
+import { WebGLRenderer } from 'three'
 
 export class RendererBuilder {
   /**
@@ -22,7 +22,7 @@ export class RendererBuilder {
       threeOptions.canvas = options.canvas
     }
 
-    var renderer = new THREE.WebGLRenderer(threeOptions)
+    var renderer = new WebGLRenderer(threeOptions)
 
     // TODO: convert to options
     renderer.shadowMap.enabled = true

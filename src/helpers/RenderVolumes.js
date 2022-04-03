@@ -1,9 +1,9 @@
 'use strict'
 
-import * as THREE from 'three'
+import { BoxGeometry, Mesh, MeshToonMaterial, SkeletonHelper } from 'three'
 
 // This geometry is shared across all volume meshes.
-const boxGeometry = new THREE.BoxGeometry(1, 1, 1)
+const boxGeometry = new BoxGeometry(1, 1, 1)
 
 export class RenderVolumes {
   /**
@@ -24,7 +24,7 @@ export class RenderVolumes {
     }
 
     if (helper) {
-      var skeletonHelper = new THREE.SkeletonHelper(skeleton.bones[0])
+      var skeletonHelper = new SkeletonHelper(skeleton.bones[0])
       client.scene?.add(skeletonHelper)
     }
 
@@ -50,12 +50,14 @@ export class RenderVolumes {
       return false
     }
 
-    var material = new THREE.MeshToonMaterial({ color: volume.color })
-    var mesh = new THREE.Mesh(boxGeometry, material)
+    var material = new MeshToonMaterial({ color: volume.color })
+    var mesh = new Mesh(boxGeometry, material)
 
     mesh.scale.set(volume.scale.x, volume.scale.y, volume.scale.z)
     mesh.position.set(volume.translation.x, volume.translation.y, volume.translation.z)
     mesh.name = bone.name + '-volume'
+    mesh.castShadow = true
+    mesh.receiveShadow = true
 
     bone.add(mesh)
 
