@@ -1,9 +1,13 @@
 'use strict'
 
-import { BoxGeometry, Mesh, MeshToonMaterial, SkeletonHelper } from 'three'
+import { BackSide, BoxGeometry, Mesh, MeshBasicMaterial, MeshPhongMaterial, SkeletonHelper } from 'three'
 
 // This geometry is shared across all volume meshes.
 const boxGeometry = new BoxGeometry(1, 1, 1)
+
+// The outline material is shared across all outline meshes.
+const outlineMaterial = new MeshBasicMaterial({ color: 'black', side: BackSide })
+const OUTLINE_SIZE = 0.01
 
 export class RenderVolumes {
   /**
@@ -50,7 +54,7 @@ export class RenderVolumes {
       return false
     }
 
-    var material = new MeshToonMaterial({ color: volume.color })
+    var material = new MeshPhongMaterial({ color: volume.color })
     var mesh = new Mesh(boxGeometry, material)
 
     mesh.scale.set(volume.scale.x, volume.scale.y, volume.scale.z)
@@ -60,6 +64,17 @@ export class RenderVolumes {
     mesh.receiveShadow = true
 
     bone.add(mesh)
+
+    // Outline
+    var outlineMesh = new Mesh(boxGeometry, outlineMaterial)
+    outlineMesh.scale.set(
+      volume.scale.x + (OUTLINE_SIZE * 2),
+      volume.scale.y + (OUTLINE_SIZE * 2),
+      volume.scale.z + (OUTLINE_SIZE * 2)
+    )
+    outlineMesh.position.set(volume.translation.x, volume.translation.y, volume.translation.z)
+    outlineMesh.name = bone.name + '-volume-outline'
+    bone.add(outlineMesh)
 
     return true
   }
