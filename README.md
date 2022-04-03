@@ -95,11 +95,12 @@ client.feed('rendering', true)
 
 ## Options for `feed()`
 
-The circles represent current feature state:
+The circles represent feature state:
 
 * :red_circle: Not implemented
 * :yellow_circle: Partially implemented
 * :green_circle: Fully implemented
+* :purple_circle: Fully tested
 
 ### :yellow_circle: `client.feed('add', type, data)`
 
@@ -107,18 +108,18 @@ Adds an object to the client's memory.
 
 `type` can be one of the following:
 
-* `"scene"`,
-* `"point"` (a point in 3D space),
-* `"geometry"`, 
-* `"material"`,
-* `"mesh"`,
-* `"light"`,
-* `"camera"`,
-* `"pose"`,
-* `"animation"`,
-* `"sound"`,
-* `"skeleton-definition"`, and
-* `"skeleton"`.
+* :green_circle: `"scene"`,
+* :green_circle: `"point"` (a point in 3D space),
+* :red_circle: `"geometry"`, 
+* :red_circle: `"material"`,
+* :red_circle: `"mesh"`,
+* :green_circle: `"light"`,
+* :yellow_circle: `"camera"`,
+* :green_circle: `"pose"`,
+* :red_circle: `"animation"`,
+* :red_circle: `"sound"`,
+* :green_circle: `"skeleton-definition"`, and
+* :green_circle: `"skeleton"`.
 
 The `data` object __must__ have an `id` property, otherwise it will be ignored. 
 
