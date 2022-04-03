@@ -25,7 +25,7 @@ The following features are out of scope for this project as they're not related 
 * Store, display, and manipulate HTML code
 * Manage controller input
 * Manage networking
-* Manage game logic
+* Manage business logic
 
 ## Message System
 

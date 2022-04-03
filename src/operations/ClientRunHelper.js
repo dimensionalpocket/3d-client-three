@@ -1,6 +1,7 @@
 'use strict'
 
 import { RenderVolumes } from '../helpers/RenderVolumes.js'
+import { SetVolumeColor } from '../helpers/SetVolumeColor.js'
 
 export class ClientRunHelper {
   /**
@@ -21,6 +22,12 @@ export class ClientRunHelper {
         client,
         a1, // skeleton ID
         a2 // helper
+      )
+      case 'SetVolumeColor': return SetVolumeColor.run(
+        client,
+        a1, // skeleton ID
+        a2, // joint ID
+        a3 // color
       )
     }
 
