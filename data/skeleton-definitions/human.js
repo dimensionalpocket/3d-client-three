@@ -41,6 +41,7 @@ const CHEST_WIDTH = ONE_HEAD * 1.6
 const CHEST_DEPTH = ONE_HEAD * 0.6
 
 const STOMACH_HEIGHT = 0.139
+const STOMACH_WIDTH = ONE_HEAD
 
 const ABDOMEN_HEIGHT = 0.104 // ONE_HEAD / 1.5 // 0.150
 const ABDOMEN_WIDTH = ONE_HEAD * 0.8
@@ -153,7 +154,7 @@ volumes.set('neck', { scale: { x: NECK_WIDTH, y: NECK_HEIGHT, z: NECK_DEPTH }, t
 volumes.set('shoulderL', { scale: { x: SHOULDER_WIDTH, y: SHOULDER_HEIGHT, z: SHOULDER_DEPTH }, translation: { x: SHOULDER_WIDTH }, color: 'cyan' })
 volumes.set('shoulderR', { scale: { x: SHOULDER_WIDTH, y: SHOULDER_HEIGHT, z: SHOULDER_DEPTH }, translation: { x: -SHOULDER_WIDTH }, color: 'cyan' })
 volumes.set('chest', { scale: { x: CHEST_WIDTH, y: CHEST_HEIGHT, z: CHEST_DEPTH }, translation: { y: CHEST_HEIGHT / 2 }, color: 'magenta' })
-volumes.set('stomach', { scale: { x: ABDOMEN_WIDTH, y: STOMACH_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: STOMACH_HEIGHT / 2 }, color: 'cyan' })
+volumes.set('stomach', { scale: { x: STOMACH_WIDTH, y: STOMACH_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: STOMACH_HEIGHT / 2 }, color: 'cyan' })
 volumes.set('abs', { scale: { x: ABDOMEN_WIDTH, y: ABDOMEN_HEIGHT, z: ABDOMEN_DEPTH }, translation: { y: ABDOMEN_HEIGHT / 2 }, color: 'cyan' })
 volumes.set('waist', { scale: { x: WAIST_WIDTH, y: WAIST_HEIGHT * 2, z: WAIST_DEPTH * 1.1 }, translation: { y: -WAIST_HEIGHT }, color: 'lime' })
 volumes.set('upperLeg', { scale: { x: LEG_UPPER_WIDTH, y: LEG_UPPER_HEIGHT, z: LEG_UPPER_DEPTH }, translation: { y: -LEG_UPPER_HEIGHT / 2 }, color: 'red' })
@@ -210,13 +211,13 @@ export const HUMAN_SKELETON_JOINTS = [
   { id: 'spineU', parent: 'spineL', position: { y: STOMACH_HEIGHT }, volume: volumes.get('chest') },
 
   // Base of neck
-  { id: 'neck', parent: 'spineL', position: { y: CHEST_HEIGHT }, volume: volumes.get('neck') },
+  { id: 'neck', parent: 'spineU', position: { y: CHEST_HEIGHT }, volume: volumes.get('neck') },
 
   // Base of head
   { id: 'head', parent: 'neck', position: { y: NECK_HEIGHT }, volume: volumes.get('head') },
 
-  { id: 'clavicleL', parent: 'spineL', position: { x: CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
-  { id: 'clavicleR', parent: 'spineL', position: { x: -CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
+  { id: 'clavicleL', parent: 'spineU', position: { x: CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderL') },
+  { id: 'clavicleR', parent: 'spineU', position: { x: -CLAVICLE_OFFSET_X, y: CLAVICLE_OFFSET_Y }, axisNameX: 'Twist', axisNameY: 'Front/Back', axisNameZ: 'Up/Down', volume: volumes.get('shoulderR') },
 
   { id: 'shoulderL', parent: 'clavicleL', position: { x: ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
   { id: 'shoulderR', parent: 'clavicleR', position: { x: -ARM_UPPER_OFFSET_X }, volume: volumes.get('upperArm') },
