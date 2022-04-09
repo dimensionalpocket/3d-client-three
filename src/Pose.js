@@ -34,7 +34,8 @@ export class Pose {
       if (jointDef) {
         this.transforms.push(new JointTransform({
           definition: jointDef,
-          rotation: t.rotation
+          rotation: t.rotation,
+          position: t.position
         }))
       }
     }
@@ -56,8 +57,9 @@ export class Pose {
     }
 
     if (this.clear) {
-      // skeleton.pose() does not work
-      // skeleton.pose()
+      for (var bone of skeleton.bones) {
+        bone.rotation.set(0, 0, 0)
+      }
     }
 
     for (var transform of this.transforms) {

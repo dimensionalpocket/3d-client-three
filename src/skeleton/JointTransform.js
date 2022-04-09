@@ -7,8 +7,9 @@ export class JointTransform {
    * @param {object} opts
    * @param {JointDefinition} opts.definition
    * @param {Vector3Data} [opts.rotation]
+   * @param {Vector3Data} [opts.position]
    */
-  constructor ({ definition, rotation = undefined }) {
+  constructor ({ definition, rotation = undefined, position = undefined }) {
     if (!definition) {
       throw new Error('JointTransform: definition is required')
     }
@@ -18,6 +19,9 @@ export class JointTransform {
 
     /** @type {Vector3} */
     this.rotation = new Vector3(rotation)
+
+    /** @type {Vector3|undefined} */
+    this.position = position ? new Vector3(position) : undefined
   }
 
   /**
@@ -36,10 +40,13 @@ export class JointTransform {
       return false
     }
 
-    var bRot = bone.rotation
-    var tRot = this.rotation
+    var rotation = this.rotation
+    bone.rotation.set(rotation.x, rotation.y, rotation.z)
 
-    bRot.set(tRot.x, tRot.y, tRot.z)
+    var position = this.position
+    if (position) {
+      bone.position.set(position.x, position.y, position.z)
+    }
 
     return true
   }

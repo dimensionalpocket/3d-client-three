@@ -26,7 +26,13 @@ export class ClientPosition {
       throw new Error(`ClientPosition: object ${objectType}-${objectId} not found in client`)
     }
 
-    var position = object.position
+    var position
+    if (objectType === 'skeleton') {
+      // @ts-ignore
+      position = object.bones[0].position
+    } else {
+      position = object.position
+    }
 
     if (x != null) position.setX(x)
     if (y != null) position.setY(y)

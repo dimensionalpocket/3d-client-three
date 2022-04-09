@@ -35,13 +35,13 @@ export class JointDefinition {
     this.axisNameZ = opts.axisNameZ || 'Side'
 
     /**
-     * Rotation order for Euler angles.
-     * Default is YXZ: we want to "twist" first,
+     * Rotation order for Euler angles (from right to left).
+     * Default is XZY: we want to "twist" (Y) first,
      * before moving "front/back" or "side".
      *
      * @type {string}
      */
-    this.rotationOrder = opts.rotationOrder || 'YXZ'
+    this.rotationOrder = opts.rotationOrder || 'XZY'
 
     /**
      * JointVolume instance to visualize a

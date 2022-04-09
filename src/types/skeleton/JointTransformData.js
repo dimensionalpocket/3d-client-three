@@ -3,4 +3,5 @@
  *
  * @property {id} joint - Joint ID.
  * @property {Vector3Data} [rotation]
+ * @property {Vector3Data} [position]
  */

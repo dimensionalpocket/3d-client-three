@@ -27,7 +27,14 @@ export class ClientRotate {
       throw new Error(`ClientRotate: object ${objectType}-${objectId} not found in client`)
     }
 
-    var rotation = object.rotation
+    var rotation
+    if (objectType === 'skeleton') {
+      // @ts-ignore
+      rotation = object.bones[0].rotation
+    } else {
+      rotation = object.rotation
+    }
+
     rotation.set(
       x != null ? x : rotation.x,
       y != null ? y : rotation.y,

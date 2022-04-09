@@ -11,12 +11,13 @@ import { ClientRotationOrder } from './ClientRotationOrder.js'
 import { ClientRunHelper } from './ClientRunHelper.js'
 import { ClientSetAspectRatio } from './ClientSetAspectRatio.js'
 import { ClientSetCamera } from './ClientSetCamera.js'
+import { ClientSetFrame } from './ClientSetFrame.js'
 import { ClientSetScene } from './ClientSetScene.js'
 
 export class ClientFeed {
   /**
    * @param {ThreeClient} client
-   * @param {string} command
+   * @param {string|number} command
    * @param {any} [a1]
    * @param {any} [a2]
    * @param {any} [a3]
@@ -26,8 +27,20 @@ export class ClientFeed {
    * @returns {boolean}
    */
   static run (client, command, a1 = null, a2 = null, a3 = null, a4 = null, a5 = null, a6 = null) {
-    // Commands are manually sorted by priority.
+    // If the command is just a number, it's a bare frame update.
+    if (Number.isInteger(command)) {
+      // @ts-ignore - TS ignores condition above
+      return ClientSetFrame.run(client, command)
+    }
+
+    // String commands are manually sorted by priority.
     switch (command) {
+      case 'frame': return ClientSetFrame.run(
+        client,
+        a1, // frame number
+        a2 // message array
+      )
+
       case 'position': return ClientPosition.run(
         client,
         a1, // object type
