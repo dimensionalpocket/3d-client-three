@@ -17,7 +17,7 @@ describe('JointDefinition', function () {
     expect(def.limits.yMax).to.eq(Infinity)
     expect(def.limits.zMin).to.eq(-Infinity)
     expect(def.limits.zMax).to.eq(Infinity)
-    expect(def.rotationOrder).to.eq('YXZ')
+    expect(def.rotationOrder).to.eq('XZY')
     expect(def.axisNameX).to.eq('Front/Back')
     expect(def.axisNameY).to.eq('Twist')
     expect(def.axisNameZ).to.eq('Side')
