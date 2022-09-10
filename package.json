@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "npm run lint && NODE_ENV=test c8 mocha",
-    "lint": "standardx --fix --verbose",
-    "release": "release-it --config ./node_modules/@dimensionalpocket/release/config/default.js"
+    "lint": "standardx --fix --verbose"
   },
   "repository": {
     "type": "git",
@@ -20,11 +19,12 @@
   },
   "homepage": "https://github.com/dimensionalpocket/3d-client-three#readme",
   "dependencies": {
-    "three": "0.138.3"
+    "node-fetch": "3.2.10",
+    "three": "0.138.3",
+    "three-mesh-ui": "6.4.5"
   },
   "devDependencies": {
     "@dimensionalpocket/development": "github:dimensionalpocket/development-js#0.6.1",
-    "@dimensionalpocket/release": "github:dimensionalpocket/release-js#0.2.4",
     "@types/raf": "3.4.0",
     "@types/three": "0.138.0",
     "jsdom": "19.0.0"

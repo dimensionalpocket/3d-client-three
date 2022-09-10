@@ -24,6 +24,7 @@ export class ClientFeed {
    * @param {any} [a4]
    * @param {any} [a5]
    * @param {any} [a6]
+   *
    * @returns {boolean}
    */
   static run (client, command, a1 = null, a2 = null, a3 = null, a4 = null, a5 = null, a6 = null) {

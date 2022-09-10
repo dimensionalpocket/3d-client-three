@@ -1,51 +1,47 @@
 /**
+ * https://github.com/felixmariotto/three-mesh-ui/wiki/API-documentation#attributes
+ *
  * @typedef {object} TextBuilderOptions - options for building texts via three-mesh-ui.
  *
  * @property {id} id - Text ID
- * @property {number} fontId - ID of the font used, must be added to client first
- * 
- * BLOCK/TEXT ATTRIBUTES
- * https://github.com/felixmariotto/three-mesh-ui/wiki/API-documentation#attributes
- * 
- * @property {number} [offset]
- * 
- * BLOCK ATTRIBUTES
- * 
+ * @property {Array<TextContentBuilderOptions>} contents - Array of text contents
+ * @property {Font} font - Font used
+ *
  * @property {number} [width] - Width of the block
  * @property {number} [height] - Height of the block
  * @property {number} [fontSize]
  * @property {number} [padding]
  * @property {number} [margin]
- * @property {string} [contentDirection] - "row", "column", "row-reverse", "column-reverse"
- * @property {string} [justifyContent] - "start", "end", "center", "space-between", "space-around", "space-evenly"
- * @property {string} [alignItems] "start", "end", "center", "stretch"
+ * @property {"row"|"column"|"row-reverse"|"column-reverse"} [contentDirection]
+ * @property {"start"|"end"|"center"|"space-between"|"space-around"|"space-evenly"} [justifyContent]
+ * @property {"start"|"end"|"center"|"stretch"} [alignItems]
  * @property {number} [interLine]
  * @property {boolean} [hiddenOverflow]
- * 
- * BLOCK STYLE ATTRIBUTES
- * 
- * @property {string} [bestFit] - "none", "shrink", "grow", "auto"
+ *
+ * @property {"none"|"shrink"|"grow"|"auto"} [bestFit]
  * @property {THREE.Color} [backgroundColor]
  * @property {number} [backgroundOpacity]
- * @property {string} [backgroundSize] - "stretch", "contain", "cover"
+ * @property {"stretch"|"contain"|"cover"} [backgroundSize]
  * @property {THREE.Texture} [backgroundTexture]
  * @property {number} [borderRadius]
  * @property {number} [borderWidth]
  * @property {THREE.Color} [borderColor]
- * 
- * TEXT ATTRIBUTES
- * 
- * @property {string} content - Text content
- * @property {string} [fontKerning] - "none", "normal"
+ */
+
+/**
+ * @typedef {object} TextContentBuilderOptions - one text content that fits inside a box.
+ *
+ * @property {string} suffix - The suffix that will compose the unique ID of this text content.
+ * @property {string} content
+ *
+ * @property {number} [offset]
+ * @property {"none"|"normal"} [fontKerning]
  * @property {number} [letterSpacing]
- * @property {string} [textAlign] - "left", "right", "center", "justify-left", "justify", "justify-right", "justify-center"
- * @property {string} [whiteSpace] - "normal", "pre-line", "pre-wrap", "pre", "nowrap"
+ * @property {"left"|"right"|"center"|"justify-left"|"justify"|"justify-right"|"justify-center"} [textAlign]
+ * @property {"normal"|"pre-line"|"pre-wrap"|"pre"|"nowrap"} [whiteSpace]
  * @property {string} [breakOn]
- * 
- * TEXT STYLE
- * 
+ *
  * @property {THREE.Color} [fontColor]
  * @property {number} [fontOpacity]
  * @property {boolean} [fontSuperSampling]
- * 
  */
