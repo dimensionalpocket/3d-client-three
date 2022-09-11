@@ -49,8 +49,17 @@ export class ThreeClient {
 
     /**
      * `true` is a render loop is running.
+     *
+     * @type {boolean}
      */
     this.rendering = false
+
+    /**
+     * Current local frame. Used to play animations.
+     *
+     * @type {number}
+     */
+    this.frame = 0
   }
 
   /**

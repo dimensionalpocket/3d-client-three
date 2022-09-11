@@ -22,8 +22,6 @@ export class ClientGenerateRenderFunction {
       // @ts-ignore - callback signature, FIXME later
       raf(client.renderingFn)
 
-      console.debug('Client: Rendering...')
-
       renderer.render(scene, camera)
     }
   }

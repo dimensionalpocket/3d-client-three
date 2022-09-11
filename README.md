@@ -13,10 +13,11 @@ THREE.js client for 3D projects developed by the studio.
 * Store materials
 * Store, display, and manipulate meshes
 * Store, display, and manipulate sprites in a 3D space
+* Store, display, and manipulate text in a 3D space
 * Store and play sounds that may be attached to a 3D element
 * Store and manipulate lights
 * Store and manipulate cameras
-* Store skeletons and pose/animate them
+* Store skeletons and pose them
 
 ### The Do Not's
 
@@ -112,7 +113,10 @@ Adds an object to the client's memory.
 * :green_circle: `"point"` (a point in 3D space),
 * :red_circle: `"geometry"`, 
 * :red_circle: `"material"`,
+* :yellow_circle: `"texture"`,
 * :red_circle: `"mesh"`,
+* :yellow_circle: `"font"`,
+* :yellow_circle: `"text"`,
 * :green_circle: `"light"`,
 * :yellow_circle: `"camera"`,
 * :green_circle: `"pose"`,
@@ -195,6 +199,12 @@ Values should be floats, where `1` represents original size, `2` double size, `0
 Passing `null` as a value will keep the current value for that coordinate.
 
 If the object has children, all of them will be scaled together.
+
+### :red_circle: `client.feed('text', textContentId, text)`
+
+Sets the text content of an existing text object.
+
+Note: the ID refers to the text _content_, not the text _block_. A block can have multiple text contents, and each content has its own ID (the ID of the block **plus the suffix** given during text creation).
 
 ### :green_circle: `client.feed('camera', cameraId)`
 

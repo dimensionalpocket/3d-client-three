@@ -1,12 +1,15 @@
 'use strict'
 
 import { ClientAddCamera } from './operations/ClientAddCamera.js'
+import { ClientAddFont } from './operations/ClientAddFont.js'
 import { ClientAddLight } from './operations/ClientAddLight.js'
 import { ClientAddPoint } from './operations/ClientAddPoint.js'
 import { ClientAddPose } from './operations/ClientAddPose.js'
 import { ClientAddScene } from './operations/ClientAddScene.js'
 import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
 import { ClientAddSkeletonDefinition } from './operations/ClientAddSkeletonDefinition.js'
+import { ClientAddText } from './operations/ClientAddText.js'
+import { ClientAddTexture } from './operations/ClientAddTexture.js'
 
 export class ClientData {
   /**
@@ -36,6 +39,15 @@ export class ClientData {
 
     /** @type {Map<id,THREE.Light>} */
     this.lights = new Map()
+
+    /** @type {Map<id,ThreeMeshUiBlock>} */
+    this.texts = new Map()
+
+    /** @type {Map<id,THREE.Texture>} */
+    this.textures = new Map()
+
+    /** @type {Map<id,Font>} */
+    this.fonts = new Map()
   }
 
   /**
@@ -72,6 +84,18 @@ export class ClientData {
       return ClientAddScene.run(this.client, data)
     }
 
+    if (type === 'text') {
+      return ClientAddText.run(this.client, data)
+    }
+
+    if (type === 'texture') {
+      return ClientAddTexture.run(this.client, data)
+    }
+
+    if (type === 'font') {
+      return ClientAddFont.run(this.client, data)
+    }
+
     throw new Error(`ClientData#add: unhandled object type ${type}`)
   }
 
@@ -95,6 +119,12 @@ export class ClientData {
         return this.cameras
       case 'scene':
         return this.scenes
+      case 'text':
+        return this.texts
+      case 'texture':
+        return this.textures
+      case 'font':
+        return this.fonts
     }
 
     throw new Error(`ClientData#getCollectionByType: invalid type ${type}`)
