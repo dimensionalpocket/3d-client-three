@@ -43,8 +43,8 @@ export class TextBuilder {
 
       // options.font is a Font object that's been loaded into ThreeMeshUi's FontLibrary.
       // Only reference the font ID on both family and texture to load from library.
-      fontFamily: options.font.id ?? 'default',
-      fontTexture: options.font.id ?? 'default'
+      fontFamily: options.font.id,
+      fontTexture: options.font.id
     })
 
     // @ts-ignore - Block is an extension of Object3D, but has several mixins that TS chokes on

@@ -2,6 +2,7 @@
 
 import { Color } from 'three'
 import { TextBuilder } from '../builders/TextBuilder.js'
+import ThreeMeshUI from '../extensions/ThreeMeshUI.js'
 
 export class ClientAddText {
   /**
@@ -60,6 +61,8 @@ export class ClientAddText {
 
     // @ts-ignore text.name
     client.data.texts.set(text.name, text)
+
+    ThreeMeshUI.update()
 
     return true
   }

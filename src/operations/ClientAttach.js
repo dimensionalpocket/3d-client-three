@@ -20,7 +20,7 @@ export class ClientAttach {
     var child = children.get(childId)
 
     if (!child) {
-      throw new Error(`ClientAttach: child (${childId}) not found in client`)
+      throw new Error(`ClientAttach: child (${childId}) in collection (${childType}) not found in client`)
     }
 
     var parents = data.getCollectionByType(parentType)
