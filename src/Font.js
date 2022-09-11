@@ -11,13 +11,15 @@ export class Font {
     this.id = options.id
     this.url = options.url
     this.texture = options.texture
-    this.loaded = false
+    this.installed = false
   }
 
   async install () {
+    if (this.installed) return
+
     const res = await fetch(this.url, FETCH_OPTIONS)
     const json = await res.json()
     ThreeMeshUI.FontLibrary.addFont(this.id, json, this.texture)
-    this.loaded = true
+    this.installed = true
   }
 }

@@ -41,7 +41,7 @@ export class TextBuilder {
       borderWidth: options.borderWidth,
       borderColor: options.borderColor,
 
-      // options.font is a Font object that's added to ThreeMeshUi's FontLibrary.
+      // options.font is a Font object that's been loaded into ThreeMeshUi's FontLibrary.
       // Only reference the font ID on both family and texture to load from library.
       fontFamily: options.font.id ?? 'default',
       fontTexture: options.font.id ?? 'default'
