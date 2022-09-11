@@ -1,4 +1,4 @@
-import fetch from 'cross-fetch'
+import 'cross-fetch/polyfill'
 import ThreeMeshUI from './extensions/ThreeMeshUI.js'
 
 const FETCH_OPTIONS = { method: 'get' }
