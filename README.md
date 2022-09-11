@@ -200,7 +200,7 @@ Passing `null` as a value will keep the current value for that coordinate.
 
 If the object has children, all of them will be scaled together.
 
-### :yellow_circle: `client.feed('text', textContentId, text)`
+### :red_circle: `client.feed('text', textContentId, text)`
 
 Sets the text content of an existing text object.
 
