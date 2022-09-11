@@ -1,6 +1,6 @@
 {
   "name": "@dimensionalpocket/3d-client-three",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "THREE.js client for 3d projects developed by the studio",
   "main": "index.js",
   "type": "module",
