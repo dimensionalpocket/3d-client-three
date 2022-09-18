@@ -1,6 +1,8 @@
 'use strict'
 
-import { PerspectiveCamera } from 'three'
+import { PerspectiveCamera, AudioListener } from 'three'
+
+export const AUDIO_LISTENER_SUFFIX = '-audio-listener'
 
 export class CameraBuilder {
   /**
@@ -31,6 +33,12 @@ export class CameraBuilder {
     }
 
     camera.name = '' + id
+
+    if (options?.audioListener === true) {
+      const listener = new AudioListener()
+      listener.name = '' + camera.name + AUDIO_LISTENER_SUFFIX
+      camera.add(listener)
+    }
 
     return camera
   }
