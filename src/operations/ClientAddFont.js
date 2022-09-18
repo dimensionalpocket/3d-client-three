@@ -1,6 +1,6 @@
 'use strict'
 
-import { Font } from '../core/Font.js'
+import { Font } from '../Font.js'
 
 export class ClientAddFont {
   /**
