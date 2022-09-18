@@ -121,7 +121,8 @@ Adds an object to the client's memory.
 * :yellow_circle: `"camera"`,
 * :green_circle: `"pose"`,
 * :red_circle: `"animation"`,
-* :red_circle: `"sound"`,
+* :yellow_circle: `"sound"`,
+* :yellow_circle: `"sound_file"`,
 * :green_circle: `"skeleton-definition"`, and
 * :green_circle: `"skeleton"`.
 

@@ -4,7 +4,7 @@ import { SkeletonDefinition } from '../skeleton/SkeletonDefinition.js'
 
 export class ClientAddSkeletonDefinition {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {SkeletonDefinitionData} data
    * @returns {boolean}
    */

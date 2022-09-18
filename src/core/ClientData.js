@@ -1,22 +1,22 @@
 'use strict'
 
-import { ClientAddCamera } from './operations/ClientAddCamera.js'
-import { ClientAddFont } from './operations/ClientAddFont.js'
-import { ClientAddLight } from './operations/ClientAddLight.js'
-import { ClientAddPoint } from './operations/ClientAddPoint.js'
-import { ClientAddPose } from './operations/ClientAddPose.js'
-import { ClientAddScene } from './operations/ClientAddScene.js'
-import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
-import { ClientAddSkeletonDefinition } from './operations/ClientAddSkeletonDefinition.js'
-import { ClientAddText } from './operations/ClientAddText.js'
-import { ClientAddTexture } from './operations/ClientAddTexture.js'
+import { ClientAddCamera } from '../operations/ClientAddCamera.js'
+import { ClientAddFont } from '../operations/ClientAddFont.js'
+import { ClientAddLight } from '../operations/ClientAddLight.js'
+import { ClientAddPoint } from '../operations/ClientAddPoint.js'
+import { ClientAddPose } from '../operations/ClientAddPose.js'
+import { ClientAddScene } from '../operations/ClientAddScene.js'
+import { ClientAddSkeleton } from '../operations/ClientAddSkeleton.js'
+import { ClientAddSkeletonDefinition } from '../operations/ClientAddSkeletonDefinition.js'
+import { ClientAddText } from '../operations/ClientAddText.js'
+import { ClientAddTexture } from '../operations/ClientAddTexture.js'
 
 export class ClientData {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    */
   constructor (client) {
-    /** @type {ThreeClient} */
+    /** @type {Client} */
     this.client = client
 
     /** @type {Map<id,THREE.Object3D>} */
@@ -48,6 +48,9 @@ export class ClientData {
 
     /** @type {Map<id,Font>} */
     this.fonts = new Map()
+
+    // /** @type {Map<id,SoundFile>} */
+    // this.soundFiles = new Map()
   }
 
   /**

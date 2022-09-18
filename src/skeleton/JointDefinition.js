@@ -1,7 +1,7 @@
 'use strict'
 
 import { JointVolume } from './JointVolume.js'
-import { Vector3 } from '../Vector3.js'
+import { Vector3 } from '../core/Vector3.js'
 
 export class JointDefinition {
   /**

@@ -1,6 +1,6 @@
 'use strict'
 
-import { JointTransform } from './skeleton/JointTransform.js'
+import { JointTransform } from '../skeleton/JointTransform.js'
 
 /**
  * A Pose is a collection of JointTransform instances

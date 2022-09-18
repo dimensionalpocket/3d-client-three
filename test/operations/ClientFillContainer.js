@@ -11,7 +11,7 @@ describe('operations/ClientFillContainer', function () {
     this.sandbox = sinon.createSandbox()
     this.sandbox.stub(this.fakeContainer, 'clientWidth').value(1234)
     this.sandbox.stub(this.fakeContainer, 'clientHeight').value(5678)
-    this.client = new ThreeClient()
+    this.client = new ThreeClient({ headless: true })
     this.fakeContainer.appendChild(this.client.canvasElement)
 
     /** @type {CameraBuilderOptions} */

@@ -4,7 +4,7 @@ import { LightBuilder } from '../builders/LightBuilder.js'
 
 export class ClientAddLight {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {LightBuilderOptions} data
    * @returns {boolean}
    */

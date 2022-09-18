@@ -7,7 +7,7 @@ export class ClientSetFrame {
    * Updates the local frame.
    * Optionally, processes any messages sent along the frame update.
    *
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {number} frameNumber
    * @param {Array<Array<any>>} [messages] - array of messages to atomically update with the frame.
    * @returns {boolean}

@@ -4,7 +4,7 @@ import { SceneBuilder } from '../builders/SceneBuilder.js'
 
 export class ClientAddScene {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {SceneBuilderOptions} data
    * @returns {boolean}
    */

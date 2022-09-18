@@ -1,6 +1,6 @@
 'use strict'
 
-import { Vector3 } from '../Vector3.js'
+import { Vector3 } from '../core/Vector3.js'
 
 export class JointTransform {
   /**

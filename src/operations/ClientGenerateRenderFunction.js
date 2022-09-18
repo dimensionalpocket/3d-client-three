@@ -9,7 +9,7 @@ export class ClientGenerateRenderFunction {
    * Generates and returns a function that will be called in the render loop.
    * The generated function has baked variables for faster processing.
    *
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {THREE.Scene} scene
    * @param {THREE.Camera} camera
    * @param {THREE.Renderer} renderer

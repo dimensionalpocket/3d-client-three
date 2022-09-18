@@ -1,6 +1,6 @@
 'use strict'
 
-import { Vector3 } from '../Vector3.js'
+import { Vector3 } from '../core/Vector3.js'
 
 /**
  * A JointVolume contains information to render a box from a joint.
@@ -9,7 +9,7 @@ import { Vector3 } from '../Vector3.js'
  */
 export class JointVolume {
   /**
-   * @param {JointVolumeData} [options]
+   * @param {JointVolumeData} options
    */
   constructor ({ scale, position, color, outline, castShadows, receiveShadows } = {}) {
     /**

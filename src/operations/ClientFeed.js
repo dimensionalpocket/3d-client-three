@@ -16,7 +16,7 @@ import { ClientSetScene } from './ClientSetScene.js'
 
 export class ClientFeed {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {string|number} command
    * @param {any} [a1]
    * @param {any} [a2]
@@ -52,6 +52,7 @@ export class ClientFeed {
       )
 
       case 'rotate': return ClientRotate.run(
+        // @ts-ignore - Requires THREE client
         client,
         a1, // object type
         a2, // object id
@@ -73,6 +74,7 @@ export class ClientFeed {
       )
 
       case 'attach': return ClientAttach.run(
+        // @ts-ignore - Requires THREE client
         client,
         a1, // child type
         a2, // child id
@@ -81,6 +83,7 @@ export class ClientFeed {
       )
 
       case 'rotation-order': return ClientRotationOrder.run(
+        // @ts-ignore - Requires THREE client
         client,
         a1, // object type
         a2, // object id
@@ -102,16 +105,20 @@ export class ClientFeed {
         a1
       )
 
+      // @ts-ignore - Requires THREE client
       case 'render': return ClientRenderOnce.run(client)
 
       case 'aspect-ratio': return ClientSetAspectRatio.run(
+        // @ts-ignore - Requires THREE client
         client,
         a1 // ratio
       )
 
+      // @ts-ignore - Requires THREE client
       case 'fill-container': return ClientFillContainer.run(client)
 
       case 'helper': return ClientRunHelper.run(
+        // @ts-ignore - Requires THREE client
         client,
         a1, // helper name
         a2, a3, a4, a5, a6 // helper arguments

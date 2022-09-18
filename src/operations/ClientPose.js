@@ -4,7 +4,7 @@ export class ClientPose {
   /**
    * Applies a pose to a skeleton.
    *
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {id} skeletonId
    * @param {id} poseId
    * @returns {boolean}

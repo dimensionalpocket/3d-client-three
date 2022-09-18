@@ -4,7 +4,7 @@ import { SkeletonBuilder } from '../builders/SkeletonBuilder.js'
 
 export class ClientAddSkeleton {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {SkeletonData} data
    * @returns {boolean}
    */

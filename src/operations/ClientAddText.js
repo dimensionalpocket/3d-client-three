@@ -6,7 +6,7 @@ import ThreeMeshUI from '../extensions/ThreeMeshUI.js'
 
 export class ClientAddText {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {TextData} data
    * @returns {boolean}
    */

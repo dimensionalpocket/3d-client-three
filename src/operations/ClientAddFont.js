@@ -1,10 +1,10 @@
 'use strict'
 
-import { Font } from '../Font.js'
+import { Font } from '../core/Font.js'
 
 export class ClientAddFont {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {FontData} data
    * @returns {boolean}
    */
