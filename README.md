@@ -1,6 +1,6 @@
 # @dimensionalpocket/3d-client-three
 
-[![build](https://github.com/dimensionalpocket/3d-client-three/actions/workflows/node.js.yml/badge.svg)](https://github.com/dimensionalpocket/3d-client-three/actions/workflows/node.js.yml) [![Total alerts](https://img.shields.io/lgtm/alerts/g/dimensionalpocket/3d-client-three.svg)](https://lgtm.com/projects/g/dimensionalpocket/3d-client-three/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dimensionalpocket/3d-client-three.svg)](https://lgtm.com/projects/g/dimensionalpocket/3d-client-three/context:javascript)
+[![build](https://github.com/dimensionalpocket/3d-client-three/actions/workflows/node.js.yml/badge.svg)](https://github.com/dimensionalpocket/3d-client-three/actions/workflows/node.js.yml)
 
 THREE.js client for 3D projects developed by the studio.
 
