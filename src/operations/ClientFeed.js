@@ -2,6 +2,7 @@
 
 import { ClientAttach } from './ClientAttach.js'
 import { ClientFillContainer } from './ClientFillContainer.js'
+import { ClientPlaySound } from './ClientPlaySound.js'
 import { ClientPose } from './ClientPose.js'
 import { ClientPosition } from './ClientPosition.js'
 import { ClientRendering } from './ClientRendering.js'
@@ -66,6 +67,12 @@ export class ClientFeed {
         client,
         a1, // pose id
         a2 // skeleton id
+      )
+
+      case 'sound': return ClientPlaySound.run(
+        client,
+        a1, // sound ID,
+        a2 // playing state
       )
 
       case 'add' : return client.data.add(

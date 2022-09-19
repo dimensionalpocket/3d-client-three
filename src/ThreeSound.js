@@ -73,10 +73,19 @@ export class ThreeSound extends Sound {
     })
   }
 
-  play () {
-    const renderable = this.renderable
-    if (renderable == null) return false
+  /**
+   * @param {boolean} state - `true` to play, `false` to stop.
+   * @returns
+   */
+  play (state = true) {
+    const sound = this.renderable
 
-    renderable.play()
+    if (sound == null) return false
+
+    // Stop first so that it doesn't error out when
+    // trying to play a sound that's already playing.
+    sound.stop()
+
+    if (state) sound.play()
   }
 }

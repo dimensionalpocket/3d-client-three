@@ -55,4 +55,14 @@ export class Sound {
      */
     this.volume = options.volume ?? 1.0
   }
+
+  /**
+   * Should be implemented in subclasses.
+   *
+   * @param {boolean} _state
+   * @abstract
+   */
+  play (_state) {
+    // no-op
+  }
 }
