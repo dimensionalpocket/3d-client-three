@@ -31,7 +31,7 @@ export class Sound {
      *
      * @type {number}
      */
-    this.distance = options.distance ?? 2
+    this.distance = options.distance ?? 4
 
     /**
      * The frame where the audio should start playing in the sound file.

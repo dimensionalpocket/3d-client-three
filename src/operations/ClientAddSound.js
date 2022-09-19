@@ -1,10 +1,10 @@
 'use strict'
 
-import { Sound } from '../core/Sound.js'
+import { ThreeSound } from '../ThreeSound.js'
 
 export class ClientAddSound {
   /**
-   * @param {Client} client
+   * @param {ThreeClient} client
    * @param {SoundData} data
    * @returns {boolean}
    */
@@ -15,7 +15,7 @@ export class ClientAddSound {
       throw new Error(`ClientAddSound: soundFile not found on client: ${data.soundFileId}`)
     }
 
-    var sound = new Sound({
+    var sound = new ThreeSound({
       id: data.id,
       type: data.type,
       soundFile: soundFile,

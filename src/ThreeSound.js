@@ -86,8 +86,10 @@ export class ThreeSound extends Sound {
 
     // Stop first so that it doesn't error out when
     // trying to play a sound that's already playing.
-    sound.stop()
+    if (sound.isPlaying === true) sound.stop()
 
-    if (state) sound.play()
+    if (state) {
+      sound.play()
+    }
   }
 }
