@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/dimensionalpocket/3d-client-three/compare/0.2.1...0.3.0) (2022-09-19)
+
+
+### Features
+
+* Audio ([#22](https://github.com/dimensionalpocket/3d-client-three/issues/22)) ([1df754c](https://github.com/dimensionalpocket/3d-client-three/commit/1df754ccb13d8e80652ef3202421e1d06a4c22ab))
+
 ## [0.2.1](https://github.com/dimensionalpocket/3d-client-three/compare/0.2.0...0.2.1) (2022-09-11)
 
 
