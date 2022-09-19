@@ -221,6 +221,10 @@ Sets the target of a source (light or camera). This makes the source "look at" t
 
 Note: while a source has a target, source rotation is disabled. Pass `null` as the `targetId` to remove the target and re-enable rotation.
 
+### :yellow_circle: `client.feed('sound', soundId, playing = true)`
+
+Plays a sound. Send `playing` as `false` to stop playing a sound.
+
 ### :green_circle: `client.feed('aspect-ratio', number)`
 
 Sets the renderer's aspect ratio in width/height format (e.g., the number result of `16/9`). Default is `1` (square).
