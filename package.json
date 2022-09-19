@@ -24,7 +24,7 @@
     "three-mesh-ui": "6.4.5"
   },
   "devDependencies": {
-    "@dimensionalpocket/development": "github:dimensionalpocket/development-js#0.6.1",
+    "@dimensionalpocket/development": "github:dimensionalpocket/development-js#1.0.2",
     "@types/raf": "3.4.0",
     "@types/three": "0.138.0",
     "jsdom": "19.0.0"
