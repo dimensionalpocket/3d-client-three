@@ -8,6 +8,7 @@ import { ClientAddPose } from '../operations/ClientAddPose.js'
 import { ClientAddScene } from '../operations/ClientAddScene.js'
 import { ClientAddSkeleton } from '../operations/ClientAddSkeleton.js'
 import { ClientAddSkeletonDefinition } from '../operations/ClientAddSkeletonDefinition.js'
+import { ClientAddSoundFile } from '../operations/ClientAddSoundFile.js'
 import { ClientAddText } from '../operations/ClientAddText.js'
 import { ClientAddTexture } from '../operations/ClientAddTexture.js'
 
@@ -49,8 +50,8 @@ export class ClientData {
     /** @type {Map<id,Font>} */
     this.fonts = new Map()
 
-    // /** @type {Map<id,SoundFile>} */
-    // this.soundFiles = new Map()
+    /** @type {Map<id,SoundFile>} */
+    this.soundFiles = new Map()
   }
 
   /**
@@ -97,6 +98,10 @@ export class ClientData {
 
     if (type === 'font') {
       return ClientAddFont.run(this.client, data)
+    }
+
+    if (type === 'sound-file') {
+      return ClientAddSoundFile.run(this.client, data)
     }
 
     throw new Error(`ClientData#add: unhandled object type ${type}`)

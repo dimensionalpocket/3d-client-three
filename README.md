@@ -122,7 +122,7 @@ Adds an object to the client's memory.
 * :green_circle: `"pose"`,
 * :red_circle: `"animation"`,
 * :yellow_circle: `"sound"`,
-* :yellow_circle: `"sound_file"`,
+* :yellow_circle: `"sound-file"`,
 * :green_circle: `"skeleton-definition"`, and
 * :green_circle: `"skeleton"`.
 

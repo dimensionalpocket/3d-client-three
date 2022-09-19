@@ -16,6 +16,7 @@
   "include": [
     "data/**/*.js",
     "src/**/*.js",
-    "test/**/*.js"
+    "test/**/*.js",
+    "types/**/*.js"
   ]
 }
