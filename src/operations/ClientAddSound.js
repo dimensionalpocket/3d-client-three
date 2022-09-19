@@ -15,8 +15,6 @@ export class ClientAddSound {
       throw new Error(`ClientAddSound: soundFile not found on client: ${data.soundFileId}`)
     }
 
-    soundFile.install()
-
     var sound = new Sound({
       id: data.id,
       type: data.type,
@@ -27,6 +25,8 @@ export class ClientAddSound {
       duration: data.duration,
       volume: data.volume
     })
+
+    sound.install(client)
 
     client.data.sounds.set(sound.id, sound)
 

@@ -39,26 +39,28 @@ export class ThreeSound extends Sound {
 
     if (output == null) return
 
+    /**
+     * @type {THREE.Audio|THREE.PositionalAudio}
+     */
+    let sound
+
+    if (this.positional === true) {
+      // @ts-ignore - TS barfing again, missing the guard clause
+      sound = new PositionalAudio(output)
+      sound.setRefDistance(this.distance)
+    } else {
+      // @ts-ignore - conflict with DOM lib
+      sound = new Audio(output)
+    }
+
+    sound.offset = this.offset
+    sound.duration = this.duration
+
+    sound.setVolume(this.volume * outputVolume)
+
+    this.renderable = sound
+
     return this.soundFile.install().then(soundFile => {
-      /**
-       * @type {THREE.Audio|THREE.PositionalAudio}
-       */
-      let sound
-
-      if (this.positional === true) {
-        // @ts-ignore - TS barfing again, missing the guard clause
-        sound = new PositionalAudio(output)
-        sound.setRefDistance(this.distance)
-      } else {
-        // @ts-ignore - conflict with DOM lib
-        sound = new Audio(output)
-      }
-
-      sound.offset = this.offset
-      sound.duration = this.duration
-
-      sound.setVolume(this.volume * outputVolume)
-
       const buffer = soundFile.buffer
 
       if (buffer == null) {
@@ -66,8 +68,6 @@ export class ThreeSound extends Sound {
       }
 
       sound.setBuffer(buffer)
-
-      this.renderable = sound
 
       return this
     })
@@ -78,6 +78,8 @@ export class ThreeSound extends Sound {
    * @returns
    */
   play (state = true) {
+    console.debug('Playing sound', this.id, state)
+
     const sound = this.renderable
 
     if (sound == null) return false

@@ -65,4 +65,14 @@ export class Sound {
   play (_state) {
     // no-op
   }
+
+  /**
+   * Should be implemented in subclasses.
+   *
+   * @param {Client} _client
+   * @abstract
+   */
+  install (_client) {
+    // no-op
+  }
 }
