@@ -4,7 +4,7 @@ import { TextureBuilder } from '../builders/TextureBuilder.js'
 
 export class ClientAddTexture {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {TextureBuilderOptions} data
    * @returns {boolean}
    */

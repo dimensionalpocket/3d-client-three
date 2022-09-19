@@ -1,7 +1,7 @@
 /**
  * @typedef {object} SkeletonBuilderOptions - options for building Skeletons.
  *
- * @property {ThreeClient} client
+ * @property {Client} client
  * @property {SkeletonData} data
  */
 

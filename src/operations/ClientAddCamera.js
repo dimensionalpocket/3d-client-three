@@ -4,7 +4,7 @@ import { CameraBuilder } from '../builders/CameraBuilder.js'
 
 export class ClientAddCamera {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {CameraBuilderOptions} data
    * @returns {boolean}
    */

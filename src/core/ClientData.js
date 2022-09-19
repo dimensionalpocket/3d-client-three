@@ -1,22 +1,24 @@
 'use strict'
 
-import { ClientAddCamera } from './operations/ClientAddCamera.js'
-import { ClientAddFont } from './operations/ClientAddFont.js'
-import { ClientAddLight } from './operations/ClientAddLight.js'
-import { ClientAddPoint } from './operations/ClientAddPoint.js'
-import { ClientAddPose } from './operations/ClientAddPose.js'
-import { ClientAddScene } from './operations/ClientAddScene.js'
-import { ClientAddSkeleton } from './operations/ClientAddSkeleton.js'
-import { ClientAddSkeletonDefinition } from './operations/ClientAddSkeletonDefinition.js'
-import { ClientAddText } from './operations/ClientAddText.js'
-import { ClientAddTexture } from './operations/ClientAddTexture.js'
+import { ClientAddCamera } from '../operations/ClientAddCamera.js'
+import { ClientAddFont } from '../operations/ClientAddFont.js'
+import { ClientAddLight } from '../operations/ClientAddLight.js'
+import { ClientAddPoint } from '../operations/ClientAddPoint.js'
+import { ClientAddPose } from '../operations/ClientAddPose.js'
+import { ClientAddScene } from '../operations/ClientAddScene.js'
+import { ClientAddSkeleton } from '../operations/ClientAddSkeleton.js'
+import { ClientAddSkeletonDefinition } from '../operations/ClientAddSkeletonDefinition.js'
+import { ClientAddSound } from '../operations/ClientAddSound.js'
+import { ClientAddSoundFile } from '../operations/ClientAddSoundFile.js'
+import { ClientAddText } from '../operations/ClientAddText.js'
+import { ClientAddTexture } from '../operations/ClientAddTexture.js'
 
 export class ClientData {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    */
   constructor (client) {
-    /** @type {ThreeClient} */
+    /** @type {Client} */
     this.client = client
 
     /** @type {Map<id,THREE.Object3D>} */
@@ -48,6 +50,12 @@ export class ClientData {
 
     /** @type {Map<id,Font>} */
     this.fonts = new Map()
+
+    /** @type {Map<id,Sound>} */
+    this.sounds = new Map()
+
+    /** @type {Map<id,SoundFile>} */
+    this.soundFiles = new Map()
   }
 
   /**
@@ -96,6 +104,14 @@ export class ClientData {
       return ClientAddFont.run(this.client, data)
     }
 
+    if (type === 'sound') {
+      return ClientAddSound.run(this.client, data)
+    }
+
+    if (type === 'sound-file') {
+      return ClientAddSoundFile.run(this.client, data)
+    }
+
     throw new Error(`ClientData#add: unhandled object type ${type}`)
   }
 
@@ -125,6 +141,10 @@ export class ClientData {
         return this.textures
       case 'font':
         return this.fonts
+      case 'sound':
+        return this.sounds
+      case 'sound-file':
+        return this.soundFiles
     }
 
     throw new Error(`ClientData#getCollectionByType: invalid type ${type}`)

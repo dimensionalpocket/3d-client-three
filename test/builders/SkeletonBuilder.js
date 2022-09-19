@@ -20,7 +20,7 @@ describe('SkeletonBuilder', function () {
   describe('.run', function () {
     context('with valid arguments', function () {
       before(function () {
-        this.client = new ThreeClient()
+        this.client = new ThreeClient({ headless: true })
         this.client.feed('add', 'skeleton-definition', this.definition)
 
         /** @type {SkeletonData} */

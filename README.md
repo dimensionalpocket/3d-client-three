@@ -1,6 +1,6 @@
 # @dimensionalpocket/3d-client-three
 
-[![build](https://github.com/dimensionalpocket/3d-client-three/actions/workflows/node.js.yml/badge.svg)](https://github.com/dimensionalpocket/3d-client-three/actions/workflows/node.js.yml) [![Total alerts](https://img.shields.io/lgtm/alerts/g/dimensionalpocket/3d-client-three.svg)](https://lgtm.com/projects/g/dimensionalpocket/3d-client-three/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/dimensionalpocket/3d-client-three.svg)](https://lgtm.com/projects/g/dimensionalpocket/3d-client-three/context:javascript)
+[![build](https://github.com/dimensionalpocket/3d-client-three/actions/workflows/node.js.yml/badge.svg)](https://github.com/dimensionalpocket/3d-client-three/actions/workflows/node.js.yml)
 
 THREE.js client for 3D projects developed by the studio.
 
@@ -121,7 +121,8 @@ Adds an object to the client's memory.
 * :yellow_circle: `"camera"`,
 * :green_circle: `"pose"`,
 * :red_circle: `"animation"`,
-* :red_circle: `"sound"`,
+* :yellow_circle: `"sound"`,
+* :yellow_circle: `"sound-file"`,
 * :green_circle: `"skeleton-definition"`, and
 * :green_circle: `"skeleton"`.
 
@@ -219,6 +220,10 @@ Sets the scene to render. If you have multiple scenes, you can use this command 
 Sets the target of a source (light or camera). This makes the source "look at" the object as it moves.
 
 Note: while a source has a target, source rotation is disabled. Pass `null` as the `targetId` to remove the target and re-enable rotation.
+
+### :yellow_circle: `client.feed('sound', soundId, playing = true)`
+
+Plays a sound. Send `playing` as `false` to stop playing a sound.
 
 ### :green_circle: `client.feed('aspect-ratio', number)`
 

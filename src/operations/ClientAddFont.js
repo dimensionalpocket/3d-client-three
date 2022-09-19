@@ -4,7 +4,7 @@ import { Font } from '../Font.js'
 
 export class ClientAddFont {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {FontData} data
    * @returns {boolean}
    */

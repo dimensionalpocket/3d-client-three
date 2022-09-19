@@ -1,7 +1,7 @@
 'use strict'
 
 import { expect } from '@dimensionalpocket/development'
-import { Vector3 } from '../src/Vector3.js'
+import { Vector3 } from '../../src/core/Vector3.js'
 
 describe('Vector3', function () {
   describe('constructor', function () {

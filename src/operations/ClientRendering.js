@@ -6,7 +6,7 @@ export class ClientRendering {
   /**
    * Starts or stops a client from rendering in a loop.
    *
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {boolean} isRendering
    * @returns {boolean}
    */

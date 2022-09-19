@@ -8,7 +8,7 @@ describe('e2e/position', function () {
   fakeRendererContext()
 
   before(function () {
-    this.client = new ThreeClient()
+    this.client = new ThreeClient({ headless: true })
 
     this.client.feed('add', 'point', { id: 'p1' })
     this.client.feed('add', 'point', { id: 'p2' })

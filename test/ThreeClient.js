@@ -9,14 +9,14 @@ describe('ThreeClient', function () {
 
   describe('constructor', function () {
     it('initializes the renderer', function () {
-      var client = new ThreeClient()
+      var client = new ThreeClient({ headless: true })
       expect(client.renderer).to.eq(this.fakeRenderer)
     })
   })
 
   describe('#canvasElement', function () {
     it('returns the domElement from the renderer', function () {
-      var client = new ThreeClient()
+      var client = new ThreeClient({ headless: true })
       expect(client.canvasElement).to.eq(this.fakeCanvas)
     })
   })

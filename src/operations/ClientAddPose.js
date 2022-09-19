@@ -1,10 +1,10 @@
 'use strict'
 
-import { Pose } from '../Pose.js'
+import { Pose } from '../core/Pose.js'
 
 export class ClientAddPose {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {PoseData} data
    * @returns {boolean}
    */

@@ -33,6 +33,9 @@ export class ClientAttach {
     if (childType === 'skeleton') {
       // Skeleton is not an Object3D, we need to add the root bone.
       parent.add(child.bones[0])
+    } else if (childType === 'sound') {
+      // Child is a Sound object. Add its renderable.
+      parent.add(child.renderable)
     } else {
       parent.add(child)
     }

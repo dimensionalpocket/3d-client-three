@@ -7,7 +7,7 @@ export class ClientSetScene {
   /**
    * Sets the scene to be rendered.
    *
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {?id} sceneId
    * @returns {boolean}
    */

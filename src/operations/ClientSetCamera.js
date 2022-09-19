@@ -8,7 +8,7 @@ export class ClientSetCamera {
    * Sets the camera to be used while rendering.
    * If `null`, removes the current camera and stops rendering.
    *
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {?id} cameraId
    * @returns {boolean}
    */

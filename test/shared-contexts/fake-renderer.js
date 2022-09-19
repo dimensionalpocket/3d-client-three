@@ -11,7 +11,9 @@ export function fakeRendererContext () {
   domContext()
 
   before(function () {
+    // @ts-ignore
     this.fakeCanvas = this.document.createElement('canvas')
+
     this.fakeRenderer = {
       domElement: this.fakeCanvas,
       setSize: (/** @type {number} */ w, /** @type {number} */ h) => {

@@ -4,7 +4,7 @@ import { PointBuilder } from '../builders/PointBuilder.js'
 
 export class ClientAddPoint {
   /**
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {PointBuilderOptions} data
    * @returns {boolean}
    */

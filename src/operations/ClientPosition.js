@@ -6,7 +6,7 @@ export class ClientPosition {
   /**
    * Positions a object in 3D space.
    *
-   * @param {ThreeClient} client
+   * @param {Client} client
    * @param {string} objectType
    * @param {id} objectId
    * @param {number} [x]

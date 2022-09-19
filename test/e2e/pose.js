@@ -9,7 +9,7 @@ describe('e2e/posing', function () {
   fakeRendererContext()
 
   before(function () {
-    this.client = new ThreeClient()
+    this.client = new ThreeClient({ headless: true })
 
     /** @type {SkeletonDefinitionData} */
     var skeletonDefData = { id: 'human', joints: HUMAN_SKELETON_JOINTS }
