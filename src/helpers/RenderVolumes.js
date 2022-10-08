@@ -1,9 +1,8 @@
 'use strict'
 
-import { BackSide, BoxGeometry, Mesh, MeshBasicMaterial, MeshPhongMaterial, SkeletonHelper } from 'three'
+import { BackSide, Mesh, MeshBasicMaterial, MeshPhongMaterial, SkeletonHelper } from 'three'
 
-// This geometry is shared across all volume meshes.
-const boxGeometry = new BoxGeometry(1, 1, 1)
+import omnicube from './omnicube.js'
 
 // The outline material is shared across all outline meshes.
 const outlineMaterial = new MeshBasicMaterial({ color: 'black', side: BackSide })
@@ -55,18 +54,34 @@ export class RenderVolumes {
     }
 
     var material = new MeshPhongMaterial({ color: volume.color })
-    var mesh = new Mesh(boxGeometry, material)
+    var mesh = new Mesh(omnicube, material)
 
     mesh.scale.set(volume.scale.x, volume.scale.y, volume.scale.z)
     mesh.position.set(volume.position.x, volume.position.y, volume.position.z)
     mesh.name = bone.name + '-volume'
     mesh.castShadow = volume.castShadows
     mesh.receiveShadow = volume.receiveShadows
+    mesh.morphTargetInfluences = [
+      0, 0, 0, // Z+ Y+ X+
+      0, 0, 0, // Z- Y+ X+
+      0, 0, 0, // Z+ Y- X+
+      0, 0, 0, // Z- Y- X+
+      0, 0, 0, // Z- Y+ X-
+      0, 0, 0, // Z+ Y+ X-
+      0, 0, 0, // Z- Y- X-
+      0, 0, 0 // Z+ Y- X-
+    ]
+
+    // Apply morphs from volume definition
+    const morphMap = omnicube.userData.morphMap
+    for (var morph of volume.morphs) {
+      mesh.morphTargetInfluences[morphMap[morph[0]]] = morph[1]
+    }
 
     bone.add(mesh)
 
     if (volume.outline) {
-      var outlineMesh = new Mesh(boxGeometry, outlineMaterial)
+      var outlineMesh = new Mesh(omnicube, outlineMaterial)
       outlineMesh.scale.set(
         volume.scale.x + (OUTLINE_SIZE * 2),
         volume.scale.y + (OUTLINE_SIZE * 2),
@@ -76,6 +91,7 @@ export class RenderVolumes {
       outlineMesh.name = bone.name + '-volume-outline'
       outlineMesh.castShadow = false
       outlineMesh.receiveShadow = false
+      outlineMesh.morphTargetInfluences = mesh.morphTargetInfluences.slice()
       bone.add(outlineMesh)
     }
 

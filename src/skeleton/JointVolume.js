@@ -11,7 +11,7 @@ export class JointVolume {
   /**
    * @param {JointVolumeData} options
    */
-  constructor ({ scale, position, color, outline, castShadows, receiveShadows } = {}) {
+  constructor ({ scale, position, color, outline, castShadows, receiveShadows, morphs } = {}) {
     /**
      * @type {Vector3}
      */
@@ -49,5 +49,10 @@ export class JointVolume {
      * @type {boolean}
      */
     this.receiveShadows = (receiveShadows != null) ? receiveShadows : true
+
+    /**
+     * @type {Array<[number, number]>}
+     */
+    this.morphs = morphs || []
   }
 }

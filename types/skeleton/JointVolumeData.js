@@ -7,4 +7,5 @@
  * @property {boolean} [outline] - `true` (default) if rendered volume renders an outline.
  * @property {boolean} [castShadows] - Default `true`.
  * @property {boolean} [receiveShadows] - Default `true`.
+ * @property {Array<[number, number]>} [morphs] - Array of morphs where a morph is an array [index, influence]
  */
