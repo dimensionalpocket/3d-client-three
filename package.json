@@ -27,7 +27,7 @@
     "@dimensionalpocket/development": "github:dimensionalpocket/development-js#1.0.2",
     "@types/raf": "3.4.0",
     "@types/three": "0.138.0",
-    "jsdom": "19.0.0"
+    "jsdom": "20.0.3"
   },
   "babel": {
     "extends": "./node_modules/@dimensionalpocket/development/babel"
