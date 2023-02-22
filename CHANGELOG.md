@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/dimensionalpocket/3d-client-three/compare/0.3.0...0.4.0) (2023-02-22)
+
+
+### Features
+
+* omnicube + JointVolume morph support ([85197ff](https://github.com/dimensionalpocket/3d-client-three/commit/85197ffcf1ef8f1e8a2891aa86ffc628b8173032))
+
+
+### Bug Fixes
+
+* Update Three and dependencies ([#29](https://github.com/dimensionalpocket/3d-client-three/issues/29)) ([7023e48](https://github.com/dimensionalpocket/3d-client-three/commit/7023e482a8dacf991638f833d67a503d8e568952))
+
 ## [0.3.0](https://github.com/dimensionalpocket/3d-client-three/compare/0.2.1...0.3.0) (2022-09-19)
 
 
