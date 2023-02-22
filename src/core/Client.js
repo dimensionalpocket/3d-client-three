@@ -103,4 +103,22 @@ export class Client {
   feed (command, a1 = null, a2 = null, a3 = null, a4 = null, a5 = null, a6 = null) {
     return ClientFeed.run(this, command, a1, a2, a3, a4, a5, a6)
   }
+
+  /**
+   * Feeds an array into the client.
+   *
+   * @param {Array<any>} array
+   * @returns {boolean}
+   */
+  feedArray (array) {
+    return this.feed(
+      array[0], // command
+      array[1], // a1
+      array[2],
+      array[3],
+      array[4],
+      array[5],
+      array[6] // a6
+    )
+  }
 }
