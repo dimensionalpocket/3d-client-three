@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/dimensionalpocket/3d-client-three/compare/0.4.0...0.4.1) (2023-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency three to v0.150.1 ([#13](https://github.com/dimensionalpocket/3d-client-three/issues/13)) ([ffbe23a](https://github.com/dimensionalpocket/3d-client-three/commit/ffbe23ad151325832f80a88a0be93320428f387e))
+
 ## [0.4.0](https://github.com/dimensionalpocket/3d-client-three/compare/0.3.0...0.4.0) (2023-02-22)
 
 
